@@ -1,15 +1,20 @@
 function _VimCodeRunnerRunPsql(selected_text, is_in_container, debug, debug_label)
   let _command_prepend = ''
-  let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
+  let _file_type = 'log'
+  let _psql = 'psql '
+  if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
+    let _psql = _psql . '--csv '
+    let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
+  endif
   let _preped_selected_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
   if (a:is_in_container)
     if (get(g:, 'use_runner_options_in_container', "false") == 'true')
       let _command_prepend = 'export PGDATABASE=' . $PGDATABASE . '; '
             \ . 'export PGUSER=' . $PGUSER . '; '
             \ . 'export PGPASSWORD=' . $PGPASSWORD . '; '
-      let _command = 'psql --csv -c "' . _preped_selected_text . '"'
+      let _command = _psql . '-c "' . _preped_selected_text . '"'
     else
-      let _command = "psql --csv -c '" . _preped_selected_text . "'"
+      let _command = _psql . "-c '" . _preped_selected_text . "'"
     endif
   else
     if (a:debug == 'true')
@@ -20,7 +25,7 @@ function _VimCodeRunnerRunPsql(selected_text, is_in_container, debug, debug_labe
       echo a:debug_label "  export PGUSER=\"".$PGUSER."\";"
       echo a:debug_label "  export PGPASSWORD=\"".$PGPASSWORD."\";"
     endif
-    let _command = "psql --csv -c '" . _preped_selected_text . "'"
+    let _command = _psql . "-c '" . _preped_selected_text . "'"
   endif
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
