@@ -94,7 +94,7 @@ function! VimCodeRunnerRun(...)
   let selected_text = @t
   if (trim(selected_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! Use the vmap <leader>5 after selecting some text to run"
+    echo "No selected_text stored in the t register!"
     echohl None
     return
   endif
