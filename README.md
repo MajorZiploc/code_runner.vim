@@ -44,15 +44,19 @@ let $PGPASSWORD="password" |
 
 The t register is used to get the selected_text and use in the Run command
 
+NOTE: the first clear of the t register is to make sure its clear on launch of vim to avoid odd first use cases
+NOTE: the clearing of the t register at the end of the commands is important to clean up state for running whole files
+
 ```vim
+let @t = ''
 " runs the selected_text with the determined run_type
-vmap <leader>5 "ty:call VimCodeRunnerRun()<CR>
+vmap <leader>5 "ty:call VimCodeRunnerRun()<CR>:let @t = ''<CR>
 " dry run / debug what VimCodeRunnerRun() will do in a real run
-vmap <leader>4 "ty:call VimCodeRunnerRun('', 'true')<CR>
+vmap <leader>4 "ty:call VimCodeRunnerRun('', 'true')<CR>:let @t = ''<CR>
 " run whole file if run_type supports it
-nmap <leader>5 "ty:call VimCodeRunnerRun()<CR>
+nmap <leader>5 :call VimCodeRunnerRun()<CR>:let @t = ''<CR>
 " dry run / debug whole file if run_type supports it
-nmap <leader>4 "ty:call VimCodeRunnerRun('', 'true')<CR>
+nmap <leader>4 :call VimCodeRunnerRun('', 'true')<CR>:let @t = ''<CR>
 ```
 
 ## Contribution Requests
