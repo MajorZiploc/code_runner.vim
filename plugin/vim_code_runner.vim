@@ -38,6 +38,35 @@ function _VimCodeRunnerRunPsql(selected_text, is_in_container, debug, debug_labe
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
+function _VimCodeRunnerRunMssql(selected_text, is_in_container, debug, debug_label)
+  let raw_text = a:selected_text
+  if (trim(raw_text) == '')
+    echohl WarningMsg
+    echo "No selected_text stored in the t register! run_type: 'mssql' does not support this"
+    echohl None
+    return []
+  endif
+  let _command_prepend = ''
+  let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let _mssql = 'sqlcmd -s"," ' . " -d '" . $SQLCMDDBNAME . "'" . " -U '" . $SQLCMDUSER . "'" . " -P '" . $SQLCMDPASSWORD . "'" . " -q '" . _preped_text . "'"
+  if (a:is_in_container)
+    let _command = _mssql
+  else
+    if (a:debug == 'true')
+      echo a:debug_label "local SQLCMD* configs that will be used since not running in a container:"
+      echo a:debug_label "  export SQLCMDSERVER=\"".$SQLCMDSERVER."\";"
+      echo a:debug_label "  export SQLCMDPORT=\"".$SQLCMDPORT."\";"
+      echo a:debug_label "  export SQLCMDDBNAME=\"".$SQLCMDDBNAME."\";"
+      echo a:debug_label "  export SQLCMDUSER=\"".$SQLCMDUSER."\";"
+      echo a:debug_label "  export SQLCMDPASSWORD=\"".$SQLCMDPASSWORD."\";"
+    endif
+    let _command = _mssql . " -S '" . $SQLCMDSERVER . "," . $SQLCMDPORT . "'"
+  endif
+  let _should_bottom_split = 1
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+endfunction
+
 function _VimCodeRunnerRunPython(selected_text, is_in_container, debug, debug_label)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -177,6 +206,9 @@ function! VimCodeRunnerRun(...)
   elseif (&filetype == 'sh' || run_type == 'sh')
     let run_path = "sh"
     let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, debug, debug_label)
+  elseif (expand('%:e') == 'mssql' || run_type == 'mssql')
+    let run_path = "mssql"
+    let case_values = _VimCodeRunnerRunMssql(selected_text, is_in_container, debug, debug_label)
   else
     echohl WarningMsg
     echo "No matching run_path!"
@@ -260,11 +292,35 @@ function! _VimCodeRunnerRunConfigsPsql(...)
   echo "export PGPASSWORD=" . '"' .  _password . '";'
 endfunction
 
+function! _VimCodeRunnerRunConfigsMssql(...)
+  let show_secrets = get(a:, 1, 0)
+  let is_in_container = !empty(get(g:, 'container_name', "")) && trim(g:container_name) != ''
+  if (is_in_container)
+    echo "container_name=" . '"' . g:container_name . '";'
+  endif
+  if (is_in_container)
+    echohl WarningMsg
+    echo "NOTE: since container_name is set; SQLCMDUSER, SQLCMDPASSWORD, and SQLCMDDBNAME env vars will be used"
+    echohl None
+  endif
+  echo "export SQLCMDSERVER=" . '"' . $SQLCMDSERVER . '";'
+  echo "export SQLCMDPORT=" . '"' .  $SQLCMDPORT . '";'
+  echo "export SQLCMDDBNAME=" . '"' .  $SQLCMDDBNAME . '";'
+  echo "export SQLCMDUSER=" . '"' . $SQLCMDUSER . '";'
+  let _password = "<OMITTED> pass 1 as first arg to see it"
+  if (show_secrets != 0)
+    let _password = $SQLCMDPASSWORD
+  endif
+  echo "export SQLCMDPASSWORD=" . '"' .  _password . '";'
+endfunction
+
 function! VimCodeRunnerRunConfigs(...)
   let config_type = get(a:, 1, '')
   let rest_of_args = a:000[1:]
   if (config_type == 'pgsql')
     call call('_VimCodeRunnerRunConfigsPsql', rest_of_args)
+  elseif (config_type == 'mssql')
+    call call('_VimCodeRunnerRunConfigsMssql', rest_of_args)
   else
     echohl WarningMsg
     echo "Invalid config_type: " config_type

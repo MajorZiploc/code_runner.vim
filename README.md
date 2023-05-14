@@ -5,6 +5,7 @@ Run selected chunks of code. Can run locally or within docker containers
 ## Supported Runners
 
 - postgresql (psql) - must be files saved as *.pgsql
+- mssql (sqlcmd) - must be files saved as *.mssql -- EXPERIMENTAL/UNTESTED!
 
 The following are based on filetype
 - python
@@ -40,6 +41,21 @@ let $PGUSER="postgres" |
 let $PGPASSWORD="password" |
 ```
 
+#### mssql
+
+`let vim_code_runner_sql_as_csv='false' |` is not supported
+`let use_runner_options_in_container='false' |` is not supported
+
+```vim
+" the following are used only when container_name is not set
+let $SQLCMDSERVER="127.0.0.1" |
+let $SQLCMDPORT="5432" |
+" the following are used regardless
+let $SQLCMDDBNAME="mssql" |
+let $SQLCMDUSER="mssql" |
+let $SQLCMDPASSWORD="password" |
+```
+
 ## Recommended Keybindings
 
 The t register is used to get the selected_text and use in the Run command
@@ -62,6 +78,5 @@ nmap <leader>4 :let @t = ''<CR>:call VimCodeRunnerRun('', 'true')<CR>
 requesting MRs for other code runners
 if they have specific runner env vars, then also update VimCodeRunnerRunConfigs to include a case for it
 
-- mssql
 - mysql
 - some other sql???
