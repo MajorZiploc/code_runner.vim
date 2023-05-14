@@ -15,9 +15,24 @@ The following are based on filetype
 
 ## runner options
 
-### specific runner options
+```vim
+" will run in the container if this is set to non empty string
+let container_name="container_name" |
+" will use specific runner env vars (if applicable) in the container
+let use_env_vars_in_container="true" |
+```
+
+### specific runner env vars
 
 #### psql
+
+```vim
+let $PGHOST="127.0.0.1" |
+let $PGPORT="5432" |
+let $PGDATABASE="postgres" |
+let $PGUSER="postgres" |
+let $PGPASSWORD="password" |
+```
 
 ## recommended keybindings
 
@@ -30,3 +45,11 @@ vmap <leader>5 "ty:call VimCodeRunnerRun()<CR>
 vmap <leader>4 "ty:call VimCodeRunnerRun('', 'true')<CR>
 ```
 
+## contribution requests
+
+requesting MRs for other code runners
+if they have specific runner env vars, then also update VimCodeRunnerRunConfigs to include a case for it
+
+- mssql
+- mysql
+- some other sql???
