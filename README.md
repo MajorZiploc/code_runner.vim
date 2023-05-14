@@ -19,10 +19,10 @@ The following are based on filetype
 " will run in the container if this is set to non empty string
 let container_name="container_name" |
 " will use specific runner env vars (if applicable) in the container
-let use_env_vars_in_container="true" |
+let use_runner_options_in_container="true" |
 ```
 
-### Specific Runner Env Vars
+### Specific Runner Options
 
 #### psql
 

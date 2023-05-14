@@ -3,7 +3,7 @@ function _VimCodeRunnerRunPsql(selected_text, is_in_container, debug, debug_labe
   let _file_type = 'rfc_csv'
   let _preped_selected_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
   if (a:is_in_container)
-    if (get(g:, 'use_env_vars_in_container', "false") == 'true')
+    if (get(g:, 'use_runner_options_in_container', "false") == 'true')
       let _command_prepend = 'export PGDATABASE=' . $PGDATABASE . '; '
             \ . 'export PGUSER=' . $PGUSER . '; '
             \ . 'export PGPASSWORD=' . $PGPASSWORD . '; '
@@ -176,20 +176,20 @@ function! _VimCodeRunnerRunConfigsPsql(...)
   if (is_in_container)
     echo "container_name=" . '"' . g:container_name . '";'
   endif
-  if (!empty(get(g:, 'use_env_vars_in_container', "")))
-    echo "use_env_vars_in_container=" . '"' . g:use_env_vars_in_container . '";'
+  if (!empty(get(g:, 'use_runner_options_in_container', "")))
+    echo "use_runner_options_in_container=" . '"' . g:use_runner_options_in_container . '";'
   endif
-  if (is_in_container && get(g:, 'use_env_vars_in_container', "false") == 'true')
+  if (is_in_container && get(g:, 'use_runner_options_in_container', "false") == 'true')
     echohl WarningMsg
-    echo "NOTE: since container_name is set and use_env_vars_in_container='true'; PGUSER, PGPASSWORD, and PGDATABASE env vars will be used"
+    echo "NOTE: since container_name is set and use_runner_options_in_container='true'; PGUSER, PGPASSWORD, and PGDATABASE env vars will be used"
     echohl None
   elseif (is_in_container)
     echohl WarningMsg
-    echo "NOTE: since container_name is set without use_env_vars_in_container='true'; PG* env vars wont be used"
+    echo "NOTE: since container_name is set without use_runner_options_in_container='true'; PG* env vars wont be used"
     echohl None
-  elseif (get(g:, 'use_env_vars_in_container', "false") == 'true')
+  elseif (get(g:, 'use_runner_options_in_container', "false") == 'true')
     echohl WarningMsg
-    echo "NOTE: since use_env_vars_in_container='true' without container_name being set; it will take no effect"
+    echo "NOTE: since use_runner_options_in_container='true' without container_name being set; it will take no effect"
     echohl None
   endif
   echo "export PGHOST=" . '"' . $PGHOST . '";'
