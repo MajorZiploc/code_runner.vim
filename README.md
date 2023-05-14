@@ -20,6 +20,8 @@ The following are based on filetype
 let container_name="container_name" |
 " will use specific runner env vars (if applicable) in the container (Default: false)
 let use_runner_options_in_container="true" |
+" Recommend using 'mechatroner/rainbow_csv' for the 'rfc_csv' filetype  (Default: csv)
+let vim_code_runner_csv_type="rfc_csv" |
 ```
 
 ### Specific Runner Options
