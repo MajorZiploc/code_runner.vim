@@ -1,4 +1,4 @@
-function _RunPsql(selected_text, is_in_container, debug, debug_label)
+function _VimCodeRunnerRunPsql(selected_text, is_in_container, debug, debug_label)
   let _command_prepend = ''
   let _file_type = 'rfc_csv'
   let _preped_selected_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
@@ -26,7 +26,7 @@ function _RunPsql(selected_text, is_in_container, debug, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _RunPython(selected_text, is_in_container, debug, debug_label)
+function _VimCodeRunnerRunPython(selected_text, is_in_container, debug, debug_label)
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_selected_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
@@ -35,7 +35,7 @@ function _RunPython(selected_text, is_in_container, debug, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _RunJavascript(selected_text, is_in_container, debug, debug_label)
+function _VimCodeRunnerRunJavascript(selected_text, is_in_container, debug, debug_label)
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_selected_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
@@ -44,7 +44,7 @@ function _RunJavascript(selected_text, is_in_container, debug, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _RunTypescript(selected_text, is_in_container, debug, debug_label)
+function _VimCodeRunnerRunTypescript(selected_text, is_in_container, debug, debug_label)
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_selected_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
@@ -53,7 +53,7 @@ function _RunTypescript(selected_text, is_in_container, debug, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _RunRuby(selected_text, is_in_container, debug, debug_label)
+function _VimCodeRunnerRunRuby(selected_text, is_in_container, debug, debug_label)
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_selected_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
@@ -62,7 +62,7 @@ function _RunRuby(selected_text, is_in_container, debug, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _RunSh(selected_text, is_in_container, debug, debug_label)
+function _VimCodeRunnerRunSh(selected_text, is_in_container, debug, debug_label)
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_selected_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
@@ -71,7 +71,7 @@ function _RunSh(selected_text, is_in_container, debug, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _RunPerl(selected_text, is_in_container, debug, debug_label)
+function _VimCodeRunnerRunPerl(selected_text, is_in_container, debug, debug_label)
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_selected_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
@@ -80,12 +80,12 @@ function _RunPerl(selected_text, is_in_container, debug, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function! Run(...)
+function! VimCodeRunnerRun(...)
   let run_type = get(a:, 1, '')
   let debug = get(a:, 2, 'false')
   let debug_label = "DEBUG-> "
   let _default_file_type = "text"
-  " assumes the selected text will be yanked into the t register prior to Run
+  " assumes the selected text will be yanked into the t register prior to VimCodeRunnerRun
   let selected_text = @t
   if (trim(selected_text) == '')
     echohl WarningMsg
@@ -101,25 +101,25 @@ function! Run(...)
   " check file_extension
   if (expand('%:e') == 'pgsql' || run_type == 'pgsql')
     let run_path = "pgsql"
-    let case_values = _RunPsql(selected_text, is_in_container, debug, debug_label)
+    let case_values = _VimCodeRunnerRunPsql(selected_text, is_in_container, debug, debug_label)
   elseif (&filetype == 'python' || run_type == 'python')
     let run_path = "python"
-    let case_values = _RunPython(selected_text, is_in_container, debug, debug_label)
+    let case_values = _VimCodeRunnerRunPython(selected_text, is_in_container, debug, debug_label)
   elseif (&filetype == 'javascript' || run_type == 'javascript')
     let run_path = "javascript"
-    let case_values = _RunJavascript(selected_text, is_in_container, debug, debug_label)
+    let case_values = _VimCodeRunnerRunJavascript(selected_text, is_in_container, debug, debug_label)
   elseif (&filetype == 'typescript' || run_type == 'typescript')
     let run_path = "typescript"
-    let case_values = _RunTypescript(selected_text, is_in_container, debug, debug_label)
+    let case_values = _VimCodeRunnerRunTypescript(selected_text, is_in_container, debug, debug_label)
   elseif (&filetype == 'ruby' || run_type == 'ruby')
     let run_path = "ruby"
-    let case_values = _RunRuby(selected_text, is_in_container, debug, debug_label)
+    let case_values = _VimCodeRunnerRunRuby(selected_text, is_in_container, debug, debug_label)
   elseif (&filetype == 'sh' || run_type == 'sh')
     let run_path = "sh"
-    let case_values = _RunSh(selected_text, is_in_container, debug, debug_label)
+    let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, debug, debug_label)
   elseif (&filetype == 'perl' || run_type == 'perl')
     let run_path = "perl"
-    let case_values = _RunPerl(selected_text, is_in_container, debug, debug_label)
+    let case_values = _VimCodeRunnerRunPerl(selected_text, is_in_container, debug, debug_label)
   else
     echohl WarningMsg
     echo "No matching run_path!"
@@ -170,7 +170,7 @@ function! Run(...)
   endif
 endfunction
 
-function! _RunConfigsPsql(...)
+function! _VimCodeRunnerRunConfigsPsql(...)
   let show_secrets = get(a:, 1, 0)
   let is_in_container = !empty(get(g:, 'container_name', "")) && trim(g:container_name) != ''
   if (is_in_container)
@@ -203,11 +203,11 @@ function! _RunConfigsPsql(...)
   echo "export PGPASSWORD=" . '"' .  _password . '";'
 endfunction
 
-function! RunConfigs(...)
+function! VimCodeRunnerRunConfigs(...)
   let config_type = get(a:, 1, '')
   let rest_of_args = a:000[1:]
   if (config_type == 'pgsql')
-    call call('_RunConfigsPsql', rest_of_args)
+    call call('_VimCodeRunnerRunConfigsPsql', rest_of_args)
   else
     echohl WarningMsg
     echo "Invalid config_type: " config_type
