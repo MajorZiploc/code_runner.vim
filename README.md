@@ -47,6 +47,10 @@ The t register is used to get the selected_text and use in the Run command
 vmap <leader>5 "ty:call VimCodeRunnerRun()<CR>
 " dry run / debug what VimCodeRunnerRun() will do in a real run
 vmap <leader>4 "ty:call VimCodeRunnerRun('', 'true')<CR>
+" run whole file if run_type supports it
+nmap <leader>5 "ty:call VimCodeRunnerRun()<CR>
+" dry run / debug whole file if run_type supports it
+nmap <leader>4 "ty:call VimCodeRunnerRun('', 'true')<CR>
 ```
 
 ## Contribution Requests
