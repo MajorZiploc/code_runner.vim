@@ -211,6 +211,7 @@ function! RunConfigs(...)
   else
     echohl WarningMsg
     echo "Invalid config_type: " config_type
+    echo "Valid config_types: ['pgsql']"
     echohl None
   endif
 endfunction
