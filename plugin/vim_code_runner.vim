@@ -89,6 +89,8 @@ function _VimCodeRunnerRunPhp(selected_text, is_in_container, debug, debug_label
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let _preped_text = substitute(_preped_text, "^\s*<\?php", "", "")
+  let _preped_text = substitute(_preped_text, "\?>\s*", "", "")
   let _command = "php -r '" . _preped_text . "'"
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
