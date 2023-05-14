@@ -10,6 +10,7 @@ The following are based on filetype
 - python
 - javascript
 - typescript
+- php
 - perl
 - ruby
 

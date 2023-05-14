@@ -108,6 +108,20 @@ function _VimCodeRunnerRunSh(selected_text, is_in_container, debug, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
+function _VimCodeRunnerRunPhp(selected_text, is_in_container, debug, debug_label)
+  let raw_text = a:selected_text
+  if (trim(raw_text) == '')
+    execute 'normal! ggVG"ty'
+    let raw_text = @t
+  endif
+  let _command_prepend = ''
+  let _file_type = 'log'
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let _command = "php -r '" . _preped_text . "'"
+  let _should_bottom_split = 1
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+endfunction
+
 function _VimCodeRunnerRunPerl(selected_text, is_in_container, debug, debug_label)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -153,6 +167,9 @@ function! VimCodeRunnerRun(...)
   elseif (&filetype == 'sh' || run_type == 'sh')
     let run_path = "sh"
     let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, debug, debug_label)
+  elseif (&filetype == 'php' || run_type == 'php')
+    let run_path = "php"
+    let case_values = _VimCodeRunnerRunPhp(selected_text, is_in_container, debug, debug_label)
   elseif (&filetype == 'perl' || run_type == 'perl')
     let run_path = "perl"
     let case_values = _VimCodeRunnerRunPerl(selected_text, is_in_container, debug, debug_label)
