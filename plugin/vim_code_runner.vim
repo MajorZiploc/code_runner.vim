@@ -200,8 +200,8 @@ function! VimCodeRunnerRun(...)
   if (trim(_base_command) == '')
     echohl WarningMsg
     echo "No _base_command could be generated for your specific use case"
-    echo "run_path: " run_path
-    echo "_base_command: " _base_command
+    echo "run_path: " get(l:, 'run_path', '')
+    echo "_base_command: " get(l:, '_base_command', '')
     echohl None
     return
   endif
