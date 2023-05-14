@@ -170,9 +170,6 @@ function! Run(...)
   endif
 endfunction
 
-vmap <leader>5 "ty:call Run()<CR>
-vmap <leader>4 "ty:call Run('', 'true')<CR>
-
 function! _RunConfigsPsql(...)
   let show_secrets = get(a:, 1, 0)
   let is_in_container = !empty(get(g:, 'container_name', "")) && trim(g:container_name) != ''
