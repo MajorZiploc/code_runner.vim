@@ -147,6 +147,7 @@ function! VimCodeRunnerRun(...)
   if (debug == 'true')
     echo debug_label "selected_text: " selected_text
   endif
+  let case_values = []
   let is_in_container = !empty(get(g:, 'container_name', "")) && trim(g:container_name) != ''
   let _should_bottom_split = 0
   " check file_extension
