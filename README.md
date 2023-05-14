@@ -2,7 +2,7 @@
 
 Run selected chunks of code. Can run locally or within docker containers
 
-## supported runners
+## Supported Runners
 
 - postgresql (psql) - must be files saved as *.pgsql
 
@@ -13,7 +13,7 @@ The following are based on filetype
 - perl
 - ruby
 
-## runner options
+## Runner Options
 
 ```vim
 " will run in the container if this is set to non empty string
@@ -22,7 +22,7 @@ let container_name="container_name" |
 let use_env_vars_in_container="true" |
 ```
 
-### specific runner env vars
+### Specific Runner Env Vars
 
 #### psql
 
@@ -34,7 +34,7 @@ let $PGUSER="postgres" |
 let $PGPASSWORD="password" |
 ```
 
-## recommended keybindings
+## Recommended Keybindings
 
 The t register is used to get the selected_text and use in the Run command
 
@@ -45,7 +45,7 @@ vmap <leader>5 "ty:call VimCodeRunnerRun()<CR>
 vmap <leader>4 "ty:call VimCodeRunnerRun('', 'true')<CR>
 ```
 
-## contribution requests
+## Contribution Requests
 
 requesting MRs for other code runners
 if they have specific runner env vars, then also update VimCodeRunnerRunConfigs to include a case for it
