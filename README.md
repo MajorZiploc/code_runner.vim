@@ -11,8 +11,9 @@ The following are based on filetype
 - javascript
 - typescript
 - php
-- perl
 - ruby
+- perl
+- sh
 
 ## Runner Options
 
