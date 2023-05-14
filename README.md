@@ -16,9 +16,9 @@ The following are based on filetype
 ## Runner Options
 
 ```vim
-" will run in the container if this is set to non empty string
+" will run in the container if this is set to non empty string (Default: unset)
 let container_name="container_name" |
-" will use specific runner env vars (if applicable) in the container
+" will use specific runner env vars (if applicable) in the container (Default: false)
 let use_runner_options_in_container="true" |
 ```
 
