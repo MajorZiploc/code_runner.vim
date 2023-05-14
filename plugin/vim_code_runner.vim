@@ -1,5 +1,6 @@
 function _VimCodeRunnerRunPsql(selected_text, is_in_container, debug, debug_label)
-  if (trim(a:selected_text) == '')
+  let raw_text = a:selected_text
+  if (trim(raw_text) == '')
     echohl WarningMsg
     echo "No selected_text stored in the t register! run_type: 'pgsql' does not support this"
     echohl None
@@ -12,7 +13,7 @@ function _VimCodeRunnerRunPsql(selected_text, is_in_container, debug, debug_labe
     let _psql = _psql . '--csv '
     let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   endif
-  let _preped_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   if (a:is_in_container)
     if (get(g:, 'use_runner_options_in_container', "false") == 'true')
       let _command_prepend = 'export PGDATABASE=' . $PGDATABASE . '; '
@@ -59,7 +60,7 @@ function _VimCodeRunnerRunJavascript(selected_text, is_in_container, debug, debu
   endif
   let _command_prepend = ''
   let _file_type = 'log'
-  let _preped_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "node -e '" . _preped_text . "'"
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
@@ -73,7 +74,7 @@ function _VimCodeRunnerRunTypescript(selected_text, is_in_container, debug, debu
   endif
   let _command_prepend = ''
   let _file_type = 'log'
-  let _preped_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "ts-node -e '" . _preped_text . "'"
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
@@ -87,7 +88,7 @@ function _VimCodeRunnerRunRuby(selected_text, is_in_container, debug, debug_labe
   endif
   let _command_prepend = ''
   let _file_type = 'log'
-  let _preped_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "ruby -e '" . _preped_text . "'"
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
@@ -101,7 +102,7 @@ function _VimCodeRunnerRunSh(selected_text, is_in_container, debug, debug_label)
   endif
   let _command_prepend = ''
   let _file_type = 'log'
-  let _preped_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "sh -c '" . _preped_text . "'"
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
@@ -115,7 +116,7 @@ function _VimCodeRunnerRunPerl(selected_text, is_in_container, debug, debug_labe
   endif
   let _command_prepend = ''
   let _file_type = 'log'
-  let _preped_text = substitute(a:selected_text, "'", "'\"'\"'", "g")
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "perl -e '" . _preped_text . "'"
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
