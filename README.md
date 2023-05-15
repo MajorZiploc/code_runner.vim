@@ -4,18 +4,75 @@ Run selected chunks of code. Can run locally or within docker containers
 
 ## Supported Runners
 
-- postgresql (psql) - must be files saved as *.pgsql
-- mssql (sqlcmd) - must be files saved as *.mssql -- EXPERIMENTAL/UNTESTED!
+<table style="width:100%">
 
-The following are based on filetype
-- python
-- javascript
-- typescript
-- php
-- ruby
-- perl
-- sh
-- powershell
+  <tr>
+    <th>Runner</th>
+    <th>Command</th>
+    <th>Condition for using this Runner</th>
+  </tr>
+
+  <tr>
+    <td>pgsql</td>
+    <td>psql</td>
+    <td>expand('%:e') == 'pgsql' || run_type == 'pgsql'</td>
+  </tr>
+
+  <tr>
+    <td>python</td>
+    <td>python</td>
+    <td>&filetype == 'python' || run_type == 'python'</td>
+  </tr>
+
+  <tr>
+    <td>javascript</td>
+    <td>node</td>
+    <td>&filetype == 'javascript' || run_type == 'javascript'</td>
+  </tr>
+
+  <tr>
+    <td>typescript</td>
+    <td>ts-node</td>
+    <td>&filetype == 'typescript' || run_type == 'typescript'</td>
+  </tr>
+
+  <tr>
+    <td>php</td>
+    <td>php</td>
+    <td>&filetype == 'php' || run_type == 'php'</td>
+  </tr>
+
+  <tr>
+    <td>ruby</td>
+    <td>ruby</td>
+    <td>&filetype == 'ruby' || run_type == 'ruby'</td>
+  </tr>
+
+  <tr>
+    <td>perl</td>
+    <td>perl</td>
+    <td>&filetype == 'perl' || run_type == 'perl'</td>
+  </tr>
+
+  <tr>
+    <td>sh</td>
+    <td>sh</td>
+    <td>&filetype == 'sh' || run_type == 'sh'</td>
+  </tr>
+
+  <tr>
+    <td>powershell</td>
+    <td>pwsh</td>
+    <td>&filetype == 'ps1' || run_type == 'powershell'</td>
+  </tr>
+
+  <tr>
+    <td>mssql(EXPERIMENTAL/UNTESTED)</td>
+    <td>sqlcmd</td>
+    <td>expand('%:e') == 'mssql' || run_type == 'mssql'</td>
+  </tr>
+
+</table>
 
 ## Runner Options
 
