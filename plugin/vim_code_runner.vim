@@ -1,3 +1,5 @@
+command! VimCodeRunnerScratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
+
 function _VimCodeRunnerRunPsql(selected_text, is_in_container, debug, debug_label)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -259,7 +261,7 @@ function! VimCodeRunnerRun(...)
     let g:my_query_results = system(_command)
     if (_should_bottom_split)
       set splitbelow
-      horizontal belowright Scratch
+      horizontal belowright VimCodeRunnerScratch
       put =g:my_query_results
       let &filetype = _file_type
       execute "normal! ggdd"
