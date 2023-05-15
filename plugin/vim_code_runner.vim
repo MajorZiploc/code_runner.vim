@@ -219,7 +219,7 @@ function! VimCodeRunnerRun(...)
   elseif (&filetype == 'sh' || run_type == 'sh')
     let run_path = "sh"
     let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, debug, debug_label)
-  elseif (&filetype == 'ps1' || run_type == 'ps1')
+  elseif (&filetype == 'ps1' || run_type == 'powershell')
     let run_path = "powershell"
     let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, debug, debug_label)
   elseif (expand('%:e') == 'mssql' || run_type == 'mssql')
