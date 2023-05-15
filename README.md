@@ -15,6 +15,7 @@ The following are based on filetype
 - ruby
 - perl
 - sh
+- powershell
 
 ## Runner Options
 

@@ -167,6 +167,19 @@ function _VimCodeRunnerRunSh(selected_text, is_in_container, debug, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
+function _VimCodeRunnerRunPwsh(selected_text, is_in_container, debug, debug_label)
+  let raw_text = a:selected_text
+  if (trim(raw_text) == '')
+    execute 'normal! ggVG"ty'
+    let raw_text = @t
+  endif
+  let _command_prepend = ''
+  let _file_type = 'log'
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let _command = "pwsh -command '" . _preped_text . "'"
+  let _should_bottom_split = 1
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+endfunction
 
 function! VimCodeRunnerRun(...)
   let run_type = get(a:, 1, '')
@@ -205,6 +218,9 @@ function! VimCodeRunnerRun(...)
     let case_values = _VimCodeRunnerRunPerl(selected_text, is_in_container, debug, debug_label)
   elseif (&filetype == 'sh' || run_type == 'sh')
     let run_path = "sh"
+    let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, debug, debug_label)
+  elseif (&filetype == 'ps1' || run_type == 'ps1')
+    let run_path = "powershell"
     let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, debug, debug_label)
   elseif (expand('%:e') == 'mssql' || run_type == 'mssql')
     let run_path = "mssql"
