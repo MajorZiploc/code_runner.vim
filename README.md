@@ -92,8 +92,10 @@ let vim_code_runner_sql_as_csv="true" |
 #### psql
 
 ```vim
+" the following are used only when container_name is not set
 let $PGHOST="127.0.0.1" |
 let $PGPORT="5432" |
+" the following are used regardless
 let $PGDATABASE="postgres" |
 let $PGUSER="postgres" |
 let $PGPASSWORD="password" |
