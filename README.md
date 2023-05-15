@@ -67,12 +67,14 @@ Run selected chunks of code. Can run locally or within docker containers
   </tr>
 
   <tr>
-    <td>mssql(EXPERIMENTAL/UNTESTED)</td>
+    <td>mssql**(EXPERIMENTAL/UNTESTED)**</td>
     <td>sqlcmd</td>
     <td>expand('%:e') == 'mssql' || run_type == 'mssql'</td>
   </tr>
 
 </table>
+
+---
 
 ## Runner Options
 
