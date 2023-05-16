@@ -81,6 +81,8 @@ Run selected chunks of code. Can run locally or within docker containers
 ```vim
 " will run in the container if this is set to non empty string (Default: unset)
 let container_name="container_name" |
+" specify what kind of container you want to run in. Valid choices: ["docker", "k8s"] (Default: docker)
+let container_type="docker"
 " will use specific runner env vars (if applicable) in the container (Default: false)
 let use_runner_options_in_container="true" |
 " Recommend using 'mechatroner/rainbow_csv' for the 'rfc_csv' filetype  (Default: csv)

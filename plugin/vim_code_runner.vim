@@ -238,7 +238,15 @@ function! VimCodeRunnerRun(...)
   let _file_type = get(case_values, 3, _default_file_type)
   let _base_command = _command
   if (is_in_container)
-    let _command = "docker exec \"" . g:container_name . '" '
+    let container_type = get(g:, 'container_type', 'docker')
+    let container_cli = "docker"
+    if (container_type == "k8s")
+      let container_cli = "kubectl"
+    endif
+    let _command = container_cli . " exec \"" . g:container_name . '" '
+    if (container_type == "k8s")
+      let _command = _command . "-- "
+    endif
     if (!empty(get(l:, '_command_prepend', '')))
       let _shell_command = "sh -c '"
             \ . _command_prepend
