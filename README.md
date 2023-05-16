@@ -2,6 +2,8 @@
 
 Run selected chunks of code. Can run locally or within docker or k8s containers
 
+Useful as a light weight database client
+
 ## Supported Runners
 
 <table style="width:100%">
