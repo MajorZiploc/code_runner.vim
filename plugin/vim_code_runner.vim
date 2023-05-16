@@ -279,6 +279,8 @@ function! VimCodeRunnerRun(...)
     endif
   else
     echo debug_label "run_path: " run_path
+    echo debug_label "container_type: " get(g:, 'container_type', '')
+    echo debug_label "container_name: " get(g:, 'container_name', '')
     echo debug_label "_command: " _command
     echo debug_label "_command_prepend: " _command_prepend
     echo debug_label "_should_bottom_split: " _should_bottom_split
