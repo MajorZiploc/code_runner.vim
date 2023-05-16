@@ -1,6 +1,6 @@
 # vim_code_runner
 
-Run selected chunks of code. Can run locally or within docker containers
+Run selected chunks of code. Can run locally or within docker or k8s containers
 
 ## Supported Runners
 
