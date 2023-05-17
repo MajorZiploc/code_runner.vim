@@ -74,6 +74,12 @@ Useful as a light weight database client
     <td>expand('%:e') == 'mssql' || run_type == 'mssql'</td>
   </tr>
 
+  <tr>
+    <td>mysql**(EXPERIMENTAL/UNTESTED)**</td>
+    <td>mysql</td>
+    <td>expand('%:e') == 'mysql' || run_type == 'mysql'</td>
+  </tr>
+
 </table>
 
 ---
@@ -120,6 +126,16 @@ let $SQLCMDPORT="5432" |
 let $SQLCMDDBNAME="mssql" |
 let $SQLCMDUSER="mssql" |
 let $SQLCMDPASSWORD="password" |
+```
+
+#### mysql
+
+```vim
+let $MYSQLHOST="127.0.0.1" |
+let $MYSQLPORT="5432" |
+let $MYSQLDATABASE="postgres" |
+let $MYSQLUSER="postgres" |
+let $MYSQLPASSWORD="password" |
 ```
 
 ## Recommended Keybindings
