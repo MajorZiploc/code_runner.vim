@@ -176,5 +176,5 @@ nmap <leader>4 :let @t = ''<CR>:call VimCodeRunnerRun('', 'true')<CR>
 requesting MRs for other code runners
 if they have specific runner env vars, then also update VimCodeRunnerRunConfigs to include a case for it
 
-- mysql
 - some other sql???
+- some other nosql???
