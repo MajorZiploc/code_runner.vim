@@ -330,16 +330,16 @@ function! VimCodeRunnerRun(...)
     return
   endif
   if (debug != 'true')
-    let g:my_query_results = system(_command)
+    let g:vim_code_runner_query_results = system(_command)
     if (_should_bottom_split)
       set splitbelow
       horizontal belowright VimCodeRunnerScratch
-      put =g:my_query_results
+      put =g:vim_code_runner_query_results
       let &filetype = _file_type
       execute "normal! ggdd"
       set splitbelow!
     else
-      put =g:my_query_results
+      put =g:vim_code_runner_query_results
     endif
   else
     echo debug_label "run_path: " run_path
