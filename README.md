@@ -80,6 +80,12 @@ Useful as a light weight database client
     <td>expand('%:e') == 'mysql' || run_type == 'mysql'</td>
   </tr>
 
+  <tr>
+    <td>mongodb**(EXPERIMENTAL/UNTESTED)**</td>
+    <td>mongodb</td>
+    <td>expand('%:e') == 'mongodb' || run_type == 'mongodb'</td>
+  </tr>
+
 </table>
 
 ---
@@ -136,6 +142,16 @@ let $MYSQLPORT="5432" |
 let $MYSQLDATABASE="postgres" |
 let $MYSQLUSER="postgres" |
 let $MYSQLPASSWORD="password" |
+```
+
+#### mongodb
+
+```vim
+let $MONGODBHOST="127.0.0.1" |
+let $MONGODBPORT="5432" |
+let $MONGODBDATABASE="postgres" |
+let $MONGODBUSER="postgres" |
+let $MONGODBPASSWORD="password" |
 ```
 
 ## Recommended Keybindings

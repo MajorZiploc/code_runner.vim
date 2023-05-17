@@ -98,6 +98,35 @@ function _VimCodeRunnerRunMysql(selected_text, is_in_container, debug, debug_lab
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
+function _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_label)
+  let raw_text = a:selected_text
+  if (trim(raw_text) == '')
+    echohl WarningMsg
+    echo "No selected_text stored in the t register! run_type: 'mongodb' does not support this"
+    echohl None
+    return []
+  endif
+  let _command_prepend = ''
+  let _file_type = 'log'
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let _mongo = 'mongo '. " --database '" . $MONGODBDATABASE . "'" . " --user '" . $MONGODBUSER . "'" . " --password '" . $MONGODBPASSWORD . "'" . " --eval '" . _preped_text . "'"
+  if (a:is_in_container)
+    let _command = _mongo . $MONGODBDATABASE
+  else
+    if (a:debug == 'true')
+      echo a:debug_label "local MONGODB* configs that will be used since not running in a container:"
+      echo a:debug_label "  export MONGODBHOST=\"".$MONGODBHOST."\";"
+      echo a:debug_label "  export MONGODBPORT=\"".$MONGODBPORT."\";"
+      echo a:debug_label "  export MONGODBDATABASE=\"".$MONGODBDATABASE."\";"
+      echo a:debug_label "  export MONGODBUSER=\"".$MONGODBUSER."\";"
+      echo a:debug_label "  export MONGODBPASSWORD=\"".$MONGODBPASSWORD."\";"
+    endif
+    let _command = _mysql . " --host '" . $MONGODBHOST . "/" . $MONGODBDATABASE . "'" . " --port '" . $MONGODBPORT . "'"
+  endif
+  let _should_bottom_split = 1
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+endfunction
+
 function _VimCodeRunnerRunPython(selected_text, is_in_container, debug, debug_label)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -259,6 +288,9 @@ function! VimCodeRunnerRun(...)
   elseif (expand('%:e') == 'mysql' || run_type == 'mysql')
     let run_path = "mysql"
     let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container, debug, debug_label)
+  elseif (expand('%:e') == 'mongodb' || run_type == 'mongodb')
+    let run_path = "mongodb"
+    let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_label)
   else
     echohl WarningMsg
     echo "No matching run_path!"
