@@ -139,8 +139,8 @@ let $SQLCMDPASSWORD="password" |
 ```vim
 let $MYSQLHOST="127.0.0.1" |
 let $MYSQLPORT="5432" |
-let $MYSQLDATABASE="postgres" |
-let $MYSQLUSER="postgres" |
+let $MYSQLDATABASE="mysql" |
+let $MYSQLUSER="mysql" |
 let $MYSQLPASSWORD="password" |
 ```
 
@@ -149,8 +149,8 @@ let $MYSQLPASSWORD="password" |
 ```vim
 let $MONGODBHOST="127.0.0.1" |
 let $MONGODBPORT="5432" |
-let $MONGODBDATABASE="postgres" |
-let $MONGODBUSER="postgres" |
+let $MONGODBDATABASE="mongodb" |
+let $MONGODBUSER="mongodb" |
 let $MONGODBPASSWORD="password" |
 ```
 
