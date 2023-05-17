@@ -136,6 +136,9 @@ let $SQLCMDPASSWORD="password" |
 
 #### mysql
 
+`let vim_code_runner_sql_as_csv='false' |` is not supported
+`let use_runner_options_in_container='false' |` is not supported
+
 ```vim
 let $MYSQLHOST="127.0.0.1" |
 let $MYSQLPORT="5432" |
@@ -145,6 +148,8 @@ let $MYSQLPASSWORD="password" |
 ```
 
 #### mongodb
+
+`let use_runner_options_in_container='false' |` is not supported
 
 ```vim
 let $MONGODBHOST="127.0.0.1" |
