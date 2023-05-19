@@ -335,13 +335,14 @@ function! VimCodeRunnerRun(...)
   if (debug != 'true')
     let g:vim_code_runner_last_query_results = system(_command)
     let g:vim_code_runner_last_command = _command
-    let g:vim_code_runner_last_n_query_results= g:vim_code_runner_last_n_query_results + [g:vim_code_runner_last_query_results]
-    let g:vim_code_runner_last_n_commands = g:vim_code_runner_last_n_commands + [g:vim_code_runner_last_command]
+    let g:vim_code_runner_last_n_query_results= [g:vim_code_runner_last_query_results] + g:vim_code_runner_last_n_query_results
+    let g:vim_code_runner_last_n_commands = [g:vim_code_runner_last_command] + g:vim_code_runner_last_n_commands
     if (len(g:vim_code_runner_last_n_query_results) > get(g:, 'vim_code_runner_history_size', 10))
-      let g:vim_code_runner_last_n_query_results= g:vim_code_runner_last_n_query_results[1:]
+      let g:vim_code_runner_last_n_query_results= g:vim_code_runner_last_n_query_results[:-2]
+
     endif
     if (len(g:vim_code_runner_last_n_commands) > get(g:, 'vim_code_runner_history_size', 10))
-      let g:vim_code_runner_last_n_commands= g:vim_code_runner_last_n_commands[1:]
+      let g:vim_code_runner_last_n_commands= g:vim_code_runner_last_n_commands[:-2]
     endif
     if (_should_bottom_split)
       set splitbelow
