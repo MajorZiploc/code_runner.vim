@@ -103,6 +103,8 @@ let use_runner_options_in_container="true" |
 let vim_code_runner_csv_type="rfc_csv" |
 " will decide if sql output will be in csv format or the default for the sql cli tool being used (Default: true)
 let vim_code_runner_sql_as_csv="true" |
+" the number of  commands and query results saved (Default: 10) for array sizes of vim_code_runner_last_n_commands and vim_code_runner_last_n_query_results
+let vim_code_runner_history_size="10" |
 ```
 
 ## Tips
@@ -118,6 +120,8 @@ put =g:vim_code_runner_last_query_results
 ```
 
 get the associated command that generated vim_code_runner_last_query_results with the global variable vim_code_runner_last_command in a similar fashion
+
+you can view even further back depending on your vim_code_runner_history_size setting with vim_code_runner_last_n_commands and vim_code_runner_last_n_query_results lists
 
 ### Specific Runner Options
 
