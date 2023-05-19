@@ -117,6 +117,8 @@ use something like this command to get the content out of the variable
 put =g:vim_code_runner_last_query_results
 ```
 
+get the associated command that generated vim_code_runner_last_query_results with the global variable vim_code_runner_last_command in a similar fashion
+
 ### Specific Runner Options
 
 #### psql

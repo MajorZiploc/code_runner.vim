@@ -331,6 +331,7 @@ function! VimCodeRunnerRun(...)
   endif
   if (debug != 'true')
     let g:vim_code_runner_last_query_results = system(_command)
+    let g:vim_code_runner_last_command = _command
     if (_should_bottom_split)
       set splitbelow
       horizontal belowright VimCodeRunnerScratch
