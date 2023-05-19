@@ -105,6 +105,18 @@ let vim_code_runner_csv_type="rfc_csv" |
 let vim_code_runner_sql_as_csv="true" |
 ```
 
+## Tips
+
+### I closed the results of my last query and the query takes a large amount of time to run.
+
+there is a global variable called vim_code_runner_query_results; it stores the results of your last query
+
+use something like this command to get the content out of the variable
+```vim
+" in visual mode with a blank line selected
+put =g:vim_code_runner_query_results
+```
+
 ### Specific Runner Options
 
 #### psql
