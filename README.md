@@ -123,22 +123,6 @@ let vim_code_runner_history_size="10" |
 let vim_code_runner_debug_label = "DEBUG-> " |
 ```
 
-## Tips
-
-### I closed the results of my last query and the query takes a large amount of time to run.
-
-there is a global variable called vim_code_runner_last_query_results; it stores the results of your last query
-
-use something like this command to get the content out of the variable
-```vim
-" in visual mode with a blank line selected
-put =g:vim_code_runner_last_query_results
-```
-
-get the associated command that generated vim_code_runner_last_query_results with the global variable vim_code_runner_last_command in a similar fashion
-
-you can view even further back depending on your vim_code_runner_history_size setting with vim_code_runner_last_n_commands and vim_code_runner_last_n_query_results lists
-
 ### Specific Runner Options
 
 #### psql
@@ -218,6 +202,22 @@ nmap <leader>5 :let @t = ''<CR>:call VimCodeRunnerRun()<CR>
 " dry run / debug whole file if run_type supports it
 nmap <leader>4 :let @t = ''<CR>:call VimCodeRunnerRun('', 'true')<CR>
 ```
+
+## Tips
+
+### I closed the results of my last query and the query takes a large amount of time to run.
+
+there is a global variable called vim_code_runner_last_query_results; it stores the results of your last query
+
+use something like this command to get the content out of the variable
+```vim
+" in visual mode with a blank line selected
+put =g:vim_code_runner_last_query_results
+```
+
+get the associated command that generated vim_code_runner_last_query_results with the global variable vim_code_runner_last_command in a similar fashion
+
+you can view even further back depending on your vim_code_runner_history_size setting with vim_code_runner_last_n_commands and vim_code_runner_last_n_query_results lists
 
 ## Contribution Requests
 
