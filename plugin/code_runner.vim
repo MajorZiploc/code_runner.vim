@@ -261,6 +261,9 @@ function! VimCodeRunnerRun(...)
   elseif (&filetype == 'python' || run_type == 'python')
     let run_path = "python"
     let case_values = _VimCodeRunnerRunPython(selected_text, is_in_container, debug, debug_label)
+  elseif (expand('%:e') == 'mongodb' || run_type == 'mongodb')
+    let run_path = "mongodb"
+    let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_label)
   elseif (&filetype == 'javascript' || run_type == 'javascript')
     let run_path = "javascript"
     let case_values = _VimCodeRunnerRunJavascript(selected_text, is_in_container, debug, debug_label)
@@ -288,9 +291,6 @@ function! VimCodeRunnerRun(...)
   elseif (expand('%:e') == 'mysql' || run_type == 'mysql')
     let run_path = "mysql"
     let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container, debug, debug_label)
-  elseif (expand('%:e') == 'mongodb' || run_type == 'mongodb')
-    let run_path = "mongodb"
-    let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_label)
   elseif (expand('%:e') == 'redis' || run_type == 'redis')
     let run_path = "redis"
     let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container, debug, debug_label)

@@ -4,7 +4,7 @@ Run selected chunks of code. Can run locally or within docker or k8s containers
 
 Useful as a light weight database client
 
-## Supported Runners
+## Supported Runners (in order of runner search)
 
 <table style="width:100%">
 
@@ -24,6 +24,12 @@ Useful as a light weight database client
     <td>python</td>
     <td>python</td>
     <td>&filetype == 'python' || run_type == 'python'</td>
+  </tr>
+
+  <tr>
+    <td>mongodb**(EXPERIMENTAL/UNTESTED)**</td>
+    <td>mongodb</td>
+    <td>expand('%:e') == 'mongodb' || run_type == 'mongodb'</td>
   </tr>
 
   <tr>
@@ -78,12 +84,6 @@ Useful as a light weight database client
     <td>mysql**(EXPERIMENTAL/UNTESTED)**</td>
     <td>mysql</td>
     <td>expand('%:e') == 'mysql' || run_type == 'mysql'</td>
-  </tr>
-
-  <tr>
-    <td>mongodb**(EXPERIMENTAL/UNTESTED)**</td>
-    <td>mongodb</td>
-    <td>expand('%:e') == 'mongodb' || run_type == 'mongodb'</td>
   </tr>
 
   <tr>
