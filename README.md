@@ -17,31 +17,31 @@ Useful as a light weight database client
   <tr>
     <td>pgsql</td>
     <td>psql</td>
-    <td>file_ext == 'pgsql' || run_type == 'pgsql'</td>
+    <td>file_ext == 'pgsql' || run_type == 'pgsql' || markdown_tag == 'pgsql'</td>
   </tr>
 
   <tr>
     <td>redis</td>
     <td>redis-cli</td>
-    <td>file_ext == 'redis' || run_type == 'redis'</td>
+    <td>file_ext == 'redis' || run_type == 'redis' || markdown_tag == 'redis'</td>
   </tr>
 
   <tr>
     <td>mongodb**(EXPERIMENTAL/UNTESTED)**</td>
     <td>mongodb</td>
-    <td>file_ext == 'mongodb' || run_type == 'mongodb'</td>
+    <td>file_ext == 'mongodb' || run_type == 'mongodb' || markdown_tag == 'mongodb'</td>
   </tr>
 
   <tr>
     <td>mssql**(EXPERIMENTAL/UNTESTED)**</td>
     <td>sqlcmd</td>
-    <td>file_ext == 'mssql' || run_type == 'mssql'</td>
+    <td>file_ext == 'mssql' || run_type == 'mssql' || markdown_tag == 'mssql'</td>
   </tr>
 
   <tr>
     <td>mysql**(EXPERIMENTAL/UNTESTED)**</td>
     <td>mysql</td>
-    <td>file_ext == 'mysql' || run_type == 'mysql'</td>
+    <td>file_ext == 'mysql' || run_type == 'mysql' || markdown_tag == 'mysql'</td>
   </tr>
 
   <tr>
