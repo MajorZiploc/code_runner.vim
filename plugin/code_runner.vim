@@ -256,7 +256,7 @@ function! VimCodeRunnerRun(...)
   let _should_bottom_split = 0
   let _markdown_tag = ''
   if (&filetype == 'markdown')
-    let _markdown_pattern = '^\s*```\v(\w+)(.*)'
+    let _markdown_pattern = '^\n*\s*```\v(\w+)(.*)'
     let _markdown_tag = substitute(selected_text, _markdown_pattern, '\=submatch(1)', '')
     if _markdown_tag != ''
       let selected_text = substitute(selected_text, _markdown_pattern, '\=submatch(2)', '')
