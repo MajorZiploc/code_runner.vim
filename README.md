@@ -87,9 +87,9 @@ Useful as a light weight database client
   </tr>
 
   <tr>
-    <td>rediskv**(EXPERIMENTAL/UNTESTED)**</td>
+    <td>redis**(EXPERIMENTAL/UNTESTED)**</td>
     <td>redis-cli</td>
-    <td>expand('%:e') == 'rediskv' || run_type == 'rediskv'</td>
+    <td>expand('%:e') == 'redis' || run_type == 'redis'</td>
   </tr>
 
 </table>
@@ -184,7 +184,7 @@ let $MONGODBUSER="mongodb" |
 let $MONGODBPASSWORD="password" |
 ```
 
-#### rediskv
+#### redis
 
 `let use_runner_options_in_container='false' |` is not supported
 

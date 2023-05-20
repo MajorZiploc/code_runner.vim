@@ -106,11 +106,11 @@ function _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_l
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _VimCodeRunnerRunRediskv(selected_text, is_in_container, debug, debug_label)
+function _VimCodeRunnerRunRedis(selected_text, is_in_container, debug, debug_label)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: 'rediskv' does not support this"
+    echo "No selected_text stored in the t register! run_type: 'redis' does not support this"
     echohl None
     return []
   endif
@@ -291,9 +291,9 @@ function! VimCodeRunnerRun(...)
   elseif (expand('%:e') == 'mongodb' || run_type == 'mongodb')
     let run_path = "mongodb"
     let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_label)
-  elseif (expand('%:e') == 'rediskv' || run_type == 'rediskv')
-    let run_path = "rediskv"
-    let case_values = _VimCodeRunnerRunRediskv(selected_text, is_in_container, debug, debug_label)
+  elseif (expand('%:e') == 'redis' || run_type == 'redis')
+    let run_path = "redis"
+    let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container, debug, debug_label)
   else
     echohl WarningMsg
     echo "No matching run_path!"
