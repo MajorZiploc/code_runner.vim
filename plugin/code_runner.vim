@@ -293,7 +293,7 @@ function! VimCodeRunnerRun(...)
     let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_label)
   elseif (expand('%:e') == 'rediskv' || run_type == 'rediskv')
     let run_path = "rediskv"
-    let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_label)
+    let case_values = _VimCodeRunnerRunRediskv(selected_text, is_in_container, debug, debug_label)
   else
     echohl WarningMsg
     echo "No matching run_path!"
