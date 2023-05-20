@@ -121,7 +121,7 @@ function _VimCodeRunnerRunRediskv(selected_text, is_in_container, debug, debug_l
   if (a:is_in_container)
     let _command = _redis . _preped_text
   else
-    let _command = _redis . " -h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "' " . _preped_text
+    let _command = _redis . "-h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "' " . _preped_text
   endif
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
