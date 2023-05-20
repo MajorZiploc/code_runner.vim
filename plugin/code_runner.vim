@@ -130,6 +130,32 @@ function _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_l
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
+function _VimCodeRunnerRunRediskv(selected_text, is_in_container, debug, debug_label)
+  let raw_text = a:selected_text
+  if (trim(raw_text) == '')
+    echohl WarningMsg
+    echo "No selected_text stored in the t register! run_type: 'rediskv' does not support this"
+    echohl None
+    return []
+  endif
+  let _command_prepend = ''
+  let _file_type = 'log'
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let _redis = 'redis-cli '
+  if (a:is_in_container)
+    let _command = _redis
+  else
+    if (a:debug == 'true')
+      echo a:debug_label "local REDIS* configs that will be used since not running in a container:"
+      echo a:debug_label "  export REDISHOST=\"".$REDISHOST"\";"
+      echo a:debug_label "  export REDISPORT=\"".$REDISPORT."\";"
+    endif
+    let _command = _redis . " -h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "'" . "'" . _preped_text . "'"
+  endif
+  let _should_bottom_split = 1
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+endfunction
+
 function _VimCodeRunnerRunPython(selected_text, is_in_container, debug, debug_label)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -293,6 +319,9 @@ function! VimCodeRunnerRun(...)
     let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container, debug, debug_label)
   elseif (expand('%:e') == 'mongodb' || run_type == 'mongodb')
     let run_path = "mongodb"
+    let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_label)
+  elseif (expand('%:e') == 'rediskv' || run_type == 'rediskv')
+    let run_path = "rediskv"
     let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_label)
   else
     echohl WarningMsg

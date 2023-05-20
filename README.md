@@ -86,6 +86,12 @@ Useful as a light weight database client
     <td>expand('%:e') == 'mongodb' || run_type == 'mongodb'</td>
   </tr>
 
+  <tr>
+    <td>rediskv**(EXPERIMENTAL/UNTESTED)**</td>
+    <td>redis-cli</td>
+    <td>expand('%:e') == 'rediskv' || run_type == 'rediskv'</td>
+  </tr>
+
 </table>
 
 ---
@@ -176,6 +182,15 @@ let $MONGODBPORT="5432" |
 let $MONGODBDATABASE="mongodb" |
 let $MONGODBUSER="mongodb" |
 let $MONGODBPASSWORD="password" |
+```
+
+#### rediskv
+
+`let use_runner_options_in_container='false' |` is not supported
+
+```vim
+let $REDISHOST="127.0.0.1" |
+let $REDISPORT="6379" |
 ```
 
 ## Recommended Keybindings
