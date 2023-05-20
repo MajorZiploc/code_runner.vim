@@ -271,12 +271,21 @@ function! VimCodeRunnerRun(...)
   if (expand('%:e') == 'pgsql' || run_type == 'pgsql')
     let run_path = "pgsql"
     let case_values = _VimCodeRunnerRunPsql(selected_text, is_in_container, debug, debug_label)
-  elseif (&filetype == 'python' || run_type == 'python' || _markdown_tag == 'python')
-    let run_path = "python"
-    let case_values = _VimCodeRunnerRunPython(selected_text, is_in_container, debug, debug_label)
+  elseif (expand('%:e') == 'redis' || run_type == 'redis')
+    let run_path = "redis"
+    let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container, debug, debug_label)
   elseif (expand('%:e') == 'mongodb' || run_type == 'mongodb')
     let run_path = "mongodb"
     let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_label)
+  elseif (expand('%:e') == 'mssql' || run_type == 'mssql')
+    let run_path = "mssql"
+    let case_values = _VimCodeRunnerRunMssql(selected_text, is_in_container, debug, debug_label)
+  elseif (expand('%:e') == 'mysql' || run_type == 'mysql')
+    let run_path = "mysql"
+    let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container, debug, debug_label)
+  elseif (&filetype == 'python' || run_type == 'python' || _markdown_tag == 'python')
+    let run_path = "python"
+    let case_values = _VimCodeRunnerRunPython(selected_text, is_in_container, debug, debug_label)
   elseif (&filetype == 'javascript' || run_type == 'javascript' || _markdown_tag == 'javascript')
     let run_path = "javascript"
     let case_values = _VimCodeRunnerRunJavascript(selected_text, is_in_container, debug, debug_label)
@@ -298,15 +307,6 @@ function! VimCodeRunnerRun(...)
   elseif (&filetype == 'ps1' || run_type == 'powershell' || _markdown_tag == 'powershell')
     let run_path = "powershell"
     let case_values = _VimCodeRunnerRunPwsh(selected_text, is_in_container, debug, debug_label)
-  elseif (expand('%:e') == 'redis' || run_type == 'redis')
-    let run_path = "redis"
-    let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container, debug, debug_label)
-  elseif (expand('%:e') == 'mssql' || run_type == 'mssql')
-    let run_path = "mssql"
-    let case_values = _VimCodeRunnerRunMssql(selected_text, is_in_container, debug, debug_label)
-  elseif (expand('%:e') == 'mysql' || run_type == 'mysql')
-    let run_path = "mysql"
-    let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container, debug, debug_label)
   else
     echohl WarningMsg
     echo "No matching run_path!"

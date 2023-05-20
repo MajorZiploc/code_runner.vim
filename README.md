@@ -21,15 +21,33 @@ Useful as a light weight database client
   </tr>
 
   <tr>
-    <td>python</td>
-    <td>python</td>
-    <td>&filetype == 'python' || run_type == 'python' || _markdown_tag == 'python'</td>
+    <td>redis</td>
+    <td>redis-cli</td>
+    <td>expand('%:e') == 'redis' || run_type == 'redis'</td>
   </tr>
 
   <tr>
     <td>mongodb**(EXPERIMENTAL/UNTESTED)**</td>
     <td>mongodb</td>
     <td>expand('%:e') == 'mongodb' || run_type == 'mongodb'</td>
+  </tr>
+
+  <tr>
+    <td>mssql**(EXPERIMENTAL/UNTESTED)**</td>
+    <td>sqlcmd</td>
+    <td>expand('%:e') == 'mssql' || run_type == 'mssql'</td>
+  </tr>
+
+  <tr>
+    <td>mysql**(EXPERIMENTAL/UNTESTED)**</td>
+    <td>mysql</td>
+    <td>expand('%:e') == 'mysql' || run_type == 'mysql'</td>
+  </tr>
+
+  <tr>
+    <td>python</td>
+    <td>python</td>
+    <td>&filetype == 'python' || run_type == 'python' || _markdown_tag == 'python'</td>
   </tr>
 
   <tr>
@@ -72,24 +90,6 @@ Useful as a light weight database client
     <td>powershell</td>
     <td>pwsh</td>
     <td>&filetype == 'ps1' || run_type == 'powershell' || _markdown_tag == 'powershell'</td>
-  </tr>
-
-  <tr>
-    <td>redis</td>
-    <td>redis-cli</td>
-    <td>expand('%:e') == 'redis' || run_type == 'redis'</td>
-  </tr>
-
-  <tr>
-    <td>mssql**(EXPERIMENTAL/UNTESTED)**</td>
-    <td>sqlcmd</td>
-    <td>expand('%:e') == 'mssql' || run_type == 'mssql'</td>
-  </tr>
-
-  <tr>
-    <td>mysql**(EXPERIMENTAL/UNTESTED)**</td>
-    <td>mysql</td>
-    <td>expand('%:e') == 'mysql' || run_type == 'mysql'</td>
   </tr>
 
 </table>
