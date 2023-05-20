@@ -87,7 +87,7 @@ Useful as a light weight database client
   </tr>
 
   <tr>
-    <td>redis**(EXPERIMENTAL/UNTESTED)**</td>
+    <td>redis</td>
     <td>redis-cli</td>
     <td>expand('%:e') == 'redis' || run_type == 'redis'</td>
   </tr>
