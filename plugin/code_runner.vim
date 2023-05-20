@@ -30,7 +30,7 @@ function _VimCodeRunnerRunPsql(selected_text, is_in_container)
       let _command = _psql . "-c '" . _preped_text . "'"
     endif
   else
-    if (g:vim_code_runer_debug == 'true')
+    if (g:vim_code_runner_debug == 'true')
       echo g:vim_code_runner_debug_label "local PG* configs that will be used since not running in a container:"
       echo g:vim_code_runner_debug_label "  export PGHOST=\"".$PGHOST."\";"
       echo g:vim_code_runner_debug_label "  export PGPORT=\"".$PGPORT."\";"
@@ -253,7 +253,7 @@ function! VimCodeRunnerRun(...)
   let _default_file_type = "text"
   " assumes the selected text will be yanked into the t register prior to VimCodeRunnerRun
   let selected_text = @t
-  if (g:vim_code_runer_debug == 'true')
+  if (g:vim_code_runner_debug == 'true')
     echo g:vim_code_runner_debug_label "selected_text: " selected_text
   endif
   let case_values = []
@@ -347,7 +347,7 @@ function! VimCodeRunnerRun(...)
     echohl None
     return
   endif
-  if (g:vim_code_runer_debug != 'true')
+  if (g:vim_code_runner_debug != 'true')
     let g:vim_code_runner_last_query_results = system(_command)
     let g:vim_code_runner_last_command = _command
     let g:vim_code_runner_last_n_query_results= [g:vim_code_runner_last_query_results] + g:vim_code_runner_last_n_query_results
