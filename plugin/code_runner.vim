@@ -267,20 +267,21 @@ function! VimCodeRunnerRun(...)
       let selected_text = substitute(selected_text, '\v(.*)```\n*\s*$', '\1', '')
     endif
   endif
+  let file_ext = expand('%:e')
   " check file_extension
-  if (expand('%:e') == 'pgsql' || run_type == 'pgsql')
+  if (file_ext == 'pgsql' || run_type == 'pgsql')
     let run_path = "pgsql"
     let case_values = _VimCodeRunnerRunPsql(selected_text, is_in_container, debug, debug_label)
-  elseif (expand('%:e') == 'redis' || run_type == 'redis')
+  elseif (file_ext == 'redis' || run_type == 'redis')
     let run_path = "redis"
     let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container, debug, debug_label)
-  elseif (expand('%:e') == 'mongodb' || run_type == 'mongodb')
+  elseif (file_ext == 'mongodb' || run_type == 'mongodb')
     let run_path = "mongodb"
     let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_label)
-  elseif (expand('%:e') == 'mssql' || run_type == 'mssql')
+  elseif (file_ext == 'mssql' || run_type == 'mssql')
     let run_path = "mssql"
     let case_values = _VimCodeRunnerRunMssql(selected_text, is_in_container, debug, debug_label)
-  elseif (expand('%:e') == 'mysql' || run_type == 'mysql')
+  elseif (file_ext == 'mysql' || run_type == 'mysql')
     let run_path = "mysql"
     let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container, debug, debug_label)
   elseif (&filetype == 'python' || run_type == 'python' || _markdown_tag == 'python')
