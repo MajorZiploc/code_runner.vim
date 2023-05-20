@@ -124,7 +124,7 @@ function _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_l
       echo a:debug_label "  export MONGODBUSER=\"".$MONGODBUSER."\";"
       echo a:debug_label "  export MONGODBPASSWORD=\"".$MONGODBPASSWORD."\";"
     endif
-    let _command = _mysql . " --host '" . $MONGODBHOST . "/" . $MONGODBDATABASE . "'" . " --port '" . $MONGODBPORT . "'"
+    let _command = _mongo . " --host '" . $MONGODBHOST . "/" . $MONGODBDATABASE . "'" . " --port '" . $MONGODBPORT . "'"
   endif
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
