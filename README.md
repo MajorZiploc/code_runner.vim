@@ -1,8 +1,12 @@
 # code_runner.vim
 
-Run selected chunks of code. Can run locally or within docker or k8s containers
+Run selected chunks of code or whole files. Can run locally or within docker or k8s containers
 
-Useful as a light weight database client
+Use cases:
+- light weight database client by executing chunks of code and respecting db env vars
+- execute tagged code blocks in markdown files
+- execute chunks of code or whole files for script langages
+
 
 ## Supported Runners (in order of runner search)
 
