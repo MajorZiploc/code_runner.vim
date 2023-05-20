@@ -258,11 +258,11 @@ function! VimCodeRunnerRun(...)
   let case_values = []
   let is_in_container = !empty(get(g:, 'container_name', "")) && trim(g:container_name) != ''
   let _should_bottom_split = 0
-  let _markdown_tag = ''
+  let markdown_tag = ''
   if (&filetype == 'markdown')
     let _markdown_pattern = '^\n*\s*```\v(\w+)(.*)'
-    let _markdown_tag = substitute(selected_text, _markdown_pattern, '\=submatch(1)', '')
-    if _markdown_tag != ''
+    let markdown_tag = substitute(selected_text, _markdown_pattern, '\=submatch(1)', '')
+    if markdown_tag != ''
       let selected_text = substitute(selected_text, _markdown_pattern, '\=submatch(2)', '')
       let selected_text = substitute(selected_text, '\v(.*)```\n*\s*$', '\1', '')
     endif
@@ -284,28 +284,28 @@ function! VimCodeRunnerRun(...)
   elseif (file_ext == 'mysql' || run_type == 'mysql')
     let run_path = "mysql"
     let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container, debug, debug_label)
-  elseif (&filetype == 'python' || run_type == 'python' || _markdown_tag == 'python')
+  elseif (&filetype == 'python' || run_type == 'python' || markdown_tag == 'python')
     let run_path = "python"
     let case_values = _VimCodeRunnerRunPython(selected_text, is_in_container, debug, debug_label)
-  elseif (&filetype == 'javascript' || run_type == 'javascript' || _markdown_tag == 'javascript')
+  elseif (&filetype == 'javascript' || run_type == 'javascript' || markdown_tag == 'javascript')
     let run_path = "javascript"
     let case_values = _VimCodeRunnerRunJavascript(selected_text, is_in_container, debug, debug_label)
-  elseif (&filetype == 'typescript' || run_type == 'typescript' || _markdown_tag == 'typescript')
+  elseif (&filetype == 'typescript' || run_type == 'typescript' || markdown_tag == 'typescript')
     let run_path = "typescript"
     let case_values = _VimCodeRunnerRunTypescript(selected_text, is_in_container, debug, debug_label)
-  elseif (&filetype == 'php' || run_type == 'php' || _markdown_tag == 'php')
+  elseif (&filetype == 'php' || run_type == 'php' || markdown_tag == 'php')
     let run_path = "php"
     let case_values = _VimCodeRunnerRunPhp(selected_text, is_in_container, debug, debug_label)
-  elseif (&filetype == 'ruby' || run_type == 'ruby' || _markdown_tag == 'ruby')
+  elseif (&filetype == 'ruby' || run_type == 'ruby' || markdown_tag == 'ruby')
     let run_path = "ruby"
     let case_values = _VimCodeRunnerRunRuby(selected_text, is_in_container, debug, debug_label)
-  elseif (&filetype == 'perl' || run_type == 'perl' || _markdown_tag == 'perl')
+  elseif (&filetype == 'perl' || run_type == 'perl' || markdown_tag == 'perl')
     let run_path = "perl"
     let case_values = _VimCodeRunnerRunPerl(selected_text, is_in_container, debug, debug_label)
-  elseif (&filetype == 'sh' || run_type == 'sh' || _markdown_tag == 'bash' || _markdown_tag == 'shell')
+  elseif (&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'bash' || markdown_tag == 'shell')
     let run_path = "sh"
     let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, debug, debug_label)
-  elseif (&filetype == 'ps1' || run_type == 'powershell' || _markdown_tag == 'powershell')
+  elseif (&filetype == 'ps1' || run_type == 'powershell' || markdown_tag == 'powershell')
     let run_path = "powershell"
     let case_values = _VimCodeRunnerRunPwsh(selected_text, is_in_container, debug, debug_label)
   else

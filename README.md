@@ -47,49 +47,49 @@ Useful as a light weight database client
   <tr>
     <td>python</td>
     <td>python</td>
-    <td>&filetype == 'python' || run_type == 'python' || _markdown_tag == 'python'</td>
+    <td>&filetype == 'python' || run_type == 'python' || markdown_tag == 'python'</td>
   </tr>
 
   <tr>
     <td>javascript</td>
     <td>node</td>
-    <td>&filetype == 'javascript' || run_type == 'javascript' || _markdown_tag == 'javascript'</td>
+    <td>&filetype == 'javascript' || run_type == 'javascript' || markdown_tag == 'javascript'</td>
   </tr>
 
   <tr>
     <td>typescript</td>
     <td>ts-node</td>
-    <td>&filetype == 'typescript' || run_type == 'typescript' || _markdown_tag == 'typescript'</td>
+    <td>&filetype == 'typescript' || run_type == 'typescript' || markdown_tag == 'typescript'</td>
   </tr>
 
   <tr>
     <td>php</td>
     <td>php</td>
-    <td>&filetype == 'php' || run_type == 'php' || _markdown_tag == 'php'</td>
+    <td>&filetype == 'php' || run_type == 'php' || markdown_tag == 'php'</td>
   </tr>
 
   <tr>
     <td>ruby</td>
     <td>ruby</td>
-    <td>&filetype == 'ruby' || run_type == 'ruby' || _markdown_tag == 'ruby'</td>
+    <td>&filetype == 'ruby' || run_type == 'ruby' || markdown_tag == 'ruby'</td>
   </tr>
 
   <tr>
     <td>perl</td>
     <td>perl</td>
-    <td>&filetype == 'perl' || run_type == 'perl' || _markdown_tag == 'perl'</td>
+    <td>&filetype == 'perl' || run_type == 'perl' || markdown_tag == 'perl'</td>
   </tr>
 
   <tr>
     <td>sh</td>
     <td>sh</td>
-    <td>&filetype == 'sh' || run_type == 'sh' || _markdown_tag == 'bash' || _markdown_tag == 'shell'</td>
+    <td>&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'bash' || markdown_tag == 'shell'</td>
   </tr>
 
   <tr>
     <td>powershell</td>
     <td>pwsh</td>
-    <td>&filetype == 'ps1' || run_type == 'powershell' || _markdown_tag == 'powershell'</td>
+    <td>&filetype == 'ps1' || run_type == 'powershell' || markdown_tag == 'powershell'</td>
   </tr>
 
 </table>
