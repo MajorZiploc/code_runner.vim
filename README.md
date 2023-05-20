@@ -112,6 +112,8 @@ let vim_code_runner_sql_as_csv="true" |
 " the number of  commands and query results saved (Default: 10) for array sizes of vim_code_runner_last_n_commands and vim_code_runner_last_n_query_results
 " NOTE: expected to be set in a vimrc or upfront before plugin use. Not expected to be change after using plugin for some time during a single vim session
 let vim_code_runner_history_size="10" |
+" A label that will be prepended to all debug logs (Default: "DEBUG-> ")
+let vim_code_runner_debug_label = "DEBUG-> " |
 ```
 
 ## Tips
