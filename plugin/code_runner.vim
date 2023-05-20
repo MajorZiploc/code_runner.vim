@@ -1,9 +1,10 @@
 let g:vim_code_runner_last_n_commands=[]
 let g:vim_code_runner_last_n_query_results=[]
+let g:vim_code_runner_debug_label = "DEBUG-> "
 
 command! VimCodeRunnerScratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
 
-function _VimCodeRunnerRunPsql(selected_text, is_in_container, debug_label)
+function _VimCodeRunnerRunPsql(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
@@ -30,12 +31,12 @@ function _VimCodeRunnerRunPsql(selected_text, is_in_container, debug_label)
     endif
   else
     if (g:vim_code_runer_debug == 'true')
-      echo a:debug_label "local PG* configs that will be used since not running in a container:"
-      echo a:debug_label "  export PGHOST=\"".$PGHOST."\";"
-      echo a:debug_label "  export PGPORT=\"".$PGPORT."\";"
-      echo a:debug_label "  export PGDATABASE=\"".$PGDATABASE."\";"
-      echo a:debug_label "  export PGUSER=\"".$PGUSER."\";"
-      echo a:debug_label "  export PGPASSWORD=\"".$PGPASSWORD."\";"
+      echo g:vim_code_runner_debug_label "local PG* configs that will be used since not running in a container:"
+      echo g:vim_code_runner_debug_label "  export PGHOST=\"".$PGHOST."\";"
+      echo g:vim_code_runner_debug_label "  export PGPORT=\"".$PGPORT."\";"
+      echo g:vim_code_runner_debug_label "  export PGDATABASE=\"".$PGDATABASE."\";"
+      echo g:vim_code_runner_debug_label "  export PGUSER=\"".$PGUSER."\";"
+      echo g:vim_code_runner_debug_label "  export PGPASSWORD=\"".$PGPASSWORD."\";"
     endif
     let _command = _psql . "-c '" . _preped_text . "'"
   endif
@@ -43,7 +44,7 @@ function _VimCodeRunnerRunPsql(selected_text, is_in_container, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _VimCodeRunnerRunMssql(selected_text, is_in_container, debug_label)
+function _VimCodeRunnerRunMssql(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
@@ -64,7 +65,7 @@ function _VimCodeRunnerRunMssql(selected_text, is_in_container, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _VimCodeRunnerRunMysql(selected_text, is_in_container, debug_label)
+function _VimCodeRunnerRunMysql(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
@@ -85,7 +86,7 @@ function _VimCodeRunnerRunMysql(selected_text, is_in_container, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug_label)
+function _VimCodeRunnerRunMongoDb(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
@@ -106,7 +107,7 @@ function _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _VimCodeRunnerRunRedis(selected_text, is_in_container, debug_label)
+function _VimCodeRunnerRunRedis(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
@@ -127,7 +128,7 @@ function _VimCodeRunnerRunRedis(selected_text, is_in_container, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _VimCodeRunnerRunPython(selected_text, is_in_container, debug_label)
+function _VimCodeRunnerRunPython(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -141,7 +142,7 @@ function _VimCodeRunnerRunPython(selected_text, is_in_container, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _VimCodeRunnerRunJavascript(selected_text, is_in_container, debug_label)
+function _VimCodeRunnerRunJavascript(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -155,7 +156,7 @@ function _VimCodeRunnerRunJavascript(selected_text, is_in_container, debug_label
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _VimCodeRunnerRunTypescript(selected_text, is_in_container, debug_label)
+function _VimCodeRunnerRunTypescript(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -169,7 +170,7 @@ function _VimCodeRunnerRunTypescript(selected_text, is_in_container, debug_label
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _VimCodeRunnerRunPhp(selected_text, is_in_container, debug_label)
+function _VimCodeRunnerRunPhp(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -189,7 +190,7 @@ function _VimCodeRunnerRunPhp(selected_text, is_in_container, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _VimCodeRunnerRunRuby(selected_text, is_in_container, debug_label)
+function _VimCodeRunnerRunRuby(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -203,7 +204,7 @@ function _VimCodeRunnerRunRuby(selected_text, is_in_container, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _VimCodeRunnerRunPerl(selected_text, is_in_container, debug_label)
+function _VimCodeRunnerRunPerl(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -217,7 +218,7 @@ function _VimCodeRunnerRunPerl(selected_text, is_in_container, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _VimCodeRunnerRunSh(selected_text, is_in_container, debug_label)
+function _VimCodeRunnerRunSh(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -231,7 +232,7 @@ function _VimCodeRunnerRunSh(selected_text, is_in_container, debug_label)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
-function _VimCodeRunnerRunPwsh(selected_text, is_in_container, debug_label)
+function _VimCodeRunnerRunPwsh(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -249,12 +250,11 @@ function! VimCodeRunnerRun(...)
   let run_type = get(a:, 1, '')
   let debug = get(a:, 2, 'false')
   let g:vim_code_runner_debug = debug
-  let debug_label = "DEBUG-> "
   let _default_file_type = "text"
   " assumes the selected text will be yanked into the t register prior to VimCodeRunnerRun
   let selected_text = @t
   if (g:vim_code_runer_debug == 'true')
-    echo debug_label "selected_text: " selected_text
+    echo g:vim_code_runner_debug_label "selected_text: " selected_text
   endif
   let case_values = []
   let is_in_container = !empty(get(g:, 'container_name', "")) && trim(g:container_name) != ''
@@ -272,43 +272,43 @@ function! VimCodeRunnerRun(...)
   " check file_extension
   if (file_ext == 'pgsql' || run_type == 'pgsql' || markdown_tag == 'pgsql')
     let run_path = "pgsql"
-    let case_values = _VimCodeRunnerRunPsql(selected_text, is_in_container, debug_label)
+    let case_values = _VimCodeRunnerRunPsql(selected_text, is_in_container)
   elseif (file_ext == 'redis' || run_type == 'redis' || markdown_tag == 'redis')
     let run_path = "redis"
-    let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container, debug_label)
+    let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container)
   elseif (file_ext == 'mongodb' || run_type == 'mongodb' || markdown_tag == 'mongodb')
     let run_path = "mongodb"
-    let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug_label)
+    let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container)
   elseif (file_ext == 'mssql' || run_type == 'mssql' || markdown_tag == 'mssql')
     let run_path = "mssql"
-    let case_values = _VimCodeRunnerRunMssql(selected_text, is_in_container, debug_label)
+    let case_values = _VimCodeRunnerRunMssql(selected_text, is_in_container)
   elseif (file_ext == 'mysql' || run_type == 'mysql' || markdown_tag == 'mysql')
     let run_path = "mysql"
-    let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container, debug_label)
+    let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container)
   elseif (&filetype == 'python' || run_type == 'python' || markdown_tag == 'python')
     let run_path = "python"
-    let case_values = _VimCodeRunnerRunPython(selected_text, is_in_container, debug_label)
+    let case_values = _VimCodeRunnerRunPython(selected_text, is_in_container)
   elseif (&filetype == 'javascript' || run_type == 'javascript' || markdown_tag == 'javascript')
     let run_path = "javascript"
-    let case_values = _VimCodeRunnerRunJavascript(selected_text, is_in_container, debug_label)
+    let case_values = _VimCodeRunnerRunJavascript(selected_text, is_in_container)
   elseif (&filetype == 'typescript' || run_type == 'typescript' || markdown_tag == 'typescript')
     let run_path = "typescript"
-    let case_values = _VimCodeRunnerRunTypescript(selected_text, is_in_container, debug_label)
+    let case_values = _VimCodeRunnerRunTypescript(selected_text, is_in_container)
   elseif (&filetype == 'php' || run_type == 'php' || markdown_tag == 'php')
     let run_path = "php"
-    let case_values = _VimCodeRunnerRunPhp(selected_text, is_in_container, debug_label)
+    let case_values = _VimCodeRunnerRunPhp(selected_text, is_in_container)
   elseif (&filetype == 'ruby' || run_type == 'ruby' || markdown_tag == 'ruby')
     let run_path = "ruby"
-    let case_values = _VimCodeRunnerRunRuby(selected_text, is_in_container, debug_label)
+    let case_values = _VimCodeRunnerRunRuby(selected_text, is_in_container)
   elseif (&filetype == 'perl' || run_type == 'perl' || markdown_tag == 'perl')
     let run_path = "perl"
-    let case_values = _VimCodeRunnerRunPerl(selected_text, is_in_container, debug_label)
+    let case_values = _VimCodeRunnerRunPerl(selected_text, is_in_container)
   elseif (&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'bash' || markdown_tag == 'shell')
     let run_path = "sh"
-    let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, debug_label)
+    let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container)
   elseif (&filetype == 'ps1' || run_type == 'powershell' || markdown_tag == 'powershell')
     let run_path = "powershell"
-    let case_values = _VimCodeRunnerRunPwsh(selected_text, is_in_container, debug_label)
+    let case_values = _VimCodeRunnerRunPwsh(selected_text, is_in_container)
   else
     echohl WarningMsg
     echo "No matching run_path!"
@@ -370,11 +370,11 @@ function! VimCodeRunnerRun(...)
       put =g:vim_code_runner_last_query_results
     endif
   else
-    echo debug_label "run_path: " run_path
-    echo debug_label "container_type: " get(g:, 'container_type', '')
-    echo debug_label "container_name: " get(g:, 'container_name', '')
-    echo debug_label "_command: " _command
-    echo debug_label "_command_prepend: " _command_prepend
-    echo debug_label "_should_bottom_split: " _should_bottom_split
+    echo g:vim_code_runner_debug_label "run_path: " run_path
+    echo g:vim_code_runner_debug_label "container_type: " get(g:, 'container_type', '')
+    echo g:vim_code_runner_debug_label "container_name: " get(g:, 'container_name', '')
+    echo g:vim_code_runner_debug_label "_command: " _command
+    echo g:vim_code_runner_debug_label "_command_prepend: " _command_prepend
+    echo g:vim_code_runner_debug_label "_should_bottom_split: " _should_bottom_split
   endif
 endfunction
