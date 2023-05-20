@@ -58,14 +58,6 @@ function _VimCodeRunnerRunMssql(selected_text, is_in_container, debug, debug_lab
   if (a:is_in_container)
     let _command = _mssql
   else
-    if (a:debug == 'true')
-      echo a:debug_label "local SQLCMD* configs that will be used since not running in a container:"
-      echo a:debug_label "  export SQLCMDSERVER=\"".$SQLCMDSERVER."\";"
-      echo a:debug_label "  export SQLCMDPORT=\"".$SQLCMDPORT."\";"
-      echo a:debug_label "  export SQLCMDDBNAME=\"".$SQLCMDDBNAME."\";"
-      echo a:debug_label "  export SQLCMDUSER=\"".$SQLCMDUSER."\";"
-      echo a:debug_label "  export SQLCMDPASSWORD=\"".$SQLCMDPASSWORD."\";"
-    endif
     let _command = _mssql . " -S '" . $SQLCMDSERVER . "," . $SQLCMDPORT . "'"
   endif
   let _should_bottom_split = 1
@@ -87,14 +79,6 @@ function _VimCodeRunnerRunMysql(selected_text, is_in_container, debug, debug_lab
   if (a:is_in_container)
     let _command = _mysql
   else
-    if (a:debug == 'true')
-      echo a:debug_label "local MYSQL* configs that will be used since not running in a container:"
-      echo a:debug_label "  export MYSQLHOST=\"".$MYSQLHOST."\";"
-      echo a:debug_label "  export MYSQLPORT=\"".$MYSQLPORT."\";"
-      echo a:debug_label "  export MYSQLDATABASE=\"".$MYSQLDATABASE."\";"
-      echo a:debug_label "  export MYSQLUSER=\"".$MYSQLUSER."\";"
-      echo a:debug_label "  export MYSQLPASSWORD=\"".$MYSQLPASSWORD."\";"
-    endif
     let _command = _mysql . " --host='" . $MYSQLHOST . "'" . " --port='" . $MYSQLPORT . "'"
   endif
   let _should_bottom_split = 1
@@ -116,14 +100,6 @@ function _VimCodeRunnerRunMongoDb(selected_text, is_in_container, debug, debug_l
   if (a:is_in_container)
     let _command = _mongo . $MONGODBDATABASE
   else
-    if (a:debug == 'true')
-      echo a:debug_label "local MONGODB* configs that will be used since not running in a container:"
-      echo a:debug_label "  export MONGODBHOST=\"".$MONGODBHOST."\";"
-      echo a:debug_label "  export MONGODBPORT=\"".$MONGODBPORT."\";"
-      echo a:debug_label "  export MONGODBDATABASE=\"".$MONGODBDATABASE."\";"
-      echo a:debug_label "  export MONGODBUSER=\"".$MONGODBUSER."\";"
-      echo a:debug_label "  export MONGODBPASSWORD=\"".$MONGODBPASSWORD."\";"
-    endif
     let _command = _mongo . " --host '" . $MONGODBHOST . "/" . $MONGODBDATABASE . "'" . " --port '" . $MONGODBPORT . "'"
   endif
   let _should_bottom_split = 1
@@ -145,11 +121,6 @@ function _VimCodeRunnerRunRediskv(selected_text, is_in_container, debug, debug_l
   if (a:is_in_container)
     let _command = _redis
   else
-    if (a:debug == 'true')
-      echo a:debug_label "local REDIS* configs that will be used since not running in a container:"
-      echo a:debug_label "  export REDISHOST=\"".$REDISHOST"\";"
-      echo a:debug_label "  export REDISPORT=\"".$REDISPORT."\";"
-    endif
     let _command = _redis . " -h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "'" . "'" . _preped_text . "'"
   endif
   let _should_bottom_split = 1
