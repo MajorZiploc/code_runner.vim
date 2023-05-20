@@ -285,15 +285,15 @@ function! VimCodeRunnerRun(...)
   elseif (&filetype == 'ps1' || run_type == 'powershell')
     let run_path = "powershell"
     let case_values = _VimCodeRunnerRunPwsh(selected_text, is_in_container, debug, debug_label)
+  elseif (expand('%:e') == 'redis' || run_type == 'redis')
+    let run_path = "redis"
+    let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container, debug, debug_label)
   elseif (expand('%:e') == 'mssql' || run_type == 'mssql')
     let run_path = "mssql"
     let case_values = _VimCodeRunnerRunMssql(selected_text, is_in_container, debug, debug_label)
   elseif (expand('%:e') == 'mysql' || run_type == 'mysql')
     let run_path = "mysql"
     let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container, debug, debug_label)
-  elseif (expand('%:e') == 'redis' || run_type == 'redis')
-    let run_path = "redis"
-    let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container, debug, debug_label)
   else
     echohl WarningMsg
     echo "No matching run_path!"

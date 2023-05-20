@@ -75,6 +75,12 @@ Useful as a light weight database client
   </tr>
 
   <tr>
+    <td>redis</td>
+    <td>redis-cli</td>
+    <td>expand('%:e') == 'redis' || run_type == 'redis'</td>
+  </tr>
+
+  <tr>
     <td>mssql**(EXPERIMENTAL/UNTESTED)**</td>
     <td>sqlcmd</td>
     <td>expand('%:e') == 'mssql' || run_type == 'mssql'</td>
@@ -84,12 +90,6 @@ Useful as a light weight database client
     <td>mysql**(EXPERIMENTAL/UNTESTED)**</td>
     <td>mysql</td>
     <td>expand('%:e') == 'mysql' || run_type == 'mysql'</td>
-  </tr>
-
-  <tr>
-    <td>redis</td>
-    <td>redis-cli</td>
-    <td>expand('%:e') == 'redis' || run_type == 'redis'</td>
   </tr>
 
 </table>
