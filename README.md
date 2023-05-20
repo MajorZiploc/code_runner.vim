@@ -1,4 +1,4 @@
-# vim_code_runner
+# code_runner.vim
 
 Run selected chunks of code. Can run locally or within docker or k8s containers
 
