@@ -116,7 +116,7 @@ function _VimCodeRunnerRunRedis(selected_text, is_in_container, debug, debug_lab
   endif
   let _command_prepend = ''
   let _file_type = 'log'
-  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let _preped_text = raw_text
   let _redis = 'redis-cli '
   if (a:is_in_container)
     let _command = _redis . _preped_text
