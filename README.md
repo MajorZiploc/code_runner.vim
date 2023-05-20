@@ -1,12 +1,15 @@
 # code_runner.vim
 
-Run selected chunks of code or whole files. Can run locally or within docker or k8s containers
+A vim/neovim plugin to run selected chunks of code or whole files. Can run locally or within docker or k8s containers
 
 Use cases:
 - light weight database client by executing chunks of code and respecting db env vars
 - execute tagged code blocks in markdown files
 - execute chunks of code or whole files for script langages
 
+## Supported editors
+- vim
+- neovim
 
 ## Supported Runners (in order of runner search)
 
