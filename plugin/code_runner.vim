@@ -57,7 +57,7 @@ function _VimCodeRunnerRunSqlite(selected_text, is_in_container)
   let _command_prepend = ''
   let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _sqlite = 'sqlite3 ' . $SQLITEDBFILE . ' -separator "," -header ' . "-cmd '" . _preped_text . "' < $(echo '.exit')"
+  let _sqlite = 'sqlite3 ' . $SQLITEDBFILE . ' -separator "," -header ' . "-cmd '" . _preped_text . "' .quit"
   let _command = _sqlite
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
@@ -358,7 +358,7 @@ function! _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text
     let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, shebang_lang_pass)
   elseif (file_ext == 'redis' || run_type == 'redis' || markdown_tag == 'redis' || run_type == 'redis-cli')
     let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container)
-  if (file_ext == 'sqlite' || run_type == 'sqlite' || markdown_tag == 'sqlite' || run_type == 'sqlite3')
+  elseif (file_ext == 'sqlite' || run_type == 'sqlite' || markdown_tag == 'sqlite' || run_type == 'sqlite3')
     let case_values = _VimCodeRunnerRunSqlite(selected_text, is_in_container)
   elseif (file_ext == 'mongodb' || run_type == 'mongodb' || markdown_tag == 'mongodb' || run_type == 'mongo')
     let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container)
