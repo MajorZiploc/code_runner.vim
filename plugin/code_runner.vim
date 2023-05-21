@@ -5,12 +5,13 @@ let g:vim_code_runner_debug_label = "DEBUG-> "
 command! VimCodeRunnerScratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
 
 function _VimCodeRunnerRunPsql(selected_text, is_in_container)
+  let run_path = "pgsql"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo "No selected_text stored in the t register! run_type: 'pgsql' does not support this"
     echohl None
-    return []
+    return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
   let _file_type = 'log'
@@ -41,16 +42,17 @@ function _VimCodeRunnerRunPsql(selected_text, is_in_container)
     let _command = _psql . "-c '" . _preped_text . "'"
   endif
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
 function _VimCodeRunnerRunMssql(selected_text, is_in_container)
+  let run_path = "mssql"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo "No selected_text stored in the t register! run_type: 'mssql' does not support this"
     echohl None
-    return []
+    return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
   let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
@@ -62,16 +64,17 @@ function _VimCodeRunnerRunMssql(selected_text, is_in_container)
     let _command = _mssql . " -S '" . $SQLCMDSERVER . "," . $SQLCMDPORT . "'"
   endif
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
 function _VimCodeRunnerRunMysql(selected_text, is_in_container)
+  let run_path = "mysql"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo "No selected_text stored in the t register! run_type: 'mysql' does not support this"
     echohl None
-    return []
+    return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
   let _file_type = 'log'
@@ -83,16 +86,17 @@ function _VimCodeRunnerRunMysql(selected_text, is_in_container)
     let _command = _mysql . " --host='" . $MYSQLHOST . "'" . " --port='" . $MYSQLPORT . "'"
   endif
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
 function _VimCodeRunnerRunMongoDb(selected_text, is_in_container)
+  let run_path = "mongodb"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo "No selected_text stored in the t register! run_type: 'mongodb' does not support this"
     echohl None
-    return []
+    return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
   let _file_type = 'log'
@@ -104,16 +108,17 @@ function _VimCodeRunnerRunMongoDb(selected_text, is_in_container)
     let _command = _mongo . " --host '" . $MONGODBHOST . "/" . $MONGODBDATABASE . "'" . " --port '" . $MONGODBPORT . "'"
   endif
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
 function _VimCodeRunnerRunRedis(selected_text, is_in_container)
+  let run_path = "redis"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo "No selected_text stored in the t register! run_type: 'redis' does not support this"
     echohl None
-    return []
+    return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
   let _file_type = 'log'
@@ -125,10 +130,11 @@ function _VimCodeRunnerRunRedis(selected_text, is_in_container)
     let _command = _redis . "-h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "' " . _preped_text
   endif
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
 function _VimCodeRunnerRunPython(selected_text, is_in_container)
+  let run_path = "python"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -139,10 +145,11 @@ function _VimCodeRunnerRunPython(selected_text, is_in_container)
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "python -c '" . _preped_text . "'"
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
 function _VimCodeRunnerRunJavascript(selected_text, is_in_container)
+  let run_path = "javascript"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -153,10 +160,11 @@ function _VimCodeRunnerRunJavascript(selected_text, is_in_container)
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "node -e '" . _preped_text . "'"
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
 function _VimCodeRunnerRunTypescript(selected_text, is_in_container)
+  let run_path = "typescript"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -167,10 +175,11 @@ function _VimCodeRunnerRunTypescript(selected_text, is_in_container)
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "ts-node -e '" . _preped_text . "'"
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
 function _VimCodeRunnerRunPhp(selected_text, is_in_container)
+  let run_path = "php"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -187,10 +196,11 @@ function _VimCodeRunnerRunPhp(selected_text, is_in_container)
   endif
   let _command = "php -r '" . _preped_text . "'"
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
 function _VimCodeRunnerRunRuby(selected_text, is_in_container)
+  let run_path = "ruby"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -201,10 +211,11 @@ function _VimCodeRunnerRunRuby(selected_text, is_in_container)
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "ruby -e '" . _preped_text . "'"
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
 function _VimCodeRunnerRunPerl(selected_text, is_in_container)
+  let run_path = "perl"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -215,10 +226,11 @@ function _VimCodeRunnerRunPerl(selected_text, is_in_container)
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "perl -e '" . _preped_text . "'"
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
 function _VimCodeRunnerRunZsh(selected_text, is_in_container)
+  let run_path = "zsh"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -229,10 +241,11 @@ function _VimCodeRunnerRunZsh(selected_text, is_in_container)
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "zsh -c '" . _preped_text . "'"
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
 function _VimCodeRunnerRunBash(selected_text, is_in_container)
+  let run_path = "bash"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -243,40 +256,48 @@ function _VimCodeRunnerRunBash(selected_text, is_in_container)
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "bash -c '" . _preped_text . "'"
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunSh(selected_text, is_in_container)
+function _VimCodeRunnerRunSh(selected_text, is_in_container, shebang_lang_pass)
+  let run_path = "sh"
   let raw_text = a:selected_text
-  if (trim(raw_text) == '')
+  let shebang_lang_pass = get(a:, 'shebang_lang_pass', 'false')
+  let is_in_container = get(a:, 'is_in_container', 'false')
+  if (shebang_lang_pass != 'true' && trim(raw_text) == '')
     execute 'normal! ggVG"ty'
     let raw_text = @t
   endif
-  let shebang_lang_pattern = '^#![^\n]*[/ ]\v(\w+)(.*)'
-  let shebang_lang = substitute(raw_text, shebang_lang_pattern, '\=submatch(1)', '')
-  let found_matching_runner = 'false'
-  if (shebang_lang != '')
-    let selected_text_override = substitute(raw_text, shebang_lang_pattern, '\=submatch(2)', '')
-    if (selected_text_override != '')
-      if (g:vim_code_runner_debug)
-        echo g:vim_code_runner_debug_label "trying to run with shebang_lang: " shebang_lang
+  let does_begin_with_shebang = match(raw_text, '^#!')
+  if (does_begin_with_shebang >= 0)
+    let shebang_lang_pattern = '^#![^\n]*[/ ]\v(\w+)(.*)'
+    let shebang_lang = substitute(raw_text, shebang_lang_pattern, '\=submatch(1)', '')
+    if (shebang_lang != '')
+      let selected_text_override = substitute(raw_text, shebang_lang_pattern, '\=submatch(2)', '')
+      if (selected_text_override != '')
+        if (g:vim_code_runner_debug)
+          echo g:vim_code_runner_debug_label "trying to run with shebang_lang: " shebang_lang
+        endif
+        let shebang_lang_pass = 'true'
+        let file_ext = ''
+        let run_type = shebang_lang
+        let markdown_tag = ''
+        let case_values = _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text_override, is_in_container, shebang_lang_pass)
+        return case_values
       endif
-      let shebang_lang_pass = 'true'
-      let found_matching_runner = VimCodeRunnerRun(shebang_lang, g:vim_code_runner_debug, shebang_lang_pass, selected_text_override)
     endif
+  else
+    let _command_prepend = ''
+    let _file_type = 'log'
+    let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+    let _command = "sh -c '" . _preped_text . "'"
+    let _should_bottom_split = 1
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
   endif
-  if (found_matching_runner == 'true')
-    return ['', '', '', '', l:found_matching_runner]
-  endif
-  let _command_prepend = ''
-  let _file_type = 'log'
-  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _command = "sh -c '" . _preped_text . "'"
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:found_matching_runner]
 endfunction
 
 function _VimCodeRunnerRunBat(selected_text, is_in_container)
+  let run_path = "bat"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -287,10 +308,11 @@ function _VimCodeRunnerRunBat(selected_text, is_in_container)
   let _preped_text = raw_text
   let _command = 'cmd /C "' . _preped_text . '"'
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
 function _VimCodeRunnerRunPwsh(selected_text, is_in_container)
+  let run_path = "powershell"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     execute 'normal! ggVG"ty'
@@ -301,26 +323,66 @@ function _VimCodeRunnerRunPwsh(selected_text, is_in_container)
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "pwsh -command '" . _preped_text . "'"
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+endfunction
+
+function! _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container, shebang_lang_pass)
+  let file_ext = a:file_ext
+  let run_type = a:run_type
+  let markdown_tag = a:markdown_tag
+  let selected_text = a:selected_text
+  let is_in_container = a:is_in_container
+  let shebang_lang_pass = a:shebang_lang_pass
+  " check file_extension
+  if (file_ext == 'pgsql' || run_type == 'pgsql' || markdown_tag == 'pgsql' || file_ext == 'psql' || run_type == 'psql' || markdown_tag == 'psql')
+    let case_values = _VimCodeRunnerRunPsql(selected_text, is_in_container)
+  elseif (file_ext == 'redis' || run_type == 'redis' || markdown_tag == 'redis' || run_type == 'redis-cli')
+    let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container)
+  elseif (file_ext == 'mongodb' || run_type == 'mongodb' || markdown_tag == 'mongodb' || run_type == 'mongo')
+    let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container)
+  elseif (file_ext == 'mssql' || run_type == 'mssql' || markdown_tag == 'mssql' || run_type == 'sqlcmd')
+    let case_values = _VimCodeRunnerRunMssql(selected_text, is_in_container)
+  elseif (file_ext == 'mysql' || run_type == 'mysql' || markdown_tag == 'mysql')
+    let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container)
+  elseif (file_ext == 'zsh' || run_type == 'zsh' || markdown_tag == 'zsh')
+    let case_values = _VimCodeRunnerRunZsh(selected_text, is_in_container)
+  elseif (file_ext == 'bash' || run_type == 'bash' || markdown_tag == 'bash')
+    let case_values = _VimCodeRunnerRunBash(selected_text, is_in_container)
+  elseif (file_ext == 'bat' || run_type == 'bat' || markdown_tag == 'bat' || run_type == 'cmd')
+    let case_values = _VimCodeRunnerRunBat(selected_text, is_in_container)
+  elseif (&filetype == 'python' || run_type == 'python' || markdown_tag == 'python')
+    let case_values = _VimCodeRunnerRunPython(selected_text, is_in_container)
+  elseif (&filetype == 'javascript' || run_type == 'javascript' || markdown_tag == 'javascript' || run_type == 'node')
+    let case_values = _VimCodeRunnerRunJavascript(selected_text, is_in_container)
+  elseif (&filetype == 'typescript' || run_type == 'typescript' || markdown_tag == 'typescript' || run_type == 'ts-node')
+    let case_values = _VimCodeRunnerRunTypescript(selected_text, is_in_container)
+  elseif (&filetype == 'php' || run_type == 'php' || markdown_tag == 'php')
+    let case_values = _VimCodeRunnerRunPhp(selected_text, is_in_container)
+  elseif (&filetype == 'ruby' || run_type == 'ruby' || markdown_tag == 'ruby')
+    let case_values = _VimCodeRunnerRunRuby(selected_text, is_in_container)
+  elseif (&filetype == 'perl' || run_type == 'perl' || markdown_tag == 'perl')
+    let case_values = _VimCodeRunnerRunPerl(selected_text, is_in_container)
+  elseif (&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'shell')
+    let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, shebang_lang_pass)
+  elseif (&filetype == 'ps1' || run_type == 'powershell' || markdown_tag == 'powershell' || run_type == 'pwsh')
+    let case_values = _VimCodeRunnerRunPwsh(selected_text, is_in_container)
+  else
+    let case_values = []
+  endif
+  return case_values
 endfunction
 
 function! VimCodeRunnerRun(...)
   let run_type = get(a:, 1, '')
   let debug = get(a:, 2, 'false')
-  let shebang_lang_pass = get(a:, 3, 'false')
-  let selected_text_override = get(a:, 4, '')
+  let shebang_lang_pass = 'false'
   let g:vim_code_runner_debug = debug
   let _default_file_type = "text"
   " assumes the selected text will be yanked into the t register prior to VimCodeRunnerRun
-  if (selected_text_override == '')
-    let selected_text = @t
-  else
-    let selected_text = selected_text_override
-  endif
+  let selected_text = @t
   if (g:vim_code_runner_debug == 'true')
     echo g:vim_code_runner_debug_label "selected_text: " selected_text
   endif
-  let case_values = []
   let is_in_container = !empty(get(g:, 'container_name', "")) && trim(g:container_name) != ''
   let _should_bottom_split = 0
   let markdown_tag = ''
@@ -333,73 +395,18 @@ function! VimCodeRunnerRun(...)
     endif
   endif
   let file_ext = expand('%:e')
-  let found_matching_runner = 'true'
-  " check file_extension
-  if (file_ext == 'pgsql' || run_type == 'pgsql' || markdown_tag == 'pgsql' || file_ext == 'psql' || run_type == 'psql' || markdown_tag == 'psql')
-    let run_path = "pgsql"
-    let case_values = _VimCodeRunnerRunPsql(selected_text, is_in_container)
-  elseif (file_ext == 'redis' || run_type == 'redis' || markdown_tag == 'redis' || run_type == 'redis-cli')
-    let run_path = "redis"
-    let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container)
-  elseif (file_ext == 'mongodb' || run_type == 'mongodb' || markdown_tag == 'mongodb' || run_type == 'mongo')
-    let run_path = "mongodb"
-    let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container)
-  elseif (file_ext == 'mssql' || run_type == 'mssql' || markdown_tag == 'mssql' || run_type == 'sqlcmd')
-    let run_path = "mssql"
-    let case_values = _VimCodeRunnerRunMssql(selected_text, is_in_container)
-  elseif (file_ext == 'mysql' || run_type == 'mysql' || markdown_tag == 'mysql')
-    let run_path = "mysql"
-    let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container)
-  elseif (file_ext == 'zsh' || run_type == 'zsh' || markdown_tag == 'zsh')
-    let run_path = "zsh"
-    let case_values = _VimCodeRunnerRunZsh(selected_text, is_in_container)
-  elseif (file_ext == 'bash' || run_type == 'bash' || markdown_tag == 'bash')
-    let run_path = "bash"
-    let case_values = _VimCodeRunnerRunBash(selected_text, is_in_container)
-  elseif (file_ext == 'bat' || run_type == 'bat' || markdown_tag == 'bat' || run_type == 'cmd')
-    let run_path = "bat"
-    let case_values = _VimCodeRunnerRunBat(selected_text, is_in_container)
-  elseif (&filetype == 'python' || run_type == 'python' || markdown_tag == 'python')
-    let run_path = "python"
-    let case_values = _VimCodeRunnerRunPython(selected_text, is_in_container)
-  elseif (&filetype == 'javascript' || run_type == 'javascript' || markdown_tag == 'javascript' || run_type == 'node')
-    let run_path = "javascript"
-    let case_values = _VimCodeRunnerRunJavascript(selected_text, is_in_container)
-  elseif (&filetype == 'typescript' || run_type == 'typescript' || markdown_tag == 'typescript' || run_type == 'ts-node')
-    let run_path = "typescript"
-    let case_values = _VimCodeRunnerRunTypescript(selected_text, is_in_container)
-  elseif (&filetype == 'php' || run_type == 'php' || markdown_tag == 'php')
-    let run_path = "php"
-    let case_values = _VimCodeRunnerRunPhp(selected_text, is_in_container)
-  elseif (&filetype == 'ruby' || run_type == 'ruby' || markdown_tag == 'ruby')
-    let run_path = "ruby"
-    let case_values = _VimCodeRunnerRunRuby(selected_text, is_in_container)
-  elseif (&filetype == 'perl' || run_type == 'perl' || markdown_tag == 'perl')
-    let run_path = "perl"
-    let case_values = _VimCodeRunnerRunPerl(selected_text, is_in_container)
-  elseif (&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'shell')
-    let run_path = "sh"
-    let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container)
-    let found_matching_runner = get(case_values, 4, 'false')
-    if (found_matching_runner == 'true')
-      return
-    endif
-  elseif (&filetype == 'ps1' || run_type == 'powershell' || markdown_tag == 'powershell' || run_type == 'pwsh')
-    let run_path = "powershell"
-    let case_values = _VimCodeRunnerRunPwsh(selected_text, is_in_container)
-  else
-    let found_matching_runner = 'false'
-    if (shebang_lang_pass == 'true')
-      return found_matching_runner
-    endif
-    echohl WarningMsg
-    echo "No matching run_path!"
-    echohl None
-  endif
+  let case_values = _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container, shebang_lang_pass)
   let _command = get(case_values, 0, '')
   let _should_bottom_split = get(case_values, 1, 0)
   let _command_prepend = get(case_values, 2, '')
   let _file_type = get(case_values, 3, _default_file_type)
+  let run_path = get(case_values, 4, '')
+  if (run_path == '')
+    echohl WarningMsg
+    echo "No matching run_path!"
+    echohl None
+    return
+  endif
   let _base_command = _command
   if (is_in_container)
     let container_type = get(g:, 'container_type', 'docker')
