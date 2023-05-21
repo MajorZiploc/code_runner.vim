@@ -38,103 +38,103 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   <tr>
     <td>sh</td>
     <td>sh</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'sh') || (run_type == '' && (file_ext == 'sh' || markdown_tag == 'shell'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'sh') || (run_type == '' && (file_ext == 'sh' || markdown_tag == 'shell'))</td>
   </tr>
 
   <tr>
     <td>pgsql</td>
     <td>psql</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'pgsql', 'psql') || (run_type == '' && (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(file_ext, 'pgsql', 'psql') || markdown_tag == 'pgsql' || markdown_tag == 'psql'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'pgsql', 'psql') || (run_type == '' && (_VCR_IsActualTypeOneOfTheExpectedTypes(file_ext, 'pgsql', 'psql') || markdown_tag == 'pgsql' || markdown_tag == 'psql'))</td>
   </tr>
 
   <tr>
     <td>redis</td>
     <td>redis-cli</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'redis', 'redis-cli') || (run_type == '' && (file_ext == 'redis' || markdown_tag == 'redis'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'redis', 'redis-cli') || (run_type == '' && (file_ext == 'redis' || markdown_tag == 'redis'))</td>
   </tr>
 
   <tr>
     <td>sqlite</td>
     <td>sqlite3</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'sqlite', 'sqlite3') || (run_type == '' && (file_ext == 'sqlite' || markdown_tag == 'sqlite'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'sqlite', 'sqlite3') || (run_type == '' && (file_ext == 'sqlite' || markdown_tag == 'sqlite'))</td>
   </tr>
 
   <tr>
     <td>mongodb**(EXPERIMENTAL/UNTESTED)**</td>
     <td>mongodb</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'mongodb', 'mongo') || (run_type == '' && (file_ext == 'mongodb' || markdown_tag == 'mongodb'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'mongodb', 'mongo') || (run_type == '' && (file_ext == 'mongodb' || markdown_tag == 'mongodb'))</td>
   </tr>
 
   <tr>
     <td>mssql**(EXPERIMENTAL/UNTESTED)**</td>
     <td>sqlcmd</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'mssql', 'sqlcmd') || (run_type == '' && (file_ext == 'mssql' || markdown_tag == 'mssql'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'mssql', 'sqlcmd') || (run_type == '' && (file_ext == 'mssql' || markdown_tag == 'mssql'))</td>
   </tr>
 
   <tr>
     <td>mysql**(EXPERIMENTAL/UNTESTED)**</td>
     <td>mysql</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'mysql') || (run_type == '' && (file_ext == 'mysql' || markdown_tag == 'mysql'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'mysql') || (run_type == '' && (file_ext == 'mysql' || markdown_tag == 'mysql'))</td>
   </tr>
 
   <tr>
     <td>zsh</td>
     <td>zsh</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'zsh') || (run_type == '' && (file_ext == 'zsh' ||  markdown_tag == 'zsh'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'zsh') || (run_type == '' && (file_ext == 'zsh' ||  markdown_tag == 'zsh'))</td>
   </tr>
 
   <tr>
     <td>bash</td>
     <td>bash</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'bash') || (run_type == '' && (file_ext == 'bash' || markdown_tag == 'bash'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'bash') || (run_type == '' && (file_ext == 'bash' || markdown_tag == 'bash'))</td>
   </tr>
 
   <tr>
     <td>cmd</td>
     <td>bat</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'cmd', 'bat') || (run_type == '' && (file_ext == 'bat' || markdown_tag == 'bat'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'cmd', 'bat') || (run_type == '' && (file_ext == 'bat' || markdown_tag == 'bat'))</td>
   </tr>
 
   <tr>
     <td>python</td>
     <td>python</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'python') || (run_type == '' && (&filetype == 'python' || markdown_tag == 'python'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'python') || (run_type == '' && (&filetype == 'python' || markdown_tag == 'python'))</td>
   </tr>
 
   <tr>
     <td>javascript</td>
     <td>node</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'javascript', 'node') || (run_type == '' && (&filetype == 'javascript' || markdown_tag == 'javascript'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'javascript', 'node') || (run_type == '' && (&filetype == 'javascript' || markdown_tag == 'javascript'))</td>
   </tr>
 
   <tr>
     <td>typescript</td>
     <td>ts-node</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'typescript', 'ts-node') || (run_type == '' && (&filetype == 'typescript' || markdown_tag == 'typescript'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'typescript', 'ts-node') || (run_type == '' && (&filetype == 'typescript' || markdown_tag == 'typescript'))</td>
   </tr>
 
   <tr>
     <td>php</td>
     <td>php</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'php') || (run_type == '' && (&filetype == 'php' || markdown_tag == 'php'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'php') || (run_type == '' && (&filetype == 'php' || markdown_tag == 'php'))</td>
   </tr>
 
   <tr>
     <td>ruby</td>
     <td>ruby</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'ruby') || (run_type == '' && (&filetype == 'ruby' || markdown_tag == 'ruby'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'ruby') || (run_type == '' && (&filetype == 'ruby' || markdown_tag == 'ruby'))</td>
   </tr>
 
   <tr>
     <td>perl</td>
     <td>perl</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'perl') || (run_type == '' && (&filetype == 'perl' || markdown_tag == 'perl'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'perl') || (run_type == '' && (&filetype == 'perl' || markdown_tag == 'perl'))</td>
   </tr>
 
   <tr>
     <td>powershell</td>
     <td>pwsh</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'powershell', 'pwsh') || (run_type == '' && (&filetype == 'ps1' || markdown_tag == 'powershell'))</td>
+    <td>_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'powershell', 'pwsh') || (run_type == '' && (&filetype == 'ps1' || markdown_tag == 'powershell'))</td>
   </tr>
 
 </table>

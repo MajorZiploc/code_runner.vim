@@ -4,7 +4,7 @@ let g:vim_code_runner_debug_label = "DEBUG-> "
 
 command! VimCodeRunnerScratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
 
-function _VimCodeRunnerRunPsql(selected_text, is_in_container)
+function _VCR_RunPsql(selected_text, is_in_container)
   let run_path = "pgsql"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -45,7 +45,7 @@ function _VimCodeRunnerRunPsql(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunSqlite(selected_text, is_in_container)
+function _VCR_RunSqlite(selected_text, is_in_container)
   let run_path = "sqlite"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -70,7 +70,7 @@ function _VimCodeRunnerRunSqlite(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunMssql(selected_text, is_in_container)
+function _VCR_RunMssql(selected_text, is_in_container)
   let run_path = "mssql"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -92,7 +92,7 @@ function _VimCodeRunnerRunMssql(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunMysql(selected_text, is_in_container)
+function _VCR_RunMysql(selected_text, is_in_container)
   let run_path = "mysql"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -114,7 +114,7 @@ function _VimCodeRunnerRunMysql(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunMongoDb(selected_text, is_in_container)
+function _VCR_RunMongoDb(selected_text, is_in_container)
   let run_path = "mongodb"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -136,7 +136,7 @@ function _VimCodeRunnerRunMongoDb(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunRedis(selected_text, is_in_container)
+function _VCR_RunRedis(selected_text, is_in_container)
   let run_path = "redis"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -158,7 +158,7 @@ function _VimCodeRunnerRunRedis(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunPython(selected_text, is_in_container)
+function _VCR_RunPython(selected_text, is_in_container)
   let run_path = "python"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -173,7 +173,7 @@ function _VimCodeRunnerRunPython(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunJavascript(selected_text, is_in_container)
+function _VCR_RunJavascript(selected_text, is_in_container)
   let run_path = "javascript"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -188,7 +188,7 @@ function _VimCodeRunnerRunJavascript(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunTypescript(selected_text, is_in_container)
+function _VCR_RunTypescript(selected_text, is_in_container)
   let run_path = "typescript"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -203,7 +203,7 @@ function _VimCodeRunnerRunTypescript(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunPhp(selected_text, is_in_container)
+function _VCR_RunPhp(selected_text, is_in_container)
   let run_path = "php"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -224,7 +224,7 @@ function _VimCodeRunnerRunPhp(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunRuby(selected_text, is_in_container)
+function _VCR_RunRuby(selected_text, is_in_container)
   let run_path = "ruby"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -239,7 +239,7 @@ function _VimCodeRunnerRunRuby(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunPerl(selected_text, is_in_container)
+function _VCR_RunPerl(selected_text, is_in_container)
   let run_path = "perl"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -254,7 +254,7 @@ function _VimCodeRunnerRunPerl(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunZsh(selected_text, is_in_container)
+function _VCR_RunZsh(selected_text, is_in_container)
   let run_path = "zsh"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -269,7 +269,7 @@ function _VimCodeRunnerRunZsh(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunBash(selected_text, is_in_container)
+function _VCR_RunBash(selected_text, is_in_container)
   let run_path = "bash"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -284,7 +284,7 @@ function _VimCodeRunnerRunBash(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunSh(selected_text, is_in_container, shebang_lang_pass)
+function _VCR_RunSh(selected_text, is_in_container, shebang_lang_pass)
   let run_path = "sh"
   let raw_text = a:selected_text
   let shebang_lang_pass = get(a:, 'shebang_lang_pass', 'false')
@@ -307,7 +307,7 @@ function _VimCodeRunnerRunSh(selected_text, is_in_container, shebang_lang_pass)
         let file_ext = ''
         let run_type = shebang_lang
         let markdown_tag = ''
-        let case_values = _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text_override, is_in_container, shebang_lang_pass)
+        let case_values = _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text_override, is_in_container, shebang_lang_pass)
         return case_values
       endif
     endif
@@ -321,7 +321,7 @@ function _VimCodeRunnerRunSh(selected_text, is_in_container, shebang_lang_pass)
   endif
 endfunction
 
-function _VimCodeRunnerRunBat(selected_text, is_in_container)
+function _VCR_RunBat(selected_text, is_in_container)
   let run_path = "bat"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -336,7 +336,7 @@ function _VimCodeRunnerRunBat(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VimCodeRunnerRunPwsh(selected_text, is_in_container)
+function _VCR_RunPwsh(selected_text, is_in_container)
   let run_path = "powershell"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -351,7 +351,7 @@ function _VimCodeRunnerRunPwsh(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function! _VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(actual_run_type, ...)
+function! _VCR_IsActualTypeOneOfTheExpectedTypes(actual_run_type, ...)
   for expected_run_type in a:000
     if (a:actual_run_type == expected_run_type)
       return 1
@@ -360,7 +360,7 @@ function! _VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(actual_run_type, ...)
   return 0
 endfunction
 
-function! _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container, shebang_lang_pass)
+function! _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container, shebang_lang_pass)
   let file_ext = a:file_ext
   let run_type = a:run_type
   let markdown_tag = a:markdown_tag
@@ -368,40 +368,40 @@ function! _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text
   let is_in_container = a:is_in_container
   let shebang_lang_pass = a:shebang_lang_pass
   " check file_extension
-  if (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'sh') || (run_type == '' && (file_ext == 'sh' || markdown_tag == 'shell')))
-    let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, shebang_lang_pass)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'pgsql', 'psql') || (run_type == '' && (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(file_ext, 'pgsql', 'psql') || markdown_tag == 'pgsql' || markdown_tag == 'psql')))
-    let case_values = _VimCodeRunnerRunPsql(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'redis', 'redis-cli') || (run_type == '' && (file_ext == 'redis' || markdown_tag == 'redis')))
-    let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'sqlite', 'sqlite3') || (run_type == '' && (file_ext == 'sqlite' || markdown_tag == 'sqlite')))
-    let case_values = _VimCodeRunnerRunSqlite(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'mongodb', 'mongo') || (run_type == '' && (file_ext == 'mongodb' || markdown_tag == 'mongodb')))
-    let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'mssql', 'sqlcmd') || (run_type == '' && (file_ext == 'mssql' || markdown_tag == 'mssql')))
-    let case_values = _VimCodeRunnerRunMssql(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'mysql') || (run_type == '' && (file_ext == 'mysql' || markdown_tag == 'mysql')))
-    let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'zsh') || (run_type == '' && (file_ext == 'zsh' ||  markdown_tag == 'zsh')))
-    let case_values = _VimCodeRunnerRunZsh(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'bash') || (run_type == '' && (file_ext == 'bash' || markdown_tag == 'bash')))
-    let case_values = _VimCodeRunnerRunBash(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'cmd', 'bat') || (run_type == '' && (file_ext == 'bat' || markdown_tag == 'bat')))
-    let case_values = _VimCodeRunnerRunBat(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'python') || (run_type == '' && (&filetype == 'python' || markdown_tag == 'python')))
-    let case_values = _VimCodeRunnerRunPython(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'javascript', 'node') || (run_type == '' && (&filetype == 'javascript' || markdown_tag == 'javascript')))
-    let case_values = _VimCodeRunnerRunJavascript(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'typescript', 'ts-node') || (run_type == '' && (&filetype == 'typescript' || markdown_tag == 'typescript')))
-    let case_values = _VimCodeRunnerRunTypescript(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'php') || (run_type == '' && (&filetype == 'php' || markdown_tag == 'php')))
-    let case_values = _VimCodeRunnerRunPhp(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'ruby') || (run_type == '' && (&filetype == 'ruby' || markdown_tag == 'ruby')))
-    let case_values = _VimCodeRunnerRunRuby(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'perl') || (run_type == '' && (&filetype == 'perl' || markdown_tag == 'perl')))
-    let case_values = _VimCodeRunnerRunPerl(selected_text, is_in_container)
-  elseif (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'powershell', 'pwsh') || (run_type == '' && (&filetype == 'ps1' || markdown_tag == 'powershell')))
-    let case_values = _VimCodeRunnerRunPwsh(selected_text, is_in_container)
+  if (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'sh') || (run_type == '' && (file_ext == 'sh' || markdown_tag == 'shell')))
+    let case_values = _VCR_RunSh(selected_text, is_in_container, shebang_lang_pass)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'pgsql', 'psql') || (run_type == '' && (_VCR_IsActualTypeOneOfTheExpectedTypes(file_ext, 'pgsql', 'psql') || markdown_tag == 'pgsql' || markdown_tag == 'psql')))
+    let case_values = _VCR_RunPsql(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'redis', 'redis-cli') || (run_type == '' && (file_ext == 'redis' || markdown_tag == 'redis')))
+    let case_values = _VCR_RunRedis(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'sqlite', 'sqlite3') || (run_type == '' && (file_ext == 'sqlite' || markdown_tag == 'sqlite')))
+    let case_values = _VCR_RunSqlite(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'mongodb', 'mongo') || (run_type == '' && (file_ext == 'mongodb' || markdown_tag == 'mongodb')))
+    let case_values = _VCR_RunMongoDb(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'mssql', 'sqlcmd') || (run_type == '' && (file_ext == 'mssql' || markdown_tag == 'mssql')))
+    let case_values = _VCR_RunMssql(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'mysql') || (run_type == '' && (file_ext == 'mysql' || markdown_tag == 'mysql')))
+    let case_values = _VCR_RunMysql(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'zsh') || (run_type == '' && (file_ext == 'zsh' ||  markdown_tag == 'zsh')))
+    let case_values = _VCR_RunZsh(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'bash') || (run_type == '' && (file_ext == 'bash' || markdown_tag == 'bash')))
+    let case_values = _VCR_RunBash(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'cmd', 'bat') || (run_type == '' && (file_ext == 'bat' || markdown_tag == 'bat')))
+    let case_values = _VCR_RunBat(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'python') || (run_type == '' && (&filetype == 'python' || markdown_tag == 'python')))
+    let case_values = _VCR_RunPython(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'javascript', 'node') || (run_type == '' && (&filetype == 'javascript' || markdown_tag == 'javascript')))
+    let case_values = _VCR_RunJavascript(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'typescript', 'ts-node') || (run_type == '' && (&filetype == 'typescript' || markdown_tag == 'typescript')))
+    let case_values = _VCR_RunTypescript(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'php') || (run_type == '' && (&filetype == 'php' || markdown_tag == 'php')))
+    let case_values = _VCR_RunPhp(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'ruby') || (run_type == '' && (&filetype == 'ruby' || markdown_tag == 'ruby')))
+    let case_values = _VCR_RunRuby(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'perl') || (run_type == '' && (&filetype == 'perl' || markdown_tag == 'perl')))
+    let case_values = _VCR_RunPerl(selected_text, is_in_container)
+  elseif (_VCR_IsActualTypeOneOfTheExpectedTypes(run_type, 'powershell', 'pwsh') || (run_type == '' && (&filetype == 'ps1' || markdown_tag == 'powershell')))
+    let case_values = _VCR_RunPwsh(selected_text, is_in_container)
   else
     let case_values = []
   endif
@@ -431,7 +431,7 @@ function! VimCodeRunnerRun(...)
     endif
   endif
   let file_ext = expand('%:e')
-  let case_values = _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container, shebang_lang_pass)
+  let case_values = _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container, shebang_lang_pass)
   let _command = get(case_values, 0, '')
   let _should_bottom_split = get(case_values, 1, 0)
   let _command_prepend = get(case_values, 2, '')
