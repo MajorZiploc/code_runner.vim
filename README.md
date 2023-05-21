@@ -42,6 +42,12 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   </tr>
 
   <tr>
+    <td>sh</td>
+    <td>sh</td>
+    <td>&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'shell'</td>
+  </tr>
+
+  <tr>
     <td>redis</td>
     <td>redis-cli</td>
     <td>file_ext == 'redis' || run_type == 'redis' || markdown_tag == 'redis' || run_type == 'redis-cli'</td>
@@ -117,12 +123,6 @@ If your `.sh` file starts with a shebang to use a different command and you sele
     <td>perl</td>
     <td>perl</td>
     <td>&filetype == 'perl' || run_type == 'perl' || markdown_tag == 'perl'</td>
-  </tr>
-
-  <tr>
-    <td>sh</td>
-    <td>sh</td>
-    <td>&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'shell'</td>
   </tr>
 
   <tr>
