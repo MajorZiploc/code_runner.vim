@@ -177,8 +177,6 @@ let $PGPASSWORD="password" |
 
 #### sqlite
 
-`let vim_code_runner_sql_as_csv='false' |` is not supported
-
 `let use_runner_options_in_container='false' |` is not supported
 
 ```vim

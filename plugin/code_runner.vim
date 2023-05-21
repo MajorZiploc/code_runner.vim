@@ -55,9 +55,16 @@ function _VimCodeRunnerRunSqlite(selected_text, is_in_container)
     return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
-  let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
+  let _file_type = 'log'
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _sqlite = 'sqlite3 ' . $SQLITEDBFILE . ' -separator "," -header ' . "-cmd '" . _preped_text . "' .quit"
+  let _sqlite = 'sqlite3 ' . $SQLITEDBFILE
+  if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
+    let _sqlite = _sqlite . ' -separator ","'
+    let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
+  else
+    let _sqlite = _sqlite . ' -column'
+  endif
+  let _sqlite = _sqlite . ' -header ' . "-cmd '" . _preped_text . "' .quit"
   let _command = _sqlite
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
