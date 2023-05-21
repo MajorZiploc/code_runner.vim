@@ -358,6 +358,8 @@ function! _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text
     let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, shebang_lang_pass)
   elseif (file_ext == 'redis' || run_type == 'redis' || markdown_tag == 'redis' || run_type == 'redis-cli')
     let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container)
+  if (file_ext == 'sqlite' || run_type == 'sqlite' || markdown_tag == 'sqlite' || run_type == 'sqlite3')
+    let case_values = _VimCodeRunnerRunSqlite(selected_text, is_in_container)
   elseif (file_ext == 'mongodb' || run_type == 'mongodb' || markdown_tag == 'mongodb' || run_type == 'mongo')
     let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container)
   elseif (file_ext == 'mssql' || run_type == 'mssql' || markdown_tag == 'mssql' || run_type == 'sqlcmd')
