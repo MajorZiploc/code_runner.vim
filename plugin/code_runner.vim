@@ -351,9 +351,9 @@ function _VCR_RunPwsh(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function! _VCR_IsActualTypeOneOfTheExpectedTypes(actual_run_type, ...)
-  for expected_run_type in a:000
-    if (a:actual_run_type == expected_run_type)
+function! _VCR_IsActualTypeOneOfTheExpectedTypes(actual_label, ...)
+  for expected_label in a:000
+    if (a:actual_label == expected_label)
       return 1
     endif
   endfor
