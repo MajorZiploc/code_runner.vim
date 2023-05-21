@@ -38,103 +38,103 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   <tr>
     <td>sh</td>
     <td>sh</td>
-    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'sh') || run_type == '') && (file_ext == 'sh' || markdown_tag == 'shell'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'sh') || (run_type == '' && (file_ext == 'sh' || markdown_tag == 'shell'))</td>
   </tr>
 
   <tr>
     <td>pgsql</td>
     <td>psql</td>
-    <td>file_ext == 'pgsql' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'pgsql', 'psql') || markdown_tag == 'pgsql' || file_ext == 'psql' || markdown_tag == 'psql'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'pgsql', 'psql') || (run_type == '' && (file_ext == 'pgsql' || markdown_tag == 'pgsql' || file_ext == 'psql' || markdown_tag == 'psql'))</td>
   </tr>
 
   <tr>
     <td>redis</td>
     <td>redis-cli</td>
-    <td>file_ext == 'redis' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'redis', 'redis-cli') || markdown_tag == 'redis'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'redis', 'redis-cli') || (run_type == '' && (file_ext == 'redis' || markdown_tag == 'redis'))</td>
   </tr>
 
   <tr>
     <td>sqlite</td>
     <td>sqlite3</td>
-    <td>file_ext == 'sqlite' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'sqlite', 'sqlite3') || markdown_tag == 'sqlite'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'sqlite', 'sqlite3') || (run_type == '' && (file_ext == 'sqlite' || markdown_tag == 'sqlite'))</td>
   </tr>
 
   <tr>
     <td>mongodb**(EXPERIMENTAL/UNTESTED)**</td>
     <td>mongodb</td>
-    <td>file_ext == 'mongodb' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'mongodb', 'mongo') || markdown_tag == 'mongodb'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'mongodb', 'mongo') || (run_type == '' && (file_ext == 'mongodb' || markdown_tag == 'mongodb'))</td>
   </tr>
 
   <tr>
     <td>mssql**(EXPERIMENTAL/UNTESTED)**</td>
     <td>sqlcmd</td>
-    <td>file_ext == 'mssql' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'mssql', 'sqlcmd') || markdown_tag == 'mssql'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'mssql', 'sqlcmd') || (run_type == '' && (file_ext == 'mssql' || markdown_tag == 'mssql'))</td>
   </tr>
 
   <tr>
     <td>mysql**(EXPERIMENTAL/UNTESTED)**</td>
     <td>mysql</td>
-    <td>file_ext == 'mysql' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'mysql') || markdown_tag == 'mysql'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'mysql') || (run_type == '' && (file_ext == 'mysql' || markdown_tag == 'mysql'))</td>
   </tr>
 
   <tr>
     <td>zsh</td>
     <td>zsh</td>
-    <td>file_ext == 'zsh' ||  _VimCodeRunnerIsRunTypeCorrect(run_type, 'zsh') || markdown_tag == 'zsh'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'zsh') || (run_type == '' && (file_ext == 'zsh' ||  markdown_tag == 'zsh'))</td>
   </tr>
 
   <tr>
     <td>bash</td>
     <td>bash</td>
-    <td>file_ext == 'bash' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'bash') || markdown_tag == 'bash'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'bash') || (run_type == '' && (file_ext == 'bash' || markdown_tag == 'bash'))</td>
   </tr>
 
   <tr>
     <td>cmd</td>
     <td>bat</td>
-    <td>file_ext == 'bat' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'bat', 'cmd') || markdown_tag == 'bat'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'cmd', 'bat') || (run_type == '' && (file_ext == 'bat' || markdown_tag == 'bat'))</td>
   </tr>
 
   <tr>
     <td>python</td>
     <td>python</td>
-    <td>&filetype == 'python' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'python') || markdown_tag == 'python'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'python') || (run_type == '' && (&filetype == 'python' || markdown_tag == 'python'))</td>
   </tr>
 
   <tr>
     <td>javascript</td>
     <td>node</td>
-    <td>&filetype == 'javascript' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'javascript', 'node') || markdown_tag == 'javascript'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'javascript', 'node') || (run_type == '' && (&filetype == 'javascript' || markdown_tag == 'javascript'))</td>
   </tr>
 
   <tr>
     <td>typescript</td>
     <td>ts-node</td>
-    <td>&filetype == 'typescript' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'typescript', 'ts-node') || markdown_tag == 'typescript'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'typescript', 'ts-node') || (run_type == '' && (&filetype == 'typescript' || markdown_tag == 'typescript'))</td>
   </tr>
 
   <tr>
     <td>php</td>
     <td>php</td>
-    <td>&filetype == 'php' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'php') || markdown_tag == 'php'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'php') || (run_type == '' && (&filetype == 'php' || markdown_tag == 'php'))</td>
   </tr>
 
   <tr>
     <td>ruby</td>
     <td>ruby</td>
-    <td>&filetype == 'ruby' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'ruby') || markdown_tag == 'ruby'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'ruby') || (run_type == '' && (&filetype == 'ruby' || markdown_tag == 'ruby'))</td>
   </tr>
 
   <tr>
     <td>perl</td>
     <td>perl</td>
-    <td>&filetype == 'perl' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'perl') || markdown_tag == 'perl'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'perl') || (run_type == '' && (&filetype == 'perl' || markdown_tag == 'perl'))</td>
   </tr>
 
   <tr>
     <td>powershell</td>
     <td>pwsh</td>
-    <td>&filetype == 'ps1' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'powershell', 'pwsh') || markdown_tag == 'powershell'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'powershell', 'pwsh') || (run_type == '' && (&filetype == 'ps1' || markdown_tag == 'powershell'))</td>
   </tr>
 
 </table>
