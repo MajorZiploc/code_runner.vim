@@ -25,7 +25,7 @@ Use cases:
 
 ### Extra condition for .sh files that can redirect to other runners
 
-If your `.sh` file starts with a shebang to use a different command and you select that line (or run the whole shell file), then an attempt to use said program will occur prior to an attempt to use `sh`
+If your `.sh` file starts with a shebang to use a different command and you select that line (or run the whole shell file), then an attempt to use said program will occur instead of using `sh`.
 
 <table style="width:100%">
 
