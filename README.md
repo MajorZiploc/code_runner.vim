@@ -44,7 +44,7 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   <tr>
     <td>pgsql</td>
     <td>psql</td>
-    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'pgsql', 'psql') || (run_type == '' && (file_ext == 'pgsql' || markdown_tag == 'pgsql' || file_ext == 'psql' || markdown_tag == 'psql'))</td>
+    <td>_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(run_type, 'pgsql', 'psql') || (run_type == '' && (_VimCodeRunnerIsActualTypeOneOfTheExpectedTypes(file_ext, 'pgsql', 'psql') || markdown_tag == 'pgsql' || markdown_tag == 'psql'))</td>
   </tr>
 
   <tr>
