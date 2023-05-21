@@ -351,6 +351,22 @@ function _VimCodeRunnerRunPwsh(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
+function! _VimCodeRunnerIsRunTypeCorrectOrEmpty(actual_run_type, ...)
+  echo "actual_run_type: " a:actual_run_type
+  echo "expected_run_types: " a:000
+  if (a:actual_run_type == '')
+    return 1
+  endif
+  for expected_run_type in a:000
+    if (a:actual_run_type == expected_run_type)
+      echo "equal case found"
+      echo "expected_run_type is =: " expected_run_type
+      return 1
+    endif
+  endfor
+  return 0
+endfunction
+
 function! _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container, shebang_lang_pass)
   let file_ext = a:file_ext
   let run_type = a:run_type
@@ -359,39 +375,39 @@ function! _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text
   let is_in_container = a:is_in_container
   let shebang_lang_pass = a:shebang_lang_pass
   " check file_extension
-  if (file_ext == 'pgsql' || run_type == 'pgsql' || markdown_tag == 'pgsql' || file_ext == 'psql' || run_type == 'psql' || markdown_tag == 'psql')
+  if (file_ext == 'pgsql' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'pgsql', 'psql') || markdown_tag == 'pgsql' || file_ext == 'psql' || markdown_tag == 'psql')
     let case_values = _VimCodeRunnerRunPsql(selected_text, is_in_container)
-  elseif (file_ext == 'redis' || run_type == 'redis' || markdown_tag == 'redis' || run_type == 'redis-cli')
+  elseif (file_ext == 'redis' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'redis', 'redis-cli') || markdown_tag == 'redis')
     let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container)
-  elseif (file_ext == 'sqlite' || run_type == 'sqlite' || markdown_tag == 'sqlite' || run_type == 'sqlite3')
+  elseif (file_ext == 'sqlite' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'sqlite', 'sqlite3') || markdown_tag == 'sqlite')
     let case_values = _VimCodeRunnerRunSqlite(selected_text, is_in_container)
-  elseif (file_ext == 'mongodb' || run_type == 'mongodb' || markdown_tag == 'mongodb' || run_type == 'mongo')
+  elseif (file_ext == 'mongodb' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'mongodb', 'mongo') || markdown_tag == 'mongodb')
     let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container)
-  elseif (file_ext == 'mssql' || run_type == 'mssql' || markdown_tag == 'mssql' || run_type == 'sqlcmd')
+  elseif (file_ext == 'mssql' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'mssql', 'sqlcmd') || markdown_tag == 'mssql')
     let case_values = _VimCodeRunnerRunMssql(selected_text, is_in_container)
-  elseif (file_ext == 'mysql' || run_type == 'mysql' || markdown_tag == 'mysql')
+  elseif (file_ext == 'mysql' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'mysql') || markdown_tag == 'mysql')
     let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container)
-  elseif (file_ext == 'zsh' || run_type == 'zsh' || markdown_tag == 'zsh')
+  elseif (file_ext == 'zsh' ||  _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'zsh') || markdown_tag == 'zsh')
     let case_values = _VimCodeRunnerRunZsh(selected_text, is_in_container)
-  elseif (file_ext == 'bash' || run_type == 'bash' || markdown_tag == 'bash')
+  elseif (file_ext == 'bash' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'bash') || markdown_tag == 'bash')
     let case_values = _VimCodeRunnerRunBash(selected_text, is_in_container)
-  elseif (file_ext == 'bat' || run_type == 'bat' || markdown_tag == 'bat' || run_type == 'cmd')
+  elseif (file_ext == 'bat' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'bat', 'cmd') || markdown_tag == 'bat')
     let case_values = _VimCodeRunnerRunBat(selected_text, is_in_container)
-  elseif (&filetype == 'python' || run_type == 'python' || markdown_tag == 'python')
+  elseif (&filetype == 'python' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'python') || markdown_tag == 'python')
     let case_values = _VimCodeRunnerRunPython(selected_text, is_in_container)
-  elseif (&filetype == 'javascript' || run_type == 'javascript' || markdown_tag == 'javascript' || run_type == 'node')
+  elseif (&filetype == 'javascript' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'javascript', 'node') || markdown_tag == 'javascript')
     let case_values = _VimCodeRunnerRunJavascript(selected_text, is_in_container)
-  elseif (&filetype == 'typescript' || run_type == 'typescript' || markdown_tag == 'typescript' || run_type == 'ts-node')
+  elseif (&filetype == 'typescript' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'typescript', 'ts-node') || markdown_tag == 'typescript')
     let case_values = _VimCodeRunnerRunTypescript(selected_text, is_in_container)
-  elseif (&filetype == 'php' || run_type == 'php' || markdown_tag == 'php')
+  elseif (&filetype == 'php' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'php') || markdown_tag == 'php')
     let case_values = _VimCodeRunnerRunPhp(selected_text, is_in_container)
-  elseif (&filetype == 'ruby' || run_type == 'ruby' || markdown_tag == 'ruby')
+  elseif (&filetype == 'ruby' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'ruby') || markdown_tag == 'ruby')
     let case_values = _VimCodeRunnerRunRuby(selected_text, is_in_container)
-  elseif (&filetype == 'perl' || run_type == 'perl' || markdown_tag == 'perl')
+  elseif (&filetype == 'perl' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'perl') || markdown_tag == 'perl')
     let case_values = _VimCodeRunnerRunPerl(selected_text, is_in_container)
-  elseif (&filetype == 'ps1' || run_type == 'powershell' || markdown_tag == 'powershell' || run_type == 'pwsh')
+  elseif (&filetype == 'ps1' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'powershell', 'pwsh') || markdown_tag == 'powershell')
     let case_values = _VimCodeRunnerRunPwsh(selected_text, is_in_container)
-  elseif (file_ext == 'sh' || &filetype == 'sh' || run_type == 'sh' || markdown_tag == 'shell')
+  elseif (file_ext == 'sh' || &filetype == 'sh' || _VimCodeRunnerIsRunTypeCorrectOrEmpty(run_type, 'sh') || markdown_tag == 'shell')
     let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, shebang_lang_pass)
   else
     let case_values = []
