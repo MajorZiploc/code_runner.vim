@@ -4,6 +4,21 @@ let g:vim_code_runner_debug_label = "DEBUG-> "
 
 command! VimCodeRunnerScratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
 
+function _VCR_RunBasic(selected_text, root_command, run_path)
+  let run_path = a:run_path
+  let raw_text = a:selected_text
+  if (trim(raw_text) == '')
+    execute 'normal! ggVG"ty'
+    let raw_text = @t
+  endif
+  let _command_prepend = ''
+  let _file_type = 'log'
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let _command = a:root_command . " '" . _preped_text . "'"
+  let _should_bottom_split = 1
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+endfunction
+
 function _VCR_RunPsql(selected_text, is_in_container)
   let run_path = "pgsql"
   let raw_text = a:selected_text
@@ -158,52 +173,7 @@ function _VCR_RunRedis(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VCR_RunPython(selected_text, is_in_container)
-  let run_path = "python"
-  let raw_text = a:selected_text
-  if (trim(raw_text) == '')
-    execute 'normal! ggVG"ty'
-    let raw_text = @t
-  endif
-  let _command_prepend = ''
-  let _file_type = 'log'
-  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _command = "python -c '" . _preped_text . "'"
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
-endfunction
-
-function _VCR_RunJavascript(selected_text, is_in_container)
-  let run_path = "javascript"
-  let raw_text = a:selected_text
-  if (trim(raw_text) == '')
-    execute 'normal! ggVG"ty'
-    let raw_text = @t
-  endif
-  let _command_prepend = ''
-  let _file_type = 'log'
-  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _command = "node -e '" . _preped_text . "'"
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
-endfunction
-
-function _VCR_RunTypescript(selected_text, is_in_container)
-  let run_path = "typescript"
-  let raw_text = a:selected_text
-  if (trim(raw_text) == '')
-    execute 'normal! ggVG"ty'
-    let raw_text = @t
-  endif
-  let _command_prepend = ''
-  let _file_type = 'log'
-  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _command = "ts-node -e '" . _preped_text . "'"
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
-endfunction
-
-function _VCR_RunPhp(selected_text, is_in_container)
+function _VCR_RunPhp(selected_text)
   let run_path = "php"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -220,66 +190,6 @@ function _VCR_RunPhp(selected_text, is_in_container)
     let _preped_text = substitute(_preped_text, _php_close_tag_pattern, "", "")
   endif
   let _command = "php -r '" . _preped_text . "'"
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
-endfunction
-
-function _VCR_RunRuby(selected_text, is_in_container)
-  let run_path = "ruby"
-  let raw_text = a:selected_text
-  if (trim(raw_text) == '')
-    execute 'normal! ggVG"ty'
-    let raw_text = @t
-  endif
-  let _command_prepend = ''
-  let _file_type = 'log'
-  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _command = "ruby -e '" . _preped_text . "'"
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
-endfunction
-
-function _VCR_RunPerl(selected_text, is_in_container)
-  let run_path = "perl"
-  let raw_text = a:selected_text
-  if (trim(raw_text) == '')
-    execute 'normal! ggVG"ty'
-    let raw_text = @t
-  endif
-  let _command_prepend = ''
-  let _file_type = 'log'
-  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _command = "perl -e '" . _preped_text . "'"
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
-endfunction
-
-function _VCR_RunZsh(selected_text, is_in_container)
-  let run_path = "zsh"
-  let raw_text = a:selected_text
-  if (trim(raw_text) == '')
-    execute 'normal! ggVG"ty'
-    let raw_text = @t
-  endif
-  let _command_prepend = ''
-  let _file_type = 'log'
-  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _command = "zsh -c '" . _preped_text . "'"
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
-endfunction
-
-function _VCR_RunBash(selected_text, is_in_container)
-  let run_path = "bash"
-  let raw_text = a:selected_text
-  if (trim(raw_text) == '')
-    execute 'normal! ggVG"ty'
-    let raw_text = @t
-  endif
-  let _command_prepend = ''
-  let _file_type = 'log'
-  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _command = "bash -c '" . _preped_text . "'"
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
@@ -321,7 +231,7 @@ function _VCR_RunSh(selected_text, is_in_container, shebang_lang_pass)
   endif
 endfunction
 
-function _VCR_RunBat(selected_text, is_in_container)
+function _VCR_RunBat(selected_text)
   let run_path = "bat"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -336,19 +246,52 @@ function _VCR_RunBat(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VCR_RunPwsh(selected_text, is_in_container)
+function _VCR_RunZsh(selected_text)
+  let run_path = "zsh"
+  let root_command = "zsh -c"
+  return _VCR_RunBasic(a:selected_text, root_command)
+endfunction
+
+function _VCR_RunBash(selected_text)
+  let run_path = "bash"
+  let root_command = "bash -c"
+  return _VCR_RunBasic(a:selected_text, root_command)
+endfunction
+
+function _VCR_RunPython(selected_text)
+  let run_path = "python"
+  let root_command = "python -c"
+  return _VCR_RunBasic(a:selected_text, root_command)
+endfunction
+
+function _VCR_RunJavascript(selected_text)
+  let run_path = "javascript"
+  let root_command = "node -e"
+  return _VCR_RunBasic(a:selected_text, root_command)
+endfunction
+
+function _VCR_RunTypescript(selected_text)
+  let run_path = "typescript"
+  let root_command = "ts-node -e"
+  return _VCR_RunBasic(a:selected_text, root_command)
+endfunction
+
+function _VCR_RunRuby(selected_text)
+  let run_path = "ruby"
+  let root_command = "ruby -e"
+  return _VCR_RunBasic(a:selected_text, root_command)
+endfunction
+
+function _VCR_RunPerl(selected_text)
+  let run_path = "perl"
+  let root_command = "perl -e"
+  return _VCR_RunBasic(a:selected_text, root_command)
+endfunction
+
+function _VCR_RunPwsh(selected_text)
   let run_path = "powershell"
-  let raw_text = a:selected_text
-  if (trim(raw_text) == '')
-    execute 'normal! ggVG"ty'
-    let raw_text = @t
-  endif
-  let _command_prepend = ''
-  let _file_type = 'log'
-  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _command = "pwsh -command '" . _preped_text . "'"
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+  let root_command = "pwsh -command"
+  return _VCR_RunBasic(a:selected_text, root_command)
 endfunction
 
 function! _VCR_IsLabelMemOf(actual_label, ...)
@@ -383,25 +326,25 @@ function! _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_c
   elseif (_VCR_IsLabelMemOf(run_type, 'mysql') || (run_type == '' && (file_ext == 'mysql' || markdown_tag == 'mysql')))
     let case_values = _VCR_RunMysql(selected_text, is_in_container)
   elseif (_VCR_IsLabelMemOf(run_type, 'zsh') || (run_type == '' && (file_ext == 'zsh' ||  markdown_tag == 'zsh')))
-    let case_values = _VCR_RunZsh(selected_text, is_in_container)
+    let case_values = _VCR_RunZsh(selected_text)
   elseif (_VCR_IsLabelMemOf(run_type, 'bash') || (run_type == '' && (file_ext == 'bash' || markdown_tag == 'bash')))
-    let case_values = _VCR_RunBash(selected_text, is_in_container)
+    let case_values = _VCR_RunBash(selected_text)
   elseif (_VCR_IsLabelMemOf(run_type, 'cmd', 'bat') || (run_type == '' && (file_ext == 'bat' || markdown_tag == 'bat')))
-    let case_values = _VCR_RunBat(selected_text, is_in_container)
+    let case_values = _VCR_RunBat(selected_text)
   elseif (_VCR_IsLabelMemOf(run_type, 'python') || (run_type == '' && (&filetype == 'python' || markdown_tag == 'python')))
-    let case_values = _VCR_RunPython(selected_text, is_in_container)
+    let case_values = _VCR_RunPython(selected_text)
   elseif (_VCR_IsLabelMemOf(run_type, 'javascript', 'node') || (run_type == '' && (&filetype == 'javascript' || markdown_tag == 'javascript')))
-    let case_values = _VCR_RunJavascript(selected_text, is_in_container)
+    let case_values = _VCR_RunJavascript(selected_text)
   elseif (_VCR_IsLabelMemOf(run_type, 'typescript', 'ts-node') || (run_type == '' && (&filetype == 'typescript' || markdown_tag == 'typescript')))
-    let case_values = _VCR_RunTypescript(selected_text, is_in_container)
+    let case_values = _VCR_RunTypescript(selected_text)
   elseif (_VCR_IsLabelMemOf(run_type, 'php') || (run_type == '' && (&filetype == 'php' || markdown_tag == 'php')))
-    let case_values = _VCR_RunPhp(selected_text, is_in_container)
+    let case_values = _VCR_RunPhp(selected_text)
   elseif (_VCR_IsLabelMemOf(run_type, 'ruby') || (run_type == '' && (&filetype == 'ruby' || markdown_tag == 'ruby')))
-    let case_values = _VCR_RunRuby(selected_text, is_in_container)
+    let case_values = _VCR_RunRuby(selected_text)
   elseif (_VCR_IsLabelMemOf(run_type, 'perl') || (run_type == '' && (&filetype == 'perl' || markdown_tag == 'perl')))
-    let case_values = _VCR_RunPerl(selected_text, is_in_container)
+    let case_values = _VCR_RunPerl(selected_text)
   elseif (_VCR_IsLabelMemOf(run_type, 'powershell', 'pwsh') || (run_type == '' && (&filetype == 'ps1' || markdown_tag == 'powershell')))
-    let case_values = _VCR_RunPwsh(selected_text, is_in_container)
+    let case_values = _VCR_RunPwsh(selected_text)
   else
     let case_values = []
   endif
