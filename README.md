@@ -36,6 +36,12 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   </tr>
 
   <tr>
+    <td>sh</td>
+    <td>sh</td>
+    <td>file_ext == 'sh' || &filetype == 'sh' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'sh') || markdown_tag == 'shell'</td>
+  </tr>
+
+  <tr>
     <td>pgsql</td>
     <td>psql</td>
     <td>file_ext == 'pgsql' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'pgsql', 'psql') || markdown_tag == 'pgsql' || file_ext == 'psql' || markdown_tag == 'psql'</td>
@@ -129,12 +135,6 @@ If your `.sh` file starts with a shebang to use a different command and you sele
     <td>powershell</td>
     <td>pwsh</td>
     <td>&filetype == 'ps1' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'powershell', 'pwsh') || markdown_tag == 'powershell'</td>
-  </tr>
-
-  <tr>
-    <td>sh</td>
-    <td>sh</td>
-    <td>file_ext == 'sh' || &filetype == 'sh' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'sh') || markdown_tag == 'shell'</td>
   </tr>
 
 </table>

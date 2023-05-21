@@ -368,7 +368,9 @@ function! _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text
   let is_in_container = a:is_in_container
   let shebang_lang_pass = a:shebang_lang_pass
   " check file_extension
-  if (file_ext == 'pgsql' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'pgsql', 'psql') || markdown_tag == 'pgsql' || file_ext == 'psql' || markdown_tag == 'psql')
+  if (file_ext == 'sh' || &filetype == 'sh' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'sh') || markdown_tag == 'shell')
+    let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, shebang_lang_pass)
+  elseif (file_ext == 'pgsql' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'pgsql', 'psql') || markdown_tag == 'pgsql' || file_ext == 'psql' || markdown_tag == 'psql')
     let case_values = _VimCodeRunnerRunPsql(selected_text, is_in_container)
   elseif (file_ext == 'redis' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'redis', 'redis-cli') || markdown_tag == 'redis')
     let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container)
@@ -400,8 +402,6 @@ function! _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text
     let case_values = _VimCodeRunnerRunPerl(selected_text, is_in_container)
   elseif (&filetype == 'ps1' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'powershell', 'pwsh') || markdown_tag == 'powershell')
     let case_values = _VimCodeRunnerRunPwsh(selected_text, is_in_container)
-  elseif (file_ext == 'sh' || &filetype == 'sh' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'sh') || markdown_tag == 'shell')
-    let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, shebang_lang_pass)
   else
     let case_values = []
   endif
