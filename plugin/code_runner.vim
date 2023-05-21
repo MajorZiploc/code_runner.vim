@@ -249,49 +249,49 @@ endfunction
 function _VCR_RunZsh(selected_text)
   let run_path = "zsh"
   let root_command = "zsh -c"
-  return _VCR_RunBasic(a:selected_text, root_command)
+  return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunBash(selected_text)
   let run_path = "bash"
   let root_command = "bash -c"
-  return _VCR_RunBasic(a:selected_text, root_command)
+  return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunPython(selected_text)
   let run_path = "python"
   let root_command = "python -c"
-  return _VCR_RunBasic(a:selected_text, root_command)
+  return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunJavascript(selected_text)
   let run_path = "javascript"
   let root_command = "node -e"
-  return _VCR_RunBasic(a:selected_text, root_command)
+  return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunTypescript(selected_text)
   let run_path = "typescript"
   let root_command = "ts-node -e"
-  return _VCR_RunBasic(a:selected_text, root_command)
+  return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunRuby(selected_text)
   let run_path = "ruby"
   let root_command = "ruby -e"
-  return _VCR_RunBasic(a:selected_text, root_command)
+  return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunPerl(selected_text)
   let run_path = "perl"
   let root_command = "perl -e"
-  return _VCR_RunBasic(a:selected_text, root_command)
+  return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunPwsh(selected_text)
   let run_path = "powershell"
   let root_command = "pwsh -command"
-  return _VCR_RunBasic(a:selected_text, root_command)
+  return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function! _VCR_IsLabelMemOf(actual_label, ...)
