@@ -62,6 +62,24 @@ Use cases:
   </tr>
 
   <tr>
+    <td>zsh</td>
+    <td>zsh</td>
+    <td>file_ext == 'zsh' || run_type == 'zsh' || markdown_tag == 'zsh'</td>
+  </tr>
+
+  <tr>
+    <td>bash</td>
+    <td>bash</td>
+    <td>file_ext == 'bash' || run_type == 'bash' || markdown_tag == 'bash'</td>
+  </tr>
+
+  <tr>
+    <td>cmd</td>
+    <td>bat</td>
+    <td>file_ext == 'bat' || run_type == 'bat' || markdown_tag == 'bat'</td>
+  </tr>
+
+  <tr>
     <td>python</td>
     <td>python</td>
     <td>&filetype == 'python' || run_type == 'python' || markdown_tag == 'python'</td>
@@ -100,7 +118,7 @@ Use cases:
   <tr>
     <td>sh</td>
     <td>sh</td>
-    <td>&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'bash' || markdown_tag == 'shell'</td>
+    <td>&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'shell'</td>
   </tr>
 
   <tr>

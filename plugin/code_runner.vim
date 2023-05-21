@@ -218,6 +218,34 @@ function _VimCodeRunnerRunPerl(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
 
+function _VimCodeRunnerRunZsh(selected_text, is_in_container)
+  let raw_text = a:selected_text
+  if (trim(raw_text) == '')
+    execute 'normal! ggVG"ty'
+    let raw_text = @t
+  endif
+  let _command_prepend = ''
+  let _file_type = 'log'
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let _command = "zsh -c '" . _preped_text . "'"
+  let _should_bottom_split = 1
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+endfunction
+
+function _VimCodeRunnerRunBash(selected_text, is_in_container)
+  let raw_text = a:selected_text
+  if (trim(raw_text) == '')
+    execute 'normal! ggVG"ty'
+    let raw_text = @t
+  endif
+  let _command_prepend = ''
+  let _file_type = 'log'
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let _command = "bash -c '" . _preped_text . "'"
+  let _should_bottom_split = 1
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+endfunction
+
 function _VimCodeRunnerRunSh(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
@@ -228,6 +256,20 @@ function _VimCodeRunnerRunSh(selected_text, is_in_container)
   let _file_type = 'log'
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "sh -c '" . _preped_text . "'"
+  let _should_bottom_split = 1
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+endfunction
+
+function _VimCodeRunnerRunBat(selected_text, is_in_container)
+  let raw_text = a:selected_text
+  if (trim(raw_text) == '')
+    execute 'normal! ggVG"ty'
+    let raw_text = @t
+  endif
+  let _command_prepend = ''
+  let _file_type = 'log'
+  let _preped_text = raw_text
+  let _command = 'cmd /C "' . _preped_text . '"'
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
 endfunction
@@ -285,6 +327,15 @@ function! VimCodeRunnerRun(...)
   elseif (file_ext == 'mysql' || run_type == 'mysql' || markdown_tag == 'mysql')
     let run_path = "mysql"
     let case_values = _VimCodeRunnerRunMysql(selected_text, is_in_container)
+  elseif (file_ext == 'zsh' || run_type == 'zsh' || markdown_tag == 'zsh')
+    let run_path = "zsh"
+    let case_values = _VimCodeRunnerRunZsh(selected_text, is_in_container)
+  elseif (file_ext == 'bash' || run_type == 'bash' || markdown_tag == 'bash')
+    let run_path = "bash"
+    let case_values = _VimCodeRunnerRunBash(selected_text, is_in_container)
+  elseif (file_ext == 'bat' || run_type == 'bat' || markdown_tag == 'bat')
+    let run_path = "bat"
+    let case_values = _VimCodeRunnerRunBat(selected_text, is_in_container)
   elseif (&filetype == 'python' || run_type == 'python' || markdown_tag == 'python')
     let run_path = "python"
     let case_values = _VimCodeRunnerRunPython(selected_text, is_in_container)
@@ -303,7 +354,7 @@ function! VimCodeRunnerRun(...)
   elseif (&filetype == 'perl' || run_type == 'perl' || markdown_tag == 'perl')
     let run_path = "perl"
     let case_values = _VimCodeRunnerRunPerl(selected_text, is_in_container)
-  elseif (&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'bash' || markdown_tag == 'shell')
+  elseif (&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'shell')
     let run_path = "sh"
     let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container)
   elseif (&filetype == 'ps1' || run_type == 'powershell' || markdown_tag == 'powershell')
