@@ -45,6 +45,24 @@ function _VimCodeRunnerRunPsql(selected_text, is_in_container)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
+function _VimCodeRunnerRunSqlite(selected_text, is_in_container)
+  let run_path = "sqlite"
+  let raw_text = a:selected_text
+  if (trim(raw_text) == '')
+    echohl WarningMsg
+    echo "No selected_text stored in the t register! run_type: 'sqlite' does not support this"
+    echohl None
+    return ['', '', '', '', l:run_path]
+  endif
+  let _command_prepend = ''
+  let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let _sqlite = 'sqlite3 ' . $SQLITEDBFILE . ' -separator "," -header ' . "-cmd '" . _preped_text . "' < $(echo '.exit')"
+  let _command = _sqlite
+  let _should_bottom_split = 1
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+endfunction
+
 function _VimCodeRunnerRunMssql(selected_text, is_in_container)
   let run_path = "mssql"
   let raw_text = a:selected_text

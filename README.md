@@ -54,6 +54,12 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   </tr>
 
   <tr>
+    <td>sqlite</td>
+    <td>sqlite3</td>
+    <td>file_ext == 'sqlite' || run_type == 'sqlite' || markdown_tag == 'sqlite' || run_type == 'sqlite3'</td>
+  </tr>
+
+  <tr>
     <td>mongodb**(EXPERIMENTAL/UNTESTED)**</td>
     <td>mongodb</td>
     <td>file_ext == 'mongodb' || run_type == 'mongodb' || markdown_tag == 'mongodb' || run_type == 'mongo'</td>
@@ -167,6 +173,17 @@ let $PGPORT="5432" |
 let $PGDATABASE="postgres" |
 let $PGUSER="postgres" |
 let $PGPASSWORD="password" |
+```
+
+#### sqlite
+
+`let vim_code_runner_sql_as_csv='false' |` is not supported
+
+`let use_runner_options_in_container='false' |` is not supported
+
+```vim
+" the following are used only when container_name is not set
+let $SQLITEDBFILE="./main.sqlite" |
 ```
 
 #### mssql
