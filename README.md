@@ -44,7 +44,7 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   <tr>
     <td>sh</td>
     <td>sh</td>
-    <td>&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'shell'</td>
+    <td>file_ext == 'sh' || run_type == 'sh' || markdown_tag == 'shell'>
   </tr>
 
   <tr>

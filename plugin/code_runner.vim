@@ -336,7 +336,7 @@ function! _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text
   " check file_extension
   if (file_ext == 'pgsql' || run_type == 'pgsql' || markdown_tag == 'pgsql' || file_ext == 'psql' || run_type == 'psql' || markdown_tag == 'psql')
     let case_values = _VimCodeRunnerRunPsql(selected_text, is_in_container)
-  elseif (&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'shell')
+  elseif (file_ext == 'sh' || run_type == 'sh' || markdown_tag == 'shell')
     let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, shebang_lang_pass)
   elseif (file_ext == 'redis' || run_type == 'redis' || markdown_tag == 'redis' || run_type == 'redis-cli')
     let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container)
