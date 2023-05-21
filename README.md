@@ -23,6 +23,10 @@ Use cases:
 
 ## Supported Runners (in order of runner search)
 
+### Extra condition for .sh files that can redirect to other runners
+
+If your `.sh` file starts with a shebang to use a different command and you select that line (or run the whole shell file), then an attempt to use said program will occur prior to an attempt to use `sh`
+
 <table style="width:100%">
 
   <tr>

@@ -252,12 +252,28 @@ function _VimCodeRunnerRunSh(selected_text, is_in_container)
     execute 'normal! ggVG"ty'
     let raw_text = @t
   endif
+  let shebang_lang_pattern = '^#![^\n]*[/ ]\v(\w+)(.*)'
+  let shebang_lang = substitute(raw_text, shebang_lang_pattern, '\=submatch(1)', '')
+  let found_matching_runner = 'false'
+  if (shebang_lang != '')
+    let selected_text_override = substitute(raw_text, shebang_lang_pattern, '\=submatch(2)', '')
+    if (selected_text_override != '')
+      if (g:vim_code_runner_debug)
+        echo g:vim_code_runner_debug_label "trying to run with shebang_lang: " shebang_lang
+      endif
+      let shebang_lang_pass = 'true'
+      let found_matching_runner = VimCodeRunnerRun(shebang_lang, g:vim_code_runner_debug, shebang_lang_pass, selected_text_override)
+    endif
+  endif
+  if (found_matching_runner == 'true')
+    return ['', '', '', '', l:found_matching_runner]
+  endif
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = "sh -c '" . _preped_text . "'"
   let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type]
+  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:found_matching_runner]
 endfunction
 
 function _VimCodeRunnerRunBat(selected_text, is_in_container)
@@ -291,10 +307,16 @@ endfunction
 function! VimCodeRunnerRun(...)
   let run_type = get(a:, 1, '')
   let debug = get(a:, 2, 'false')
+  let shebang_lang_pass = get(a:, 3, 'false')
+  let selected_text_override = get(a:, 4, '')
   let g:vim_code_runner_debug = debug
   let _default_file_type = "text"
   " assumes the selected text will be yanked into the t register prior to VimCodeRunnerRun
-  let selected_text = @t
+  if (selected_text_override == '')
+    let selected_text = @t
+  else
+    let selected_text = selected_text_override
+  endif
   if (g:vim_code_runner_debug == 'true')
     echo g:vim_code_runner_debug_label "selected_text: " selected_text
   endif
@@ -311,6 +333,7 @@ function! VimCodeRunnerRun(...)
     endif
   endif
   let file_ext = expand('%:e')
+  let found_matching_runner = 'true'
   " check file_extension
   if (file_ext == 'pgsql' || run_type == 'pgsql' || markdown_tag == 'pgsql')
     let run_path = "pgsql"
@@ -357,10 +380,18 @@ function! VimCodeRunnerRun(...)
   elseif (&filetype == 'sh' || run_type == 'sh' || markdown_tag == 'shell')
     let run_path = "sh"
     let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container)
+    let found_matching_runner = get(case_values, 4, 'false')
+    if (found_matching_runner == 'true')
+      return
+    endif
   elseif (&filetype == 'ps1' || run_type == 'powershell' || markdown_tag == 'powershell')
     let run_path = "powershell"
     let case_values = _VimCodeRunnerRunPwsh(selected_text, is_in_container)
   else
+    let found_matching_runner = 'false'
+    if (shebang_lang_pass == 'true')
+      return found_matching_runner
+    endif
     echohl WarningMsg
     echo "No matching run_path!"
     echohl None
