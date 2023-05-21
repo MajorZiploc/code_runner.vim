@@ -422,7 +422,6 @@ function! VimCodeRunnerRun(...)
     let g:vim_code_runner_last_n_commands = [g:vim_code_runner_last_command] + g:vim_code_runner_last_n_commands
     if (len(g:vim_code_runner_last_n_query_results) > get(g:, 'vim_code_runner_history_size', 10))
       let g:vim_code_runner_last_n_query_results= g:vim_code_runner_last_n_query_results[:-2]
-
     endif
     if (len(g:vim_code_runner_last_n_commands) > get(g:, 'vim_code_runner_history_size', 10))
       let g:vim_code_runner_last_n_commands= g:vim_code_runner_last_n_commands[:-2]
