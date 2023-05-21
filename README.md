@@ -38,25 +38,25 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   <tr>
     <td>pgsql</td>
     <td>psql</td>
-    <td>file_ext == 'pgsql' || run_type == 'pgsql' || markdown_tag == 'pgsql'</td>
+    <td>file_ext == 'pgsql' || run_type == 'pgsql' || markdown_tag == 'pgsql' || file_ext == 'psql' || run_type == 'psql' || markdown_tag == 'psql'</td>
   </tr>
 
   <tr>
     <td>redis</td>
     <td>redis-cli</td>
-    <td>file_ext == 'redis' || run_type == 'redis' || markdown_tag == 'redis'</td>
+    <td>file_ext == 'redis' || run_type == 'redis' || markdown_tag == 'redis' || run_type == 'redis-cli'</td>
   </tr>
 
   <tr>
     <td>mongodb**(EXPERIMENTAL/UNTESTED)**</td>
     <td>mongodb</td>
-    <td>file_ext == 'mongodb' || run_type == 'mongodb' || markdown_tag == 'mongodb'</td>
+    <td>file_ext == 'mongodb' || run_type == 'mongodb' || markdown_tag == 'mongodb' || run_type == 'mongo'</td>
   </tr>
 
   <tr>
     <td>mssql**(EXPERIMENTAL/UNTESTED)**</td>
     <td>sqlcmd</td>
-    <td>file_ext == 'mssql' || run_type == 'mssql' || markdown_tag == 'mssql'</td>
+    <td>file_ext == 'mssql' || run_type == 'mssql' || markdown_tag == 'mssql' || run_type == 'sqlcmd'</td>
   </tr>
 
   <tr>
@@ -80,7 +80,7 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   <tr>
     <td>cmd</td>
     <td>bat</td>
-    <td>file_ext == 'bat' || run_type == 'bat' || markdown_tag == 'bat'</td>
+    <td>file_ext == 'bat' || run_type == 'bat' || markdown_tag == 'bat' || run_type == 'cmd'</td>
   </tr>
 
   <tr>
@@ -92,13 +92,13 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   <tr>
     <td>javascript</td>
     <td>node</td>
-    <td>&filetype == 'javascript' || run_type == 'javascript' || markdown_tag == 'javascript'</td>
+    <td>&filetype == 'javascript' || run_type == 'javascript' || markdown_tag == 'javascript' || run_type == 'node'</td>
   </tr>
 
   <tr>
     <td>typescript</td>
     <td>ts-node</td>
-    <td>&filetype == 'typescript' || run_type == 'typescript' || markdown_tag == 'typescript'</td>
+    <td>&filetype == 'typescript' || run_type == 'typescript' || markdown_tag == 'typescript' || run_type == 'ts-node'</td>
   </tr>
 
   <tr>
@@ -128,7 +128,7 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   <tr>
     <td>powershell</td>
     <td>pwsh</td>
-    <td>&filetype == 'ps1' || run_type == 'powershell' || markdown_tag == 'powershell'</td>
+    <td>&filetype == 'ps1' || run_type == 'powershell' || markdown_tag == 'powershell' || run_type == 'pwsh'</td>
   </tr>
 
 </table>

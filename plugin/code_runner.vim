@@ -335,16 +335,16 @@ function! VimCodeRunnerRun(...)
   let file_ext = expand('%:e')
   let found_matching_runner = 'true'
   " check file_extension
-  if (file_ext == 'pgsql' || run_type == 'pgsql' || markdown_tag == 'pgsql')
+  if (file_ext == 'pgsql' || run_type == 'pgsql' || markdown_tag == 'pgsql' || file_ext == 'psql' || run_type == 'psql' || markdown_tag == 'psql')
     let run_path = "pgsql"
     let case_values = _VimCodeRunnerRunPsql(selected_text, is_in_container)
-  elseif (file_ext == 'redis' || run_type == 'redis' || markdown_tag == 'redis')
+  elseif (file_ext == 'redis' || run_type == 'redis' || markdown_tag == 'redis' || run_type == 'redis-cli')
     let run_path = "redis"
     let case_values = _VimCodeRunnerRunRedis(selected_text, is_in_container)
-  elseif (file_ext == 'mongodb' || run_type == 'mongodb' || markdown_tag == 'mongodb')
+  elseif (file_ext == 'mongodb' || run_type == 'mongodb' || markdown_tag == 'mongodb' || run_type == 'mongo')
     let run_path = "mongodb"
     let case_values = _VimCodeRunnerRunMongoDb(selected_text, is_in_container)
-  elseif (file_ext == 'mssql' || run_type == 'mssql' || markdown_tag == 'mssql')
+  elseif (file_ext == 'mssql' || run_type == 'mssql' || markdown_tag == 'mssql' || run_type == 'sqlcmd')
     let run_path = "mssql"
     let case_values = _VimCodeRunnerRunMssql(selected_text, is_in_container)
   elseif (file_ext == 'mysql' || run_type == 'mysql' || markdown_tag == 'mysql')
@@ -356,16 +356,16 @@ function! VimCodeRunnerRun(...)
   elseif (file_ext == 'bash' || run_type == 'bash' || markdown_tag == 'bash')
     let run_path = "bash"
     let case_values = _VimCodeRunnerRunBash(selected_text, is_in_container)
-  elseif (file_ext == 'bat' || run_type == 'bat' || markdown_tag == 'bat')
+  elseif (file_ext == 'bat' || run_type == 'bat' || markdown_tag == 'bat' || run_type == 'cmd')
     let run_path = "bat"
     let case_values = _VimCodeRunnerRunBat(selected_text, is_in_container)
   elseif (&filetype == 'python' || run_type == 'python' || markdown_tag == 'python')
     let run_path = "python"
     let case_values = _VimCodeRunnerRunPython(selected_text, is_in_container)
-  elseif (&filetype == 'javascript' || run_type == 'javascript' || markdown_tag == 'javascript')
+  elseif (&filetype == 'javascript' || run_type == 'javascript' || markdown_tag == 'javascript' || run_type == 'node')
     let run_path = "javascript"
     let case_values = _VimCodeRunnerRunJavascript(selected_text, is_in_container)
-  elseif (&filetype == 'typescript' || run_type == 'typescript' || markdown_tag == 'typescript')
+  elseif (&filetype == 'typescript' || run_type == 'typescript' || markdown_tag == 'typescript' || run_type == 'ts-node')
     let run_path = "typescript"
     let case_values = _VimCodeRunnerRunTypescript(selected_text, is_in_container)
   elseif (&filetype == 'php' || run_type == 'php' || markdown_tag == 'php')
@@ -384,7 +384,7 @@ function! VimCodeRunnerRun(...)
     if (found_matching_runner == 'true')
       return
     endif
-  elseif (&filetype == 'ps1' || run_type == 'powershell' || markdown_tag == 'powershell')
+  elseif (&filetype == 'ps1' || run_type == 'powershell' || markdown_tag == 'powershell' || run_type == 'pwsh')
     let run_path = "powershell"
     let case_values = _VimCodeRunnerRunPwsh(selected_text, is_in_container)
   else
