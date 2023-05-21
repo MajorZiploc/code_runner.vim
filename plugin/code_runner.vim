@@ -368,7 +368,7 @@ function! _VimCodeRunnerRunCases(file_ext, run_type, markdown_tag, selected_text
   let is_in_container = a:is_in_container
   let shebang_lang_pass = a:shebang_lang_pass
   " check file_extension
-  if (file_ext == 'sh' || &filetype == 'sh' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'sh') || markdown_tag == 'shell')
+  if ((_VimCodeRunnerIsRunTypeCorrect(run_type, 'sh') || run_type == '') && (file_ext == 'sh' || markdown_tag == 'shell'))
     let case_values = _VimCodeRunnerRunSh(selected_text, is_in_container, shebang_lang_pass)
   elseif (file_ext == 'pgsql' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'pgsql', 'psql') || markdown_tag == 'pgsql' || file_ext == 'psql' || markdown_tag == 'psql')
     let case_values = _VimCodeRunnerRunPsql(selected_text, is_in_container)

@@ -38,7 +38,7 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   <tr>
     <td>sh</td>
     <td>sh</td>
-    <td>file_ext == 'sh' || &filetype == 'sh' || _VimCodeRunnerIsRunTypeCorrect(run_type, 'sh') || markdown_tag == 'shell'</td>
+    <td>_VimCodeRunnerIsRunTypeCorrect(run_type, 'sh') || run_type == '') && (file_ext == 'sh' || markdown_tag == 'shell'</td>
   </tr>
 
   <tr>
