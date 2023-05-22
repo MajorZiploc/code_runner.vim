@@ -301,13 +301,39 @@ function _VCR_RunPwsh(selected_text)
   return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
-function! _VCR_IsLabelMemOf(actual_label, ...)
-  for expected_label in a:000
+function! _VCR_IsLabelMemOf(actual_label, expected_labels)
+  for expected_label in a:expected_labels
     if (a:actual_label == expected_label)
       return 1
     endif
   endfor
   return 0
+endfunction
+
+let g:_vcr_sh_tags = ['sh', 'shell']
+let g:_vcr_psql_tags = ['psql', 'pgsql']
+let g:_vcr_redis_tags = ['redis', 'redis-cli']
+let g:_vcr_sqlite_tags = ['sqlite', 'sqlite3']
+let g:_vcr_mongodb_tags = ['mongodb', 'mongo']
+let g:_vcr_mssql_tags = ['mssql', 'sqlcmd']
+let g:_vcr_mysql_tags = ['mysql']
+let g:_vcr_zsh_tags = ['zsh']
+let g:_vcr_bash_tags = ['bash']
+let g:_vcr_bat_tags = ['bat', 'cmd']
+let g:_vcr_python_tags = ['python']
+let g:_vcr_javascript_tags = ['javascript', 'node']
+let g:_vcr_typescript_tags = ['typescript', 'ts-node']
+let g:_vcr_php_tags = ['php']
+let g:_vcr_perl_tags= ['perl']
+let g:_vcr_ruby_tags= ['ruby']
+let g:_vcr_powershell_tags= ['ps1', 'powershell', 'pwsh']
+
+function! _VCR_IsRunner(tags, run_type, file_ext, markdown_tag, filetype)
+  if (get(a:, 'filetype', '') != '')
+    return _VCR_IsLabelMemOf(a:run_type, a:tags) || (a:run_type == '' && (_VCR_IsLabelMemOf(a:file_ext, a:tags) || _VCR_IsLabelMemOf(a:markdown_tag, a:tags) || &filetype == a:filetype))
+  else
+    return _VCR_IsLabelMemOf(a:run_type, a:tags) || (a:run_type == '' && (_VCR_IsLabelMemOf(a:file_ext, a:tags) || _VCR_IsLabelMemOf(a:markdown_tag, a:tags)))
+  endif
 endfunction
 
 function! _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container, shebang_lang_pass)
@@ -318,39 +344,39 @@ function! _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_c
   let is_in_container = a:is_in_container
   let shebang_lang_pass = a:shebang_lang_pass
   " check file_extension
-  if (_VCR_IsLabelMemOf(run_type, 'sh') || (run_type == '' && (file_ext == 'sh' || markdown_tag == 'shell')))
+  if (_VCR_IsRunner(g:_vcr_sh_tags, run_type, file_ext, markdown_tag, ''))
     let case_values = _VCR_RunSh(selected_text, is_in_container, shebang_lang_pass)
-  elseif (_VCR_IsLabelMemOf(run_type, 'pgsql', 'psql') || (run_type == '' && (_VCR_IsLabelMemOf(file_ext, 'pgsql', 'psql') || markdown_tag == 'pgsql' || markdown_tag == 'psql')))
+  elseif (_VCR_IsRunner(g:_vcr_psql_tags, run_type, file_ext, markdown_tag, ''))
     let case_values = _VCR_RunPsql(selected_text, is_in_container)
-  elseif (_VCR_IsLabelMemOf(run_type, 'redis', 'redis-cli') || (run_type == '' && (file_ext == 'redis' || markdown_tag == 'redis')))
+  elseif (_VCR_IsRunner(g:_vcr_redis_tags, run_type, file_ext, markdown_tag, ''))
     let case_values = _VCR_RunRedis(selected_text, is_in_container)
-  elseif (_VCR_IsLabelMemOf(run_type, 'sqlite', 'sqlite3') || (run_type == '' && (file_ext == 'sqlite' || markdown_tag == 'sqlite')))
+  elseif (_VCR_IsRunner(g:_vcr_sqlite_tags, run_type, file_ext, markdown_tag, ''))
     let case_values = _VCR_RunSqlite(selected_text, is_in_container)
-  elseif (_VCR_IsLabelMemOf(run_type, 'mongodb', 'mongo') || (run_type == '' && (file_ext == 'mongodb' || markdown_tag == 'mongodb')))
+  elseif (_VCR_IsRunner(g:_vcr_mongodb_tags, run_type, file_ext, markdown_tag, ''))
     let case_values = _VCR_RunMongoDb(selected_text, is_in_container)
-  elseif (_VCR_IsLabelMemOf(run_type, 'mssql', 'sqlcmd') || (run_type == '' && (file_ext == 'mssql' || markdown_tag == 'mssql')))
+  elseif (_VCR_IsRunner(g:_vcr_mssql_tags, run_type, file_ext, markdown_tag, ''))
     let case_values = _VCR_RunMssql(selected_text, is_in_container)
-  elseif (_VCR_IsLabelMemOf(run_type, 'mysql') || (run_type == '' && (file_ext == 'mysql' || markdown_tag == 'mysql')))
+  elseif (_VCR_IsRunner(g:_vcr_mysql_tags, run_type, file_ext, markdown_tag, ''))
     let case_values = _VCR_RunMysql(selected_text, is_in_container)
-  elseif (_VCR_IsLabelMemOf(run_type, 'zsh') || (run_type == '' && (file_ext == 'zsh' ||  markdown_tag == 'zsh')))
+  elseif (_VCR_IsRunner(g:_vcr_zsh_tags, run_type, file_ext, markdown_tag, ''))
     let case_values = _VCR_RunZsh(selected_text)
-  elseif (_VCR_IsLabelMemOf(run_type, 'bash') || (run_type == '' && (file_ext == 'bash' || markdown_tag == 'bash')))
+  elseif (_VCR_IsRunner(g:_vcr_bash_tags, run_type, file_ext, markdown_tag, ''))
     let case_values = _VCR_RunBash(selected_text)
-  elseif (_VCR_IsLabelMemOf(run_type, 'cmd', 'bat') || (run_type == '' && (file_ext == 'bat' || markdown_tag == 'bat')))
+  elseif (_VCR_IsRunner(g:_vcr_bat_tags, run_type, file_ext, markdown_tag, ''))
     let case_values = _VCR_RunBat(selected_text)
-  elseif (_VCR_IsLabelMemOf(run_type, 'python') || (run_type == '' && (&filetype == 'python' || markdown_tag == 'python')))
+  elseif (_VCR_IsRunner(g:_vcr_python_tags, run_type, file_ext, markdown_tag, 'python'))
     let case_values = _VCR_RunPython(selected_text)
-  elseif (_VCR_IsLabelMemOf(run_type, 'javascript', 'node') || (run_type == '' && (&filetype == 'javascript' || markdown_tag == 'javascript')))
+  elseif (_VCR_IsRunner(g:_vcr_javascript_tags, run_type, file_ext, markdown_tag, 'javascript'))
     let case_values = _VCR_RunJavascript(selected_text)
-  elseif (_VCR_IsLabelMemOf(run_type, 'typescript', 'ts-node') || (run_type == '' && (&filetype == 'typescript' || markdown_tag == 'typescript')))
+  elseif (_VCR_IsRunner(g:_vcr_typescript_tags, run_type, file_ext, markdown_tag, 'typescript'))
     let case_values = _VCR_RunTypescript(selected_text)
-  elseif (_VCR_IsLabelMemOf(run_type, 'php') || (run_type == '' && (&filetype == 'php' || markdown_tag == 'php')))
+  elseif (_VCR_IsRunner(g:_vcr_php_tags, run_type, file_ext, markdown_tag, 'php'))
     let case_values = _VCR_RunPhp(selected_text)
-  elseif (_VCR_IsLabelMemOf(run_type, 'ruby') || (run_type == '' && (&filetype == 'ruby' || markdown_tag == 'ruby')))
+  elseif (_VCR_IsRunner(g:_vcr_ruby_tags, run_type, file_ext, markdown_tag, 'ruby'))
     let case_values = _VCR_RunRuby(selected_text)
-  elseif (_VCR_IsLabelMemOf(run_type, 'perl') || (run_type == '' && (&filetype == 'perl' || markdown_tag == 'perl')))
+  elseif (_VCR_IsRunner(g:_vcr_perl_tags, run_type, file_ext, markdown_tag, 'perl'))
     let case_values = _VCR_RunPerl(selected_text)
-  elseif (_VCR_IsLabelMemOf(run_type, 'powershell', 'pwsh') || (run_type == '' && (&filetype == 'ps1' || markdown_tag == 'powershell')))
+  elseif (_VCR_IsRunner(g:_vcr_powershell_tags, run_type, file_ext, markdown_tag, 'ps1'))
     let case_values = _VCR_RunPwsh(selected_text)
   else
     let case_values = []

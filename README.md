@@ -121,6 +121,32 @@ If your `.sh` file starts with a shebang to use a different command and you sele
 
 </table>
 
+### How a runner is selected
+
+The following tags drive runner selection.
+If a file extension, markdown tagged code block, shebang rediection matches then the associated runner will be used
+NOTE: some runners also look at the &filetype. Denoted with a `" include set filetype=<lang>` at the end of the line below
+
+```vim
+let g:_vcr_sh_tags = ['sh', 'shell']
+let g:_vcr_psql_tags = ['psql', 'pgsql']
+let g:_vcr_redis_tags = ['redis', 'redis-cli']
+let g:_vcr_sqlite_tags = ['sqlite', 'sqlite3']
+let g:_vcr_mongodb_tags = ['mongodb', 'mongo']
+let g:_vcr_mssql_tags = ['mssql', 'sqlcmd']
+let g:_vcr_mysql_tags = ['mysql']
+let g:_vcr_zsh_tags = ['zsh']
+let g:_vcr_bash_tags = ['bash']
+let g:_vcr_bat_tags = ['bat', 'cmd']
+let g:_vcr_python_tags = ['python'] " include set filetype=python
+let g:_vcr_javascript_tags = ['javascript', 'node'] " include set filetype=javascript
+let g:_vcr_typescript_tags = ['typescript', 'ts-node'] " include set filetype=typescript
+let g:_vcr_php_tags = ['php'] " include set filetype=php
+let g:_vcr_perl_tags= ['perl'] " include set filetype=perl
+let g:_vcr_ruby_tags= ['ruby'] " include set filetype=ruby
+let g:_vcr_powershell_tags= ['ps1', 'powershell', 'pwsh'] " include set filetype=ps1
+```
+
 ---
 
 ## Runner Options
