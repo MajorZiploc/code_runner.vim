@@ -4,11 +4,15 @@ let g:vim_code_runner_debug_label = "DEBUG-> "
 
 command! VimCodeRunnerScratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
 
+function! _VCR_CopyWholeFile()
+  execute 'normal! ggVG"ty'
+endfunction
+
 function _VCR_RunBasic(selected_text, root_command, run_path)
   let run_path = a:run_path
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
-    execute 'normal! ggVG"ty'
+    let _ = _VCR_CopyWholeFile()
     let raw_text = @t
   endif
   let _command_prepend = ''
@@ -184,7 +188,7 @@ function _VCR_RunPhp(selected_text)
   let run_path = "php"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
-    execute 'normal! ggVG"ty'
+    let _ = _VCR_CopyWholeFile()
     let raw_text = @t
   endif
   let _command_prepend = ''
@@ -242,7 +246,7 @@ function _VCR_RunBat(selected_text)
   let run_path = "bat"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
-    execute 'normal! ggVG"ty'
+    let _ = _VCR_CopyWholeFile()
     let raw_text = @t
   endif
   let _command_prepend = ''
