@@ -101,7 +101,7 @@ function _VCR_RunMssql(selected_text, is_in_container)
   let _command_prepend = ''
   let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _mssql = 'sqlcmd -s"," ' . " -d '" . $SQLCMDDBNAME . "'" . " -U '" . $SQLCMDUSER . "'" . " -P '" . $SQLCMDPASSWORD . "'" . " -q '" . _preped_text . "'"
+  let _mssql = 'sqlcmd -s"," ' . " -d '" . $SQLCMDDBNAME . "'" . " -U '" . $SQLCMDUSER . "'" . " -P '" . $SQLCMDPASSWORD . "'" . " -Q '" . _preped_text . "'"
   if (a:is_in_container)
     let _command = _mssql
   else
