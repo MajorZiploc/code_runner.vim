@@ -123,7 +123,23 @@ function _VCR_RunMysql(selected_text, is_in_container)
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _mysql = 'mysql '. " --database='" . $MYSQLDATABASE . "'" . " --user='" . $MYSQLUSER . "'" . " --password='" . $MYSQLPASSWORD . "'" . " --execute='" . _preped_text . "'"
+  let _mysql = 'mysql'
+  if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
+    let _mysql = _mysql . ' --delimiter=","'
+    let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
+  else
+    let _mysql = _mysql . ' --table'
+  endif
+  if ($MYSQLDATABASE != '')
+    let _mysql = _mysql . " --database='" . $MYSQLDATABASE . "'"
+  endif
+  if ($MYSQLUSER != '')
+    let _mysql = _mysql . " --user='" . $MYSQLUSER . "'"
+  endif
+  if ($MYSQLPASSWORD != '')
+    let _mysql = _mysql . " --password='" . $MYSQLPASSWORD . "'"
+  endif
+  let _mysql = _mysql . " --execute='" . _preped_text . "'"
   if (a:is_in_container)
     let _command = _mysql
   else
