@@ -141,11 +141,18 @@ function _VCR_RunMongoDb(selected_text, is_in_container)
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _mongo = 'mongo '. " --database '" . $MONGODBDATABASE . "'" . " --user '" . $MONGODBUSER . "'" . " --password '" . $MONGODBPASSWORD . "'" . " --eval '" . _preped_text . "'"
+  let _mongo = 'mongo --quiet'
+  if ($MONGODBUSER != '')
+    let _mongo = _mongo . " -u '" . $MONGODBUSER . "'"
+  endif
+  if ($MONGODBPASSWORD != '')
+    let _mongo = _mongo . " -p '" . $MONGODBPASSWORD . "'"
+  endif
+  let _mongo = _mongo . " --eval '" . _preped_text . "'"
   if (a:is_in_container)
-    let _command = _mongo . $MONGODBDATABASE
+    let _command = _mongo
   else
-    let _command = _mongo . " --host '" . $MONGODBHOST . "/" . $MONGODBDATABASE . "'" . " --port '" . $MONGODBPORT . "'"
+    let _command = _mongo . " --host '" . $MONGODBHOST . "'" . " --port '" . $MONGODBPORT . "'"
   endif
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]

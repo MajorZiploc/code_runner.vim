@@ -60,8 +60,8 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   </tr>
 
   <tr>
-    <td>mongodb**(EXPERIMENTAL/UNTESTED)**</td>
     <td>mongodb</td>
+    <td>mongo</td>
     <td>_VCR_IsLabelMemOf(run_type, 'mongodb', 'mongo') || (run_type == '' && (file_ext == 'mongodb' || markdown_tag == 'mongodb'))</td>
   </tr>
 
@@ -221,7 +221,6 @@ let $MYSQLPASSWORD="password" |
 ```vim
 let $MONGODBHOST="127.0.0.1" |
 let $MONGODBPORT="5432" |
-let $MONGODBDATABASE="mongodb" |
 let $MONGODBUSER="mongodb" |
 let $MONGODBPASSWORD="password" |
 ```
