@@ -125,7 +125,6 @@ function _VCR_RunMysql(selected_text, is_in_container)
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _mysql = 'mysql'
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
-    let _mysql = _mysql . ' --delimiter=","'
     let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   else
     let _mysql = _mysql . ' --table'
@@ -463,6 +462,10 @@ function! VimCodeRunnerRun(...)
   endif
   if (g:vim_code_runner_debug != 'true')
     let g:vim_code_runner_last_query_results = system(_command)
+    if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true' && _VCR_IsLabelMemOf(run_path, _vcr_mysql_tags))
+      " HACK: to support mysql csv format
+      let g:vim_code_runner_last_query_results = system("echo '" . g:vim_code_runner_last_query_results . "' | tr '\t' ','")
+    else
     let g:vim_code_runner_last_command = _command
     let g:vim_code_runner_last_n_query_results= [g:vim_code_runner_last_query_results] + g:vim_code_runner_last_n_query_results
     let g:vim_code_runner_last_n_commands = [g:vim_code_runner_last_command] + g:vim_code_runner_last_n_commands
