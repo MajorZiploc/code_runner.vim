@@ -462,7 +462,7 @@ function! VimCodeRunnerRun(...)
   endif
   if (g:vim_code_runner_debug != 'true')
     let g:vim_code_runner_last_query_results = system(_command)
-    if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true' && _VCR_IsLabelMemOf(run_path, _vcr_mysql_tags))
+    if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true' && _VCR_IsLabelMemOf(run_path, g:_vcr_mysql_tags))
       " HACK: to support mysql csv format
       let g:vim_code_runner_last_query_results = system("echo '" . g:vim_code_runner_last_query_results . "' | tr '\t' ','")
     endif
