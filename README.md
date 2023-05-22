@@ -60,7 +60,7 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   </tr>
 
   <tr>
-    <td>mssql**(EXPERIMENTAL/UNTESTED)**</td>
+    <td>mssql</td>
     <td>sqlcmd</td>
   </tr>
 
