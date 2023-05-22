@@ -465,7 +465,7 @@ function! VimCodeRunnerRun(...)
     if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true' && _VCR_IsLabelMemOf(run_path, _vcr_mysql_tags))
       " HACK: to support mysql csv format
       let g:vim_code_runner_last_query_results = system("echo '" . g:vim_code_runner_last_query_results . "' | tr '\t' ','")
-    else
+    endif
     let g:vim_code_runner_last_command = _command
     let g:vim_code_runner_last_n_query_results= [g:vim_code_runner_last_query_results] + g:vim_code_runner_last_n_query_results
     let g:vim_code_runner_last_n_commands = [g:vim_code_runner_last_command] + g:vim_code_runner_last_n_commands
