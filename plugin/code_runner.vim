@@ -1,4 +1,3 @@
-let g:vim_code_runner_last_n_commands=[]
 let g:vim_code_runner_last_n_query_results=[]
 let g:vim_code_runner_debug_label = "DEBUG-> "
 
@@ -101,9 +100,7 @@ function _VCR_RunMssql(selected_text, is_in_container)
   let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = 'sqlcmd -s"," ' . " -d '" . $SQLCMDDBNAME . "'" . " -U '" . $SQLCMDUSER . "'" . " -P '" . $SQLCMDPASSWORD . "'" . " -Q '" . _preped_text . "'"
-  if (a:is_in_container)
-    let _command = _command
-  else
+  if (!a:is_in_container)
     let _command = _command . " -S '" . $SQLCMDSERVER . "," . $SQLCMDPORT . "'"
   endif
   let _should_bottom_split = 1
@@ -138,9 +135,7 @@ function _VCR_RunMysql(selected_text, is_in_container)
     let _command = _command . " --password='" . $MYSQLPASSWORD . "'"
   endif
   let _command = _command . " --execute='" . _preped_text . "'"
-  if (a:is_in_container)
-    let _command = _command
-  else
+  if (!a:is_in_container)
     let _command = _command . " --host='" . $MYSQLHOST . "'" . " --port='" . $MYSQLPORT . "'"
   endif
   let _should_bottom_split = 1
@@ -167,9 +162,7 @@ function _VCR_RunMongoDb(selected_text, is_in_container)
     let _command = _command . " -p '" . $MONGODBPASSWORD . "'"
   endif
   let _command = _command . " --eval '" . _preped_text . "'"
-  if (a:is_in_container)
-    let _command = _command
-  else
+  if (!a:is_in_container)
     let _command = _command . " --host '" . $MONGODBHOST . "'" . " --port '" . $MONGODBPORT . "'"
   endif
   let _should_bottom_split = 1
@@ -395,6 +388,16 @@ function! _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_c
   return case_values
 endfunction
 
+function! _VCR_ResizeList(list, new_size)
+  let new_list = a:list
+  let size_diff = len(a:list) - a:new_size
+  if (size_diff > 0)
+    let slice_index = size_diff * -1 - 1
+    let new_list = a:list[:slice_index]
+  endif
+  return new_list
+endfunction
+
 function! VimCodeRunnerRun(...)
   let run_type = get(a:, 1, '')
   let debug = get(a:, 2, 'false')
@@ -460,29 +463,31 @@ function! VimCodeRunnerRun(...)
     return
   endif
   if (g:vim_code_runner_debug != 'true')
-    let g:vim_code_runner_last_query_results = system(_command)
+    let query_results = system(_command)
     if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true' && _VCR_IsLabelMemOf(run_path, g:_vcr_mysql_tags))
       " HACK: to support mysql csv format
-      let g:vim_code_runner_last_query_results = system("echo '" . g:vim_code_runner_last_query_results . "' | tr '\t' ','")
+      let query_results = system("echo '" . query_results . "' | tr '\t' ','")
     endif
-    let g:vim_code_runner_last_command = _command
-    let g:vim_code_runner_last_n_query_results= [g:vim_code_runner_last_query_results] + g:vim_code_runner_last_n_query_results
-    let g:vim_code_runner_last_n_commands = [g:vim_code_runner_last_command] + g:vim_code_runner_last_n_commands
-    if (len(g:vim_code_runner_last_n_query_results) > get(g:, 'vim_code_runner_history_size', 10))
-      let g:vim_code_runner_last_n_query_results= g:vim_code_runner_last_n_query_results[:-2]
+    let g:vim_code_runner_last_query_result = {
+      \ 'result' : query_results,
+      \ 'command' : _command
+    \}
+    let g:vim_code_runner_last_n_query_results= [g:vim_code_runner_last_query_result] + g:vim_code_runner_last_n_query_results
+    let _runner_history_size_default = 10
+    let _runner_history_size = get(g:, 'vim_code_runner_history_size', _runner_history_size_default)
+    if (!(_runner_history_size =~# '^\d\+$' && _runner_history_size >= 1))
+      let _runner_history_size = _runner_history_size_default
     endif
-    if (len(g:vim_code_runner_last_n_commands) > get(g:, 'vim_code_runner_history_size', 10))
-      let g:vim_code_runner_last_n_commands= g:vim_code_runner_last_n_commands[:-2]
-    endif
+    let g:vim_code_runner_last_n_query_results = _VCR_ResizeList(g:vim_code_runner_last_n_query_results, _runner_history_size)
     if (_should_bottom_split)
       set splitbelow
       horizontal belowright VimCodeRunnerScratch
-      put =g:vim_code_runner_last_query_results
+      put =query_results
       let &filetype = _file_type
       execute "normal! ggdd"
       set splitbelow!
     else
-      put =g:vim_code_runner_last_query_results
+      put =query_results
     endif
   else
     echo g:vim_code_runner_debug_label "run_path: " run_path
