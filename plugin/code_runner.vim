@@ -483,12 +483,12 @@ function! VimCodeRunnerRun(...)
     if (_should_bottom_split)
       set splitbelow
       horizontal belowright VimCodeRunnerScratch
-      put =g:query_results
+      put =query_results
       let &filetype = _file_type
       execute "normal! ggdd"
       set splitbelow!
     else
-      put =g:query_results
+      put =query_results
     endif
   else
     echo g:vim_code_runner_debug_label "run_path: " run_path
