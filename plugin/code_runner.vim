@@ -390,7 +390,7 @@ endfunction
 
 function! _VCR_ResizeList(list, new_size)
   let new_list = a:list
-  let size_diff = len(a:list) > a:new_size
+  let size_diff = len(a:list) - a:new_size
   if (size_diff > 0)
     let slice_index = size_diff * -1 - 1
     let new_list = a:list[:slice_index]
@@ -475,8 +475,7 @@ function! VimCodeRunnerRun(...)
     let g:vim_code_runner_last_n_query_results= [g:vim_code_runner_last_query_result] + g:vim_code_runner_last_n_query_results
     let _runner_history_size_default = 10
     let _runner_history_size = get(g:, 'vim_code_runner_history_size', _runner_history_size_default)
-    let _digit_pattern = "^\d+$"
-    if (!(match(_runner_history_size, _digit_pattern) >= 0 && _runner_history_size >= 1))
+    if (!(_runner_history_size =~# '^\d\+$' && _runner_history_size >= 1))
       let _runner_history_size = _runner_history_size_default
     endif
     let g:vim_code_runner_last_n_query_results = _VCR_ResizeList(g:vim_code_runner_last_n_query_results, _runner_history_size)
