@@ -203,11 +203,10 @@ function _VCR_RunRedis(selected_text, is_in_container)
   let _file_type = g:vim_default_file_type
   let _preped_text = raw_text
   let _command = 'redis-cli '
-  if (a:is_in_container)
-    let _command = _command . _preped_text
-  else
-    let _command = _command . "-h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "' " . _preped_text
+  if (!a:is_in_container)
+    let _command = _command . "-h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "' "
   endif
+  let _command = _command . _preped_text
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
