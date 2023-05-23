@@ -1,5 +1,24 @@
 let g:vim_code_runner_last_n_query_results=[]
 let g:vim_code_runner_debug_label = "DEBUG-> "
+let g:vim_default_file_type = 'log'
+
+let g:_vcr_sh_tags = ['sh', 'shell']
+let g:_vcr_psql_tags = ['psql', 'pgsql']
+let g:_vcr_redis_tags = ['redis', 'redis-cli']
+let g:_vcr_sqlite_tags = ['sqlite', 'sqlite3']
+let g:_vcr_mongodb_tags = ['mongodb', 'mongo']
+let g:_vcr_mssql_tags = ['mssql', 'sqlcmd']
+let g:_vcr_mysql_tags = ['mysql']
+let g:_vcr_zsh_tags = ['zsh']
+let g:_vcr_bash_tags = ['bash']
+let g:_vcr_bat_tags = ['bat', 'cmd']
+let g:_vcr_python_tags = ['python']
+let g:_vcr_javascript_tags = ['javascript', 'node']
+let g:_vcr_typescript_tags = ['typescript', 'ts-node']
+let g:_vcr_php_tags = ['php']
+let g:_vcr_perl_tags= ['perl']
+let g:_vcr_ruby_tags= ['ruby']
+let g:_vcr_powershell_tags= ['ps1', 'powershell', 'pwsh']
 
 command! VimCodeRunnerScratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
 
@@ -15,7 +34,7 @@ function _VCR_RunBasic(selected_text, root_command, run_path)
     let raw_text = @t
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = a:root_command . " '" . _preped_text . "'"
   let _should_bottom_split = 1
@@ -23,16 +42,16 @@ function _VCR_RunBasic(selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunPsql(selected_text, is_in_container)
-  let run_path = "pgsql"
+  let run_path = g:_vcr_psql_tags[0]
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: 'pgsql' does not support this"
+    echo "No selected_text stored in the t register! run_type: '" . g:_vcr_psql_tags[0] . "' does not support this"
     echohl None
     return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _command = 'psql '
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
     let _command = _command . '--csv '
@@ -64,16 +83,16 @@ function _VCR_RunPsql(selected_text, is_in_container)
 endfunction
 
 function _VCR_RunSqlite(selected_text, is_in_container)
-  let run_path = "sqlite"
+  let run_path = g:_vcr_sqlite_tags[0]
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: 'sqlite' does not support this"
+    echo "No selected_text stored in the t register! run_type: '" . g:_vcr_sqlite_tags[0] . "' does not support this"
     echohl None
     return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = 'sqlite3 ' . $SQLITEDBFILE
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
@@ -88,11 +107,11 @@ function _VCR_RunSqlite(selected_text, is_in_container)
 endfunction
 
 function _VCR_RunMssql(selected_text, is_in_container)
-  let run_path = "mssql"
+  let run_path = g:_vcr_mssql_tags[0]
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: 'mssql' does not support this"
+    echo "No selected_text stored in the t register! run_type: '" . g:_vcr_mssql_tags[0] . "' does not support this"
     echohl None
     return ['', '', '', '', l:run_path]
   endif
@@ -108,16 +127,16 @@ function _VCR_RunMssql(selected_text, is_in_container)
 endfunction
 
 function _VCR_RunMysql(selected_text, is_in_container)
-  let run_path = "mysql"
+  let run_path = g:_vcr_mysql_tags[0]
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: 'mysql' does not support this"
+    echo "No selected_text stored in the t register! run_type: '" . g:_vcr_mysql_tags[0] . "' does not support this"
     echohl None
     return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = 'mysql'
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
@@ -143,16 +162,16 @@ function _VCR_RunMysql(selected_text, is_in_container)
 endfunction
 
 function _VCR_RunMongoDb(selected_text, is_in_container)
-  let run_path = "mongodb"
+  let run_path = g:_vcr_mongodb_tags[0]
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: 'mongodb' does not support this"
+    echo "No selected_text stored in the t register! run_type: '" . g:_vcr_mongodb_tags[0] . "' does not support this"
     echohl None
     return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = 'mongo --quiet'
   if ($MONGODBUSER != '')
@@ -170,16 +189,16 @@ function _VCR_RunMongoDb(selected_text, is_in_container)
 endfunction
 
 function _VCR_RunRedis(selected_text, is_in_container)
-  let run_path = "redis"
+  let run_path = g:_vcr_redis_tags[0]
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: 'redis' does not support this"
+    echo "No selected_text stored in the t register! run_type: '" . g:_vcr_redis_tags[0] . "' does not support this"
     echohl None
     return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = raw_text
   let _command = 'redis-cli '
   if (a:is_in_container)
@@ -192,14 +211,14 @@ function _VCR_RunRedis(selected_text, is_in_container)
 endfunction
 
 function _VCR_RunPhp(selected_text)
-  let run_path = "php"
+  let run_path = g:_vcr_php_tags[0]
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     let _ = _VCR_CopyWholeFile()
     let raw_text = @t
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _php_open_tag_pattern = "^\n*\s*<\?php\s*"
   let _php_close_tag_pattern = "\s*?>\n*\s*"
@@ -213,7 +232,7 @@ function _VCR_RunPhp(selected_text)
 endfunction
 
 function _VCR_RunSh(selected_text, is_in_container, shebang_lang_pass)
-  let run_path = "sh"
+  let run_path = g:_vcr_sh_tags[0]
   let raw_text = a:selected_text
   let shebang_lang_pass = get(a:, 'shebang_lang_pass', 'false')
   let is_in_container = get(a:, 'is_in_container', 'false')
@@ -241,7 +260,7 @@ function _VCR_RunSh(selected_text, is_in_container, shebang_lang_pass)
     endif
   else
     let _command_prepend = ''
-    let _file_type = 'log'
+    let _file_type = g:vim_default_file_type
     let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
     let _command = "sh -c '" . _preped_text . "'"
     let _should_bottom_split = 1
@@ -250,14 +269,14 @@ function _VCR_RunSh(selected_text, is_in_container, shebang_lang_pass)
 endfunction
 
 function _VCR_RunBat(selected_text)
-  let run_path = "bat"
+  let run_path = g:_vcr_bat_tags[0]
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     let _ = _VCR_CopyWholeFile()
     let raw_text = @t
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = raw_text
   let _command = 'cmd /C "' . _preped_text . '"'
   let _should_bottom_split = 1
@@ -265,49 +284,49 @@ function _VCR_RunBat(selected_text)
 endfunction
 
 function _VCR_RunZsh(selected_text)
-  let run_path = "zsh"
+  let run_path = g:_vcr_zsh_tags[0]
   let root_command = "zsh -c"
   return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunBash(selected_text)
-  let run_path = "bash"
+  let run_path = g:_vcr_bash_tags[0]
   let root_command = "bash -c"
   return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunPython(selected_text)
-  let run_path = "python"
+  let run_path = g:_vcr_python_tags[0]
   let root_command = "python -c"
   return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunJavascript(selected_text)
-  let run_path = "javascript"
+  let run_path = g:_vcr_javascript_tags[0]
   let root_command = "node -e"
   return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunTypescript(selected_text)
-  let run_path = "typescript"
+  let run_path = g:_vcr_typescript_tags[0]
   let root_command = "ts-node -e"
   return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunRuby(selected_text)
-  let run_path = "ruby"
+  let run_path = g:_vcr_ruby_tags[0]
   let root_command = "ruby -e"
   return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunPerl(selected_text)
-  let run_path = "perl"
+  let run_path = g:_vcr_perl_tags[0]
   let root_command = "perl -e"
   return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunPwsh(selected_text)
-  let run_path = "powershell"
+  let run_path = g:_vcr_powershell_tags[0]
   let root_command = "pwsh -command"
   return _VCR_RunBasic(a:selected_text, root_command, run_path)
 endfunction
@@ -320,24 +339,6 @@ function! _VCR_IsLabelMemOf(actual_label, expected_labels)
   endfor
   return 0
 endfunction
-
-let g:_vcr_sh_tags = ['sh', 'shell']
-let g:_vcr_psql_tags = ['psql', 'pgsql']
-let g:_vcr_redis_tags = ['redis', 'redis-cli']
-let g:_vcr_sqlite_tags = ['sqlite', 'sqlite3']
-let g:_vcr_mongodb_tags = ['mongodb', 'mongo']
-let g:_vcr_mssql_tags = ['mssql', 'sqlcmd']
-let g:_vcr_mysql_tags = ['mysql']
-let g:_vcr_zsh_tags = ['zsh']
-let g:_vcr_bash_tags = ['bash']
-let g:_vcr_bat_tags = ['bat', 'cmd']
-let g:_vcr_python_tags = ['python']
-let g:_vcr_javascript_tags = ['javascript', 'node']
-let g:_vcr_typescript_tags = ['typescript', 'ts-node']
-let g:_vcr_php_tags = ['php']
-let g:_vcr_perl_tags= ['perl']
-let g:_vcr_ruby_tags= ['ruby']
-let g:_vcr_powershell_tags= ['ps1', 'powershell', 'pwsh']
 
 function! _VCR_IsRunner(tags, run_type, file_ext, markdown_tag, filetype)
   if (get(a:, 'filetype', '') != '')
@@ -368,19 +369,19 @@ function! _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_c
     let case_values = _VCR_RunBash(a:selected_text)
   elseif (_VCR_IsRunner(g:_vcr_bat_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
     let case_values = _VCR_RunBat(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_python_tags, a:run_type, a:file_ext, a:markdown_tag, 'python'))
+  elseif (_VCR_IsRunner(g:_vcr_python_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_python_tags[0]))
     let case_values = _VCR_RunPython(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_javascript_tags, a:run_type, a:file_ext, a:markdown_tag, 'javascript'))
+  elseif (_VCR_IsRunner(g:_vcr_javascript_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_javascript_tags[0]))
     let case_values = _VCR_RunJavascript(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_typescript_tags, a:run_type, a:file_ext, a:markdown_tag, 'typescript'))
+  elseif (_VCR_IsRunner(g:_vcr_typescript_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_typescript_tags[0]))
     let case_values = _VCR_RunTypescript(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_php_tags, a:run_type, a:file_ext, a:markdown_tag, 'php'))
+  elseif (_VCR_IsRunner(g:_vcr_php_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_php_tags[0]))
     let case_values = _VCR_RunPhp(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_ruby_tags, a:run_type, a:file_ext, a:markdown_tag, 'ruby'))
+  elseif (_VCR_IsRunner(g:_vcr_ruby_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_ruby_tags[0]))
     let case_values = _VCR_RunRuby(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_perl_tags, a:run_type, a:file_ext, a:markdown_tag, 'perl'))
+  elseif (_VCR_IsRunner(g:_vcr_perl_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_perl_tags[0]))
     let case_values = _VCR_RunPerl(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_powershell_tags, a:run_type, a:file_ext, a:markdown_tag, 'ps1'))
+  elseif (_VCR_IsRunner(g:_vcr_powershell_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_powershell_tags[0]))
     let case_values = _VCR_RunPwsh(a:selected_text)
   else
     let case_values = []

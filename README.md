@@ -124,8 +124,10 @@ If your `.sh` file starts with a shebang to use a different command and you sele
 ### How a runner is selected
 
 The following tags drive runner selection.
+
 If a file extension, markdown tagged code block, shebang rediection matches then the associated runner will be used
-NOTE: some runners also look at the &filetype. Denoted with a `" include set filetype=<lang>` at the end of the line below
+
+NOTE: some runners also look at the &filetype. Denoted with a `" include set filetype=<lang>` at the end of the line below. Assumes that the first item in the tags list is the filetype
 
 ```vim
 let g:_vcr_sh_tags = ['sh', 'shell']
@@ -166,7 +168,11 @@ let vim_code_runner_sql_as_csv="true" |
 let vim_code_runner_history_size="10" |
 " A label that will be prepended to all debug logs (Default: "DEBUG-> ")
 let vim_code_runner_debug_label = "DEBUG-> " |
+" fallback file_type used in all runners (Default: "log")
+let vim_default_file_type = "log" |
 ```
+
+NOTE: changing values of any of the `_vcr*` variables may lead to problems!
 
 ### Specific Runner Options
 
@@ -218,6 +224,8 @@ let $MYSQLDATABASE="mysql" |
 let $MYSQLUSER="mysql" |
 let $MYSQLPASSWORD="password" |
 ```
+
+NOTE: `let vim_code_runner_sql_as_csv='true' |` is supported through a hack. Use `let vim_code_runner_sql_as_csv='false' |` if your query would have hard tab characters in the results
 
 #### mongodb
 
@@ -277,3 +285,4 @@ if they have specific runner env vars, then also update VimCodeRunnerRunConfigs 
 
 - some other sql???
 - some other nosql???
+- mysql improve csv format by removing the HACK
