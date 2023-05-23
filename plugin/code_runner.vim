@@ -389,6 +389,16 @@ function! _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_c
   return case_values
 endfunction
 
+function! _VCR_ResizeList(list, new_size)
+  let new_list = list
+  let size_diff = len(g:list) > _new_size
+  if (size_diff > 0)
+    let slice_index = size_diff * -1 - 1
+    let new_list = list[:slice_index]
+  endif
+  return new_list
+endfunction
+
 function! VimCodeRunnerRun(...)
   let run_type = get(a:, 1, '')
   let debug = get(a:, 2, 'false')
@@ -468,12 +478,8 @@ function! VimCodeRunnerRun(...)
     if (!(match(_runner_history_size, _digit_pattern) >= 0 && _runner_history_size >= 1))
       let _runner_history_size = _runner_history_size_default
     endif
-    if (len(g:vim_code_runner_last_n_query_results) > _runner_history_size)
-      let g:vim_code_runner_last_n_query_results= g:vim_code_runner_last_n_query_results[:-2]
-    endif
-    if (len(g:vim_code_runner_last_n_commands) > _runner_history_size)
-      let g:vim_code_runner_last_n_commands= g:vim_code_runner_last_n_commands[:-2]
-    endif
+    let _ = _VCR_ResizeList(g:vim_code_runner_last_n_query_results, _runner_history_size)
+    let _ = _VCR_ResizeList(g:vim_code_runner_last_n_commands, _runner_history_size)
     if (_should_bottom_split)
       set splitbelow
       horizontal belowright VimCodeRunnerScratch
