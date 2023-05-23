@@ -1,4 +1,3 @@
-let g:vim_code_runner_last_n_commands=[]
 let g:vim_code_runner_last_n_query_results=[]
 let g:vim_code_runner_debug_label = "DEBUG-> "
 
@@ -464,14 +463,16 @@ function! VimCodeRunnerRun(...)
     return
   endif
   if (g:vim_code_runner_debug != 'true')
-    let g:vim_code_runner_last_query_results = system(_command)
+    let query_results = system(_command)
     if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true' && _VCR_IsLabelMemOf(run_path, g:_vcr_mysql_tags))
       " HACK: to support mysql csv format
-      let g:vim_code_runner_last_query_results = system("echo '" . g:vim_code_runner_last_query_results . "' | tr '\t' ','")
+      let query_results = system("echo '" . query_results . "' | tr '\t' ','")
     endif
-    let g:vim_code_runner_last_command = _command
-    let g:vim_code_runner_last_n_query_results= [g:vim_code_runner_last_query_results] + g:vim_code_runner_last_n_query_results
-    let g:vim_code_runner_last_n_commands = [g:vim_code_runner_last_command] + g:vim_code_runner_last_n_commands
+    let g:vim_code_runner_last_query_result = {
+      \ 'result' : query_results,
+      \ 'command' : _command
+    \}
+    let g:vim_code_runner_last_n_query_results= [g:vim_code_runner_last_query_result] + g:vim_code_runner_last_n_query_results
     let _runner_history_size_default = 10
     let _runner_history_size = get(g:, 'vim_code_runner_history_size', _runner_history_size_default)
     let _digit_pattern = "^\d+$"
@@ -479,16 +480,15 @@ function! VimCodeRunnerRun(...)
       let _runner_history_size = _runner_history_size_default
     endif
     let _ = _VCR_ResizeList(g:vim_code_runner_last_n_query_results, _runner_history_size)
-    let _ = _VCR_ResizeList(g:vim_code_runner_last_n_commands, _runner_history_size)
     if (_should_bottom_split)
       set splitbelow
       horizontal belowright VimCodeRunnerScratch
-      put =g:vim_code_runner_last_query_results
+      put =g:query_results
       let &filetype = _file_type
       execute "normal! ggdd"
       set splitbelow!
     else
-      put =g:vim_code_runner_last_query_results
+      put =g:query_results
     endif
   else
     echo g:vim_code_runner_debug_label "run_path: " run_path

@@ -162,7 +162,7 @@ let use_runner_options_in_container="true" |
 let vim_code_runner_csv_type="rfc_csv" |
 " will decide if sql output will be in csv format or the default for the sql cli tool being used (Default: true)
 let vim_code_runner_sql_as_csv="true" |
-" the number of  commands and query results saved (Default: 10) for array sizes of vim_code_runner_last_n_commands and vim_code_runner_last_n_query_results
+" the number of  commands and query results saved (Default: 10) for array size of vim_code_runner_last_n_query_results
 let vim_code_runner_history_size="10" |
 " A label that will be prepended to all debug logs (Default: "DEBUG-> ")
 let vim_code_runner_debug_label = "DEBUG-> " |
@@ -260,17 +260,15 @@ nmap <leader>4 :let @t = ''<CR>:call VimCodeRunnerRun('', 'true')<CR>
 
 ### I closed the results of my last query and the query takes a large amount of time to run.
 
-there is a global variable called vim_code_runner_last_query_results; it stores the results of your last query
+there is a global variable called vim_code_runner_last_query_result; it stores the results of your last query
 
 use something like this command to get the content out of the variable
 ```vim
 " in visual mode with a blank line selected
-put =g:vim_code_runner_last_query_results
+put =g:vim_code_runner_last_query_result
 ```
 
-get the associated command that generated vim_code_runner_last_query_results with the global variable vim_code_runner_last_command in a similar fashion
-
-you can view even further back depending on your vim_code_runner_history_size setting with vim_code_runner_last_n_commands and vim_code_runner_last_n_query_results lists
+you can view even further back depending on your vim_code_runner_history_size setting with vim_code_runner_last_n_query_results list
 
 ## Contribution Requests
 
