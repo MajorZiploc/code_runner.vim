@@ -101,9 +101,7 @@ function _VCR_RunMssql(selected_text, is_in_container)
   let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = 'sqlcmd -s"," ' . " -d '" . $SQLCMDDBNAME . "'" . " -U '" . $SQLCMDUSER . "'" . " -P '" . $SQLCMDPASSWORD . "'" . " -Q '" . _preped_text . "'"
-  if (a:is_in_container)
-    let _command = _command
-  else
+  if (!a:is_in_container)
     let _command = _command . " -S '" . $SQLCMDSERVER . "," . $SQLCMDPORT . "'"
   endif
   let _should_bottom_split = 1
@@ -138,9 +136,7 @@ function _VCR_RunMysql(selected_text, is_in_container)
     let _command = _command . " --password='" . $MYSQLPASSWORD . "'"
   endif
   let _command = _command . " --execute='" . _preped_text . "'"
-  if (a:is_in_container)
-    let _command = _command
-  else
+  if (!a:is_in_container)
     let _command = _command . " --host='" . $MYSQLHOST . "'" . " --port='" . $MYSQLPORT . "'"
   endif
   let _should_bottom_split = 1
@@ -167,9 +163,7 @@ function _VCR_RunMongoDb(selected_text, is_in_container)
     let _command = _command . " -p '" . $MONGODBPASSWORD . "'"
   endif
   let _command = _command . " --eval '" . _preped_text . "'"
-  if (a:is_in_container)
-    let _command = _command
-  else
+  if (!a:is_in_container)
     let _command = _command . " --host '" . $MONGODBHOST . "'" . " --port '" . $MONGODBPORT . "'"
   endif
   let _should_bottom_split = 1
