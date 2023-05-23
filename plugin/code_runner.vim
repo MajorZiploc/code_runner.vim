@@ -59,9 +59,15 @@ function _VCR_RunPsql(selected_text, is_in_container)
   endif
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   if (a:is_in_container)
-    let _command_prepend = 'export PGDATABASE=' . $PGDATABASE . '; '
-          \ . 'export PGUSER=' . $PGUSER . '; '
-          \ . 'export PGPASSWORD=' . $PGPASSWORD . '; '
+    if ($PGDATABASE != '')
+      let _command_prepend = _command_prepend . 'export PGDATABASE=' . $PGDATABASE . '; '
+    endif
+    if ($PGUSER != '')
+      let _command_prepend = _command_prepend . 'export PGUSER=' . $PGUSER . '; '
+    endif
+    if ($PGPASSWORD != '')
+      let _command_prepend = _command_prepend . 'export PGPASSWORD=' . $PGPASSWORD . '; '
+    endif
     let _command = _command . '-c "' . _preped_text . '"'
   else
     if (g:vim_code_runner_debug == 'true')
