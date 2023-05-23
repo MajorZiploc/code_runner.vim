@@ -144,9 +144,9 @@ let g:_vcr_python_tags = ['python'] " include set filetype=python
 let g:_vcr_javascript_tags = ['javascript', 'node'] " include set filetype=javascript
 let g:_vcr_typescript_tags = ['typescript', 'ts-node'] " include set filetype=typescript
 let g:_vcr_php_tags = ['php'] " include set filetype=php
-let g:_vcr_perl_tags= ['perl'] " include set filetype=perl
-let g:_vcr_ruby_tags= ['ruby'] " include set filetype=ruby
-let g:_vcr_powershell_tags= ['ps1', 'powershell', 'pwsh'] " include set filetype=ps1
+let g:_vcr_perl_tags = ['perl'] " include set filetype=perl
+let g:_vcr_ruby_tags = ['ruby'] " include set filetype=ruby
+let g:_vcr_powershell_tags = ['ps1', 'powershell', 'pwsh'] " include set filetype=ps1
 ```
 
 ---
@@ -165,9 +165,9 @@ let vim_code_runner_sql_as_csv="true" |
 " the number of  commands and query results saved (Default: 10) for array size of vim_code_runner_last_n_query_results
 let vim_code_runner_history_size="10" |
 " A label that will be prepended to all debug logs (Default: "DEBUG-> ")
-let vim_code_runner_debug_label = "DEBUG-> " |
+let vim_code_runner_debug_label="DEBUG-> " |
 " fallback file_type used in all runners (Default: "log")
-let vim_default_file_type = "log" |
+let vim_default_file_type="log" |
 ```
 
 NOTE: changing values of any of the `_vcr*` variables may lead to problems!
