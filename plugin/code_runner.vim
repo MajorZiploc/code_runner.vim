@@ -479,7 +479,7 @@ function! VimCodeRunnerRun(...)
     if (!(match(_runner_history_size, _digit_pattern) >= 0 && _runner_history_size >= 1))
       let _runner_history_size = _runner_history_size_default
     endif
-    let _ = _VCR_ResizeList(g:vim_code_runner_last_n_query_results, _runner_history_size)
+    let g:vim_code_runner_last_n_query_results = _VCR_ResizeList(g:vim_code_runner_last_n_query_results, _runner_history_size)
     if (_should_bottom_split)
       set splitbelow
       horizontal belowright VimCodeRunnerScratch
