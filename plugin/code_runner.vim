@@ -34,9 +34,9 @@ function _VCR_RunPsql(selected_text, is_in_container)
   endif
   let _command_prepend = ''
   let _file_type = 'log'
-  let _psql = 'psql '
+  let _command = 'psql '
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
-    let _psql = _psql . '--csv '
+    let _command = _command . '--csv '
     let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   endif
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
@@ -45,9 +45,9 @@ function _VCR_RunPsql(selected_text, is_in_container)
       let _command_prepend = 'export PGDATABASE=' . $PGDATABASE . '; '
             \ . 'export PGUSER=' . $PGUSER . '; '
             \ . 'export PGPASSWORD=' . $PGPASSWORD . '; '
-      let _command = _psql . '-c "' . _preped_text . '"'
+      let _command = _command . '-c "' . _preped_text . '"'
     else
-      let _command = _psql . "-c '" . _preped_text . "'"
+      let _command = _command . "-c '" . _preped_text . "'"
     endif
   else
     if (g:vim_code_runner_debug == 'true')
@@ -58,7 +58,7 @@ function _VCR_RunPsql(selected_text, is_in_container)
       echo g:vim_code_runner_debug_label "  export PGUSER=\"".$PGUSER."\";"
       echo g:vim_code_runner_debug_label "  export PGPASSWORD=\"".$PGPASSWORD."\";"
     endif
-    let _command = _psql . "-c '" . _preped_text . "'"
+    let _command = _command . "-c '" . _preped_text . "'"
   endif
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
@@ -76,15 +76,14 @@ function _VCR_RunSqlite(selected_text, is_in_container)
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _sqlite = 'sqlite3 ' . $SQLITEDBFILE
+  let _command = 'sqlite3 ' . $SQLITEDBFILE
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
-    let _sqlite = _sqlite . ' -separator ","'
+    let _command = _command . ' -separator ","'
     let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   else
-    let _sqlite = _sqlite . ' -column'
+    let _command = _command . ' -column'
   endif
-  let _sqlite = _sqlite . ' -header ' . "-cmd '" . _preped_text . "' .quit"
-  let _command = _sqlite
+  let _command = _command . ' -header ' . "-cmd '" . _preped_text . "' .quit"
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
@@ -101,11 +100,11 @@ function _VCR_RunMssql(selected_text, is_in_container)
   let _command_prepend = ''
   let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _mssql = 'sqlcmd -s"," ' . " -d '" . $SQLCMDDBNAME . "'" . " -U '" . $SQLCMDUSER . "'" . " -P '" . $SQLCMDPASSWORD . "'" . " -Q '" . _preped_text . "'"
+  let _command = 'sqlcmd -s"," ' . " -d '" . $SQLCMDDBNAME . "'" . " -U '" . $SQLCMDUSER . "'" . " -P '" . $SQLCMDPASSWORD . "'" . " -Q '" . _preped_text . "'"
   if (a:is_in_container)
-    let _command = _mssql
+    let _command = _command
   else
-    let _command = _mssql . " -S '" . $SQLCMDSERVER . "," . $SQLCMDPORT . "'"
+    let _command = _command . " -S '" . $SQLCMDSERVER . "," . $SQLCMDPORT . "'"
   endif
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
@@ -123,26 +122,26 @@ function _VCR_RunMysql(selected_text, is_in_container)
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _mysql = 'mysql'
+  let _command = 'mysql'
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
     let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   else
-    let _mysql = _mysql . ' --table'
+    let _command = _command . ' --table'
   endif
   if ($MYSQLDATABASE != '')
-    let _mysql = _mysql . " --database='" . $MYSQLDATABASE . "'"
+    let _command = _command . " --database='" . $MYSQLDATABASE . "'"
   endif
   if ($MYSQLUSER != '')
-    let _mysql = _mysql . " --user='" . $MYSQLUSER . "'"
+    let _command = _command . " --user='" . $MYSQLUSER . "'"
   endif
   if ($MYSQLPASSWORD != '')
-    let _mysql = _mysql . " --password='" . $MYSQLPASSWORD . "'"
+    let _command = _command . " --password='" . $MYSQLPASSWORD . "'"
   endif
-  let _mysql = _mysql . " --execute='" . _preped_text . "'"
+  let _command = _command . " --execute='" . _preped_text . "'"
   if (a:is_in_container)
-    let _command = _mysql
+    let _command = _command
   else
-    let _command = _mysql . " --host='" . $MYSQLHOST . "'" . " --port='" . $MYSQLPORT . "'"
+    let _command = _command . " --host='" . $MYSQLHOST . "'" . " --port='" . $MYSQLPORT . "'"
   endif
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
@@ -160,18 +159,18 @@ function _VCR_RunMongoDb(selected_text, is_in_container)
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _mongo = 'mongo --quiet'
+  let _command = 'mongo --quiet'
   if ($MONGODBUSER != '')
-    let _mongo = _mongo . " -u '" . $MONGODBUSER . "'"
+    let _command = _command . " -u '" . $MONGODBUSER . "'"
   endif
   if ($MONGODBPASSWORD != '')
-    let _mongo = _mongo . " -p '" . $MONGODBPASSWORD . "'"
+    let _command = _command . " -p '" . $MONGODBPASSWORD . "'"
   endif
-  let _mongo = _mongo . " --eval '" . _preped_text . "'"
+  let _command = _command . " --eval '" . _preped_text . "'"
   if (a:is_in_container)
-    let _command = _mongo
+    let _command = _command
   else
-    let _command = _mongo . " --host '" . $MONGODBHOST . "'" . " --port '" . $MONGODBPORT . "'"
+    let _command = _command . " --host '" . $MONGODBHOST . "'" . " --port '" . $MONGODBPORT . "'"
   endif
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
@@ -189,11 +188,11 @@ function _VCR_RunRedis(selected_text, is_in_container)
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_text = raw_text
-  let _redis = 'redis-cli '
+  let _command = 'redis-cli '
   if (a:is_in_container)
-    let _command = _redis . _preped_text
+    let _command = _command . _preped_text
   else
-    let _command = _redis . "-h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "' " . _preped_text
+    let _command = _command . "-h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "' " . _preped_text
   endif
   let _should_bottom_split = 1
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
