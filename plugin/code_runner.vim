@@ -24,11 +24,11 @@ function _VCR_RunBasic(selected_text, root_command, run_path)
 endfunction
 
 function _VCR_RunPsql(selected_text, is_in_container)
-  let run_path = "pgsql"
+  let run_path = "psql"
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: 'pgsql' does not support this"
+    echo "No selected_text stored in the t register! run_type: 'psql' does not support this"
     echohl None
     return ['', '', '', '', l:run_path]
   endif
