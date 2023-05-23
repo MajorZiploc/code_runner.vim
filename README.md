@@ -172,6 +172,8 @@ let vim_code_runner_debug_label = "DEBUG-> " |
 let vim_default_file_type = "log" |
 ```
 
+NOTE: changing values of any of the `_vcr*` variables may lead to problems!
+
 ### Specific Runner Options
 
 #### psql
