@@ -389,11 +389,11 @@ function! _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_c
 endfunction
 
 function! _VCR_ResizeList(list, new_size)
-  let new_list = list
-  let size_diff = len(g:list) > _new_size
+  let new_list = a:list
+  let size_diff = len(a:list) > a:new_size
   if (size_diff > 0)
     let slice_index = size_diff * -1 - 1
-    let new_list = list[:slice_index]
+    let new_list = a:list[:slice_index]
   endif
   return new_list
 endfunction
