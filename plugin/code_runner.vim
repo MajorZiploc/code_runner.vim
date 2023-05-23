@@ -249,7 +249,7 @@ function _VCR_RunSh(selected_text, is_in_container, shebang_lang_pass)
     if (shebang_lang != '')
       let selected_text_override = substitute(raw_text, shebang_lang_pattern, '\=submatch(2)', '')
       if (selected_text_override != '')
-        if (g:vim_code_runner_debug)
+        if (g:vim_code_runner_debug == 'true')
           echo g:vim_code_runner_debug_label "trying to run with shebang_lang: " shebang_lang
         endif
         let shebang_lang_pass = 'true'
