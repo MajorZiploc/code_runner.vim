@@ -158,8 +158,6 @@ let g:_vcr_powershell_tags= ['ps1', 'powershell', 'pwsh'] " include set filetype
 let container_name="container_name" |
 " specify what kind of container you want to run in. Valid choices: ["docker", "k8s"] (Default: docker)
 let container_type="docker"
-" will use specific runner env vars (if applicable) in the container (Default: false)
-let use_runner_options_in_container="true" |
 " Recommend using 'mechatroner/rainbow_csv' for the 'rfc_csv' filetype  (Default: csv)
 let vim_code_runner_csv_type="rfc_csv" |
 " will decide if sql output will be in csv format or the default for the sql cli tool being used (Default: true)
@@ -190,8 +188,6 @@ let $PGPASSWORD="password" |
 
 #### sqlite
 
-`let use_runner_options_in_container='false' |` is not supported
-
 ```vim
 " the following are used only when container_name is not set
 let $SQLITEDBFILE="./main.sqlite" |
@@ -200,8 +196,6 @@ let $SQLITEDBFILE="./main.sqlite" |
 #### mssql
 
 `let vim_code_runner_sql_as_csv='false' |` is not supported
-
-`let use_runner_options_in_container='false' |` is not supported
 
 ```vim
 " the following are used only when container_name is not set
@@ -215,8 +209,6 @@ let $SQLCMDPASSWORD="password" |
 
 #### mysql
 
-`let use_runner_options_in_container='false' |` is not supported
-
 ```vim
 let $MYSQLHOST="127.0.0.1" |
 let $MYSQLPORT="5432" |
@@ -229,8 +221,6 @@ NOTE: `let vim_code_runner_sql_as_csv='true' |` is supported through a hack. Use
 
 #### mongodb
 
-`let use_runner_options_in_container='false' |` is not supported
-
 ```vim
 let $MONGODBHOST="127.0.0.1" |
 let $MONGODBPORT="5432" |
@@ -239,8 +229,6 @@ let $MONGODBPASSWORD="password" |
 ```
 
 #### redis
-
-`let use_runner_options_in_container='false' |` is not supported
 
 ```vim
 let $REDISHOST="127.0.0.1" |
