@@ -59,14 +59,10 @@ function _VCR_RunPsql(selected_text, is_in_container)
   endif
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   if (a:is_in_container)
-    if (get(g:, 'use_runner_options_in_container', "false") == 'true')
-      let _command_prepend = 'export PGDATABASE=' . $PGDATABASE . '; '
-            \ . 'export PGUSER=' . $PGUSER . '; '
-            \ . 'export PGPASSWORD=' . $PGPASSWORD . '; '
-      let _command = _command . '-c "' . _preped_text . '"'
-    else
-      let _command = _command . "-c '" . _preped_text . "'"
-    endif
+    let _command_prepend = 'export PGDATABASE=' . $PGDATABASE . '; '
+          \ . 'export PGUSER=' . $PGUSER . '; '
+          \ . 'export PGPASSWORD=' . $PGPASSWORD . '; '
+    let _command = _command . '-c "' . _preped_text . '"'
   else
     if (g:vim_code_runner_debug == 'true')
       echo g:vim_code_runner_debug_label "local PG* configs that will be used since not running in a container:"
