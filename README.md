@@ -219,6 +219,8 @@ let $MYSQLUSER="mysql" |
 let $MYSQLPASSWORD="password" |
 ```
 
+NOTE: `let vim_code_runner_sql_as_csv='true' |` is supported through a hack. Use `let vim_code_runner_sql_as_csv='false' |` if your query would have hard tab characters in the results
+
 #### mongodb
 
 `let use_runner_options_in_container='false' |` is not supported
@@ -277,3 +279,4 @@ if they have specific runner env vars, then also update VimCodeRunnerRunConfigs 
 
 - some other sql???
 - some other nosql???
+- mysql improve csv format by removing the HACK
