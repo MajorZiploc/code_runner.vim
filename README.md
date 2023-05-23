@@ -166,6 +166,8 @@ let vim_code_runner_sql_as_csv="true" |
 let vim_code_runner_history_size="10" |
 " A label that will be prepended to all debug logs (Default: "DEBUG-> ")
 let vim_code_runner_debug_label = "DEBUG-> " |
+" fallback file_type used in all runners (Default: "log")
+let vim_default_file_type = "log" |
 ```
 
 ### Specific Runner Options

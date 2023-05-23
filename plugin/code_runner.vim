@@ -1,5 +1,6 @@
 let g:vim_code_runner_last_n_query_results=[]
 let g:vim_code_runner_debug_label = "DEBUG-> "
+let g:vim_default_file_type = 'log'
 
 command! VimCodeRunnerScratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
 
@@ -15,7 +16,7 @@ function _VCR_RunBasic(selected_text, root_command, run_path)
     let raw_text = @t
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = a:root_command . " '" . _preped_text . "'"
   let _should_bottom_split = 1
@@ -32,7 +33,7 @@ function _VCR_RunPsql(selected_text, is_in_container)
     return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _command = 'psql '
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
     let _command = _command . '--csv '
@@ -73,7 +74,7 @@ function _VCR_RunSqlite(selected_text, is_in_container)
     return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = 'sqlite3 ' . $SQLITEDBFILE
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
@@ -117,7 +118,7 @@ function _VCR_RunMysql(selected_text, is_in_container)
     return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = 'mysql'
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
@@ -152,7 +153,7 @@ function _VCR_RunMongoDb(selected_text, is_in_container)
     return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = 'mongo --quiet'
   if ($MONGODBUSER != '')
@@ -179,7 +180,7 @@ function _VCR_RunRedis(selected_text, is_in_container)
     return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = raw_text
   let _command = 'redis-cli '
   if (a:is_in_container)
@@ -199,7 +200,7 @@ function _VCR_RunPhp(selected_text)
     let raw_text = @t
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _php_open_tag_pattern = "^\n*\s*<\?php\s*"
   let _php_close_tag_pattern = "\s*?>\n*\s*"
@@ -241,7 +242,7 @@ function _VCR_RunSh(selected_text, is_in_container, shebang_lang_pass)
     endif
   else
     let _command_prepend = ''
-    let _file_type = 'log'
+    let _file_type = g:vim_default_file_type
     let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
     let _command = "sh -c '" . _preped_text . "'"
     let _should_bottom_split = 1
@@ -257,7 +258,7 @@ function _VCR_RunBat(selected_text)
     let raw_text = @t
   endif
   let _command_prepend = ''
-  let _file_type = 'log'
+  let _file_type = g:vim_default_file_type
   let _preped_text = raw_text
   let _command = 'cmd /C "' . _preped_text . '"'
   let _should_bottom_split = 1
