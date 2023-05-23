@@ -462,10 +462,16 @@ function! VimCodeRunnerRun(...)
     let g:vim_code_runner_last_command = _command
     let g:vim_code_runner_last_n_query_results= [g:vim_code_runner_last_query_results] + g:vim_code_runner_last_n_query_results
     let g:vim_code_runner_last_n_commands = [g:vim_code_runner_last_command] + g:vim_code_runner_last_n_commands
-    if (len(g:vim_code_runner_last_n_query_results) > get(g:, 'vim_code_runner_history_size', 10))
+    let _runner_history_size_default = 10
+    let _runner_history_size = get(g:, 'vim_code_runner_history_size', _runner_history_size_default)
+    let _digit_pattern = "^\d+$"
+    if (!(match(_runner_history_size, _digit_pattern) >= 0 && _runner_history_size >= 1))
+      let _runner_history_size = _runner_history_size_default
+    endif
+    if (len(g:vim_code_runner_last_n_query_results) > _runner_history_size)
       let g:vim_code_runner_last_n_query_results= g:vim_code_runner_last_n_query_results[:-2]
     endif
-    if (len(g:vim_code_runner_last_n_commands) > get(g:, 'vim_code_runner_history_size', 10))
+    if (len(g:vim_code_runner_last_n_commands) > _runner_history_size)
       let g:vim_code_runner_last_n_commands= g:vim_code_runner_last_n_commands[:-2]
     endif
     if (_should_bottom_split)
