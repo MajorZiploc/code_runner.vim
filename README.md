@@ -124,8 +124,10 @@ If your `.sh` file starts with a shebang to use a different command and you sele
 ### How a runner is selected
 
 The following tags drive runner selection.
+
 If a file extension, markdown tagged code block, shebang rediection matches then the associated runner will be used
-NOTE: some runners also look at the &filetype. Denoted with a `" include set filetype=<lang>` at the end of the line below
+
+NOTE: some runners also look at the &filetype. Denoted with a `" include set filetype=<lang>` at the end of the line below. Assumes that the first item in the tags list is the filetype
 
 ```vim
 let g:_vcr_sh_tags = ['sh', 'shell']
