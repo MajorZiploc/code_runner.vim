@@ -246,10 +246,10 @@ NOTE: the clearing of the t register at the beginning of the whole file commands
 vmap <leader>5 "ty:call VimCodeRunnerRun()<CR>
 " dry run / debug what VimCodeRunnerRun() will do in a real run
 vmap <leader>4 "ty:call VimCodeRunnerRun('', 'true')<CR>
-" run whole file if run_type supports it
-nmap <leader>5 :let @t = ''<CR>:call VimCodeRunnerRun()<CR>
+" run whole file
+nmap <leader>5 ggVG"ty:call VimCodeRunnerRun()<CR>
 " dry run / debug whole file if run_type supports it
-nmap <leader>4 :let @t = ''<CR>:call VimCodeRunnerRun('', 'true')<CR>
+nmap <leader>4 ggVG"ty:call VimCodeRunnerRun('', 'true')<CR>
 ```
 
 ## Tips

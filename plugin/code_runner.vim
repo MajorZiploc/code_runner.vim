@@ -16,22 +16,22 @@ let g:_vcr_python_tags = ['python']
 let g:_vcr_javascript_tags = ['javascript', 'node']
 let g:_vcr_typescript_tags = ['typescript', 'ts-node']
 let g:_vcr_php_tags = ['php']
-let g:_vcr_perl_tags= ['perl']
-let g:_vcr_ruby_tags= ['ruby']
-let g:_vcr_powershell_tags= ['ps1', 'powershell', 'pwsh']
+let g:_vcr_perl_tags = ['perl']
+let g:_vcr_ruby_tags = ['ruby']
+let g:_vcr_powershell_tags = ['ps1', 'powershell', 'pwsh']
+
+let g:_vcr_no_selected_text_warning = 'No selected_text stored in the t register!'
 
 command! VimCodeRunnerScratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
-
-function! _VCR_CopyWholeFile()
-  execute 'normal! ggVG"ty'
-endfunction
 
 function _VCR_RunBasic(selected_text, root_command, run_path)
   let run_path = a:run_path
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
-    let _ = _VCR_CopyWholeFile()
-    let raw_text = @t
+    echohl WarningMsg
+    echo g:_vcr_no_selected_text_warning
+    echohl None
+    return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
@@ -46,7 +46,7 @@ function _VCR_RunPsql(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: '" . g:_vcr_psql_tags[0] . "' does not support this"
+    echo g:_vcr_no_selected_text_warning
     echohl None
     return ['', '', '', '', l:run_path]
   endif
@@ -89,7 +89,7 @@ function _VCR_RunSqlite(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: '" . g:_vcr_sqlite_tags[0] . "' does not support this"
+    echo g:_vcr_no_selected_text_warning
     echohl None
     return ['', '', '', '', l:run_path]
   endif
@@ -113,7 +113,7 @@ function _VCR_RunMssql(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: '" . g:_vcr_mssql_tags[0] . "' does not support this"
+    echo g:_vcr_no_selected_text_warning
     echohl None
     return ['', '', '', '', l:run_path]
   endif
@@ -133,7 +133,7 @@ function _VCR_RunMysql(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: '" . g:_vcr_mysql_tags[0] . "' does not support this"
+    echo g:_vcr_no_selected_text_warning
     echohl None
     return ['', '', '', '', l:run_path]
   endif
@@ -168,7 +168,7 @@ function _VCR_RunMongoDb(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: '" . g:_vcr_mongodb_tags[0] . "' does not support this"
+    echo g:_vcr_no_selected_text_warning
     echohl None
     return ['', '', '', '', l:run_path]
   endif
@@ -195,7 +195,7 @@ function _VCR_RunRedis(selected_text, is_in_container)
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
-    echo "No selected_text stored in the t register! run_type: '" . g:_vcr_redis_tags[0] . "' does not support this"
+    echo g:_vcr_no_selected_text_warning
     echohl None
     return ['', '', '', '', l:run_path]
   endif
@@ -215,8 +215,10 @@ function _VCR_RunPhp(selected_text)
   let run_path = g:_vcr_php_tags[0]
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
-    let _ = _VCR_CopyWholeFile()
-    let raw_text = @t
+    echohl WarningMsg
+    echo g:_vcr_no_selected_text_warning
+    echohl None
+    return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
@@ -232,15 +234,10 @@ function _VCR_RunPhp(selected_text)
   return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
 endfunction
 
-function _VCR_RunSh(selected_text, is_in_container, shebang_lang_pass)
+function _VCR_RunSh(selected_text, is_in_container)
   let run_path = g:_vcr_sh_tags[0]
   let raw_text = a:selected_text
-  let shebang_lang_pass = get(a:, 'shebang_lang_pass', 'false')
   let is_in_container = get(a:, 'is_in_container', 'false')
-  if (shebang_lang_pass != 'true' && trim(raw_text) == '')
-    execute 'normal! ggVG"ty'
-    let raw_text = @t
-  endif
   let does_begin_with_shebang = match(raw_text, '^#!')
   if (does_begin_with_shebang >= 0)
     let shebang_lang_pattern = '^#![^\n]*[/ ]\v(\w+)(.*)'
@@ -251,11 +248,10 @@ function _VCR_RunSh(selected_text, is_in_container, shebang_lang_pass)
         if (g:vim_code_runner_debug == 'true')
           echo g:vim_code_runner_debug_label "trying to run with shebang_lang: " shebang_lang
         endif
-        let shebang_lang_pass = 'true'
         let file_ext = ''
         let run_type = shebang_lang
         let markdown_tag = ''
-        let case_values = _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text_override, is_in_container, shebang_lang_pass)
+        let case_values = _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text_override, is_in_container)
         return case_values
       endif
     endif
@@ -273,8 +269,10 @@ function _VCR_RunBat(selected_text)
   let run_path = g:_vcr_bat_tags[0]
   let raw_text = a:selected_text
   if (trim(raw_text) == '')
-    let _ = _VCR_CopyWholeFile()
-    let raw_text = @t
+    echohl WarningMsg
+    echo g:_vcr_no_selected_text_warning
+    echohl None
+    return ['', '', '', '', l:run_path]
   endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
@@ -349,9 +347,9 @@ function! _VCR_IsRunner(tags, run_type, file_ext, markdown_tag, filetype)
   endif
 endfunction
 
-function! _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container, shebang_lang_pass)
+function! _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container)
   if (_VCR_IsRunner(g:_vcr_sh_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
-    let case_values = _VCR_RunSh(a:selected_text, a:is_in_container, a:shebang_lang_pass)
+    let case_values = _VCR_RunSh(a:selected_text, a:is_in_container)
   elseif (_VCR_IsRunner(g:_vcr_psql_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
     let case_values = _VCR_RunPsql(a:selected_text, a:is_in_container)
   elseif (_VCR_IsRunner(g:_vcr_redis_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
@@ -403,7 +401,6 @@ endfunction
 function! VimCodeRunnerRun(...)
   let run_type = get(a:, 1, '')
   let debug = get(a:, 2, 'false')
-  let shebang_lang_pass = 'false'
   let g:vim_code_runner_debug = debug
   let _default_file_type = "text"
   " assumes the selected text will be yanked into the t register prior to VimCodeRunnerRun
@@ -423,7 +420,7 @@ function! VimCodeRunnerRun(...)
     endif
   endif
   let file_ext = expand('%:e')
-  let case_values = _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container, shebang_lang_pass)
+  let case_values = _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container)
   let _command = get(case_values, 0, '')
   let _should_bottom_split = get(case_values, 1, 0)
   let _command_prepend = get(case_values, 2, '')
