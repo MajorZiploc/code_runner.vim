@@ -15,6 +15,7 @@ Use cases:
 5. [Recommended Keybindings](#recommended_keybindings)
 6. [Tips](#tips)
 7. [Contribution Requests](#contribution_requests)
+8. [Install](#install)
 
 ## Examples: <a id="examples"></a>
 
@@ -283,6 +284,28 @@ if they have specific runner env vars, then also update VimCodeRunnerRunConfigs 
 - some other sql???
 - some other nosql???
 - mysql improve csv format by removing the HACK
+
+## Install: <a id="install"></a>
+
+Use your plugin manager of choice such as vimplug or lazy as follows:
+
+### VimPlug
+```vim
+call plug#begin('~/.vim/plugged')
+" rest of your plugins ...
+Plug 'MajorZiploc/code_runner.vim'
+" rest of your plugins ...
+call plug#end()
+```
+
+### Lazy (Example of Lazy being used inside of LunarVim)
+```vim
+lvim.plugins = {
+  " rest of your plugins ...
+  { "MajorZiploc/code_runner.vim" },
+  " rest of your plugins ...
+}
+```
 
 ## Keywords:
 
