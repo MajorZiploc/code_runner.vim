@@ -7,7 +7,17 @@ Use cases:
 - execute tagged code blocks in markdown files
 - execute chunks of code or whole files for script langages
 
-## Examples:
+# Table of contents
+1. [Examples](#examples)
+2. [Supported editors](#supported_editors)
+3. [Supported Runners](#supported_runners)
+4. [Runner Options](#runner_options)
+5. [Recommended Keybindings](#recommended_keybindings)
+6. [Tips](#tips)
+7. [Contribution Requests](#contribution_requests)
+8. [Install](#install)
+
+## Examples: <a id="examples"></a>
 
 ### SQL Client:
 
@@ -17,13 +27,13 @@ Use cases:
 
 ![MARKDOWN_AND_CODE_FILES]( https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWQ5ZjNiM2U1NmMzOTVhNTYzOWVkZDZlMTMxYWQwYjc0ZDUxY2I0YSZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/EjSlgTi4JGwnpqV3OR/giphy.gif)
 
-## Supported editors
+## Supported editors: <a id="supported_editors"></a>
 - vim
 - neovim
 
-## Supported Runners (in order of runner search)
+## Supported Runners (in order of runner search): <a id="supported_runners"></a>
 
-### Extra condition for .sh files that can redirect to other runners
+### Extra condition for .sh files that can redirect to other runners:
 
 If your `.sh` file starts with a shebang to use a different command and you select that line (or run the whole shell file), then an attempt to use said program will occur instead of using `sh`.
 
@@ -121,7 +131,7 @@ If your `.sh` file starts with a shebang to use a different command and you sele
 
 </table>
 
-### How a runner is selected
+### How a runner is selected:
 
 The following tags drive runner selection.
 
@@ -151,7 +161,7 @@ let g:_vcr_powershell_tags = ['ps1', 'powershell', 'pwsh'] " include set filetyp
 
 ---
 
-## Runner Options
+## Runner Options: <a id="runner_options"></a>
 
 ```vim
 " will run in the container if this is set to non empty string (Default: unset)
@@ -172,9 +182,9 @@ let vim_default_file_type="log" |
 
 NOTE: changing values of any of the `_vcr*` variables may lead to problems!
 
-### Specific Runner Options
+### Specific Runner Options: <a id="specific_runner_options"></a>
 
-#### psql
+#### psql:
 
 ```vim
 " the following are used only when container_name is not set
@@ -186,14 +196,14 @@ let $PGUSER="postgres" |
 let $PGPASSWORD="password" |
 ```
 
-#### sqlite
+#### sqlite:
 
 ```vim
 " the following are used only when container_name is not set
 let $SQLITEDBFILE="./main.sqlite" |
 ```
 
-#### mssql
+#### mssql:
 
 `let vim_code_runner_sql_as_csv='false' |` is not supported
 
@@ -207,7 +217,7 @@ let $SQLCMDUSER="mssql" |
 let $SQLCMDPASSWORD="password" |
 ```
 
-#### mysql
+#### mysql:
 
 ```vim
 let $MYSQLHOST="127.0.0.1" |
@@ -219,7 +229,7 @@ let $MYSQLPASSWORD="password" |
 
 NOTE: `let vim_code_runner_sql_as_csv='true' |` is supported through a hack. Use `let vim_code_runner_sql_as_csv='false' |` if your query would have hard tab characters in the results
 
-#### mongodb
+#### mongodb:
 
 ```vim
 let $MONGODBHOST="127.0.0.1" |
@@ -228,14 +238,14 @@ let $MONGODBUSER="mongodb" |
 let $MONGODBPASSWORD="password" |
 ```
 
-#### redis
+#### redis:
 
 ```vim
 let $REDISHOST="127.0.0.1" |
 let $REDISPORT="6379" |
 ```
 
-## Recommended Keybindings
+## Recommended Keybindings: <a id="recommended_keybindings"></a>
 
 The t register is used to get the selected_text and use in the Run command
 
@@ -252,7 +262,7 @@ nmap <leader>5 ggVG"ty:call VimCodeRunnerRun()<CR>
 nmap <leader>4 ggVG"ty:call VimCodeRunnerRun('', 'true')<CR>
 ```
 
-## Tips
+## Tips: <a id="tips"></a>
 
 ### I closed the results of my last query and the query takes a large amount of time to run.
 
@@ -266,7 +276,7 @@ put =g:vim_code_runner_last_query_result
 
 you can view even further back depending on your vim_code_runner_history_size setting with vim_code_runner_last_n_query_results list
 
-## Contribution Requests
+## Contribution Requests: <a id="contribution_requests"></a>
 
 requesting MRs for other code runners
 if they have specific runner env vars, then also update VimCodeRunnerRunConfigs to include a case for it
@@ -274,3 +284,29 @@ if they have specific runner env vars, then also update VimCodeRunnerRunConfigs 
 - some other sql???
 - some other nosql???
 - mysql improve csv format by removing the HACK
+
+## Install: <a id="install"></a>
+
+Use your plugin manager of choice such as vimplug or lazy as follows:
+
+### VimPlug
+```vim
+call plug#begin('~/.vim/plugged')
+" rest of your plugins ...
+Plug 'MajorZiploc/code_runner.vim'
+" rest of your plugins ...
+call plug#end()
+```
+
+### Lazy (Example of Lazy being used inside of LunarVim)
+```vim
+lvim.plugins = {
+  " rest of your plugins ...
+  { "MajorZiploc/code_runner.vim" },
+  " rest of your plugins ...
+}
+```
+
+## Keywords:
+
+sql_client, execute_code, execute_file, sql, redis, mongo, nosql, execute_code_block key_value_store_client
