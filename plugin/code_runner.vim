@@ -1,4 +1,4 @@
-let g:vim_code_runner_last_n_query_results=[]
+let g:vim_code_runner_last_n_query_results = []
 let g:vim_code_runner_debug_label = "DEBUG-> "
 let g:vim_default_file_type = 'log'
 
@@ -13,42 +13,187 @@ let g:_vcr_zsh_tags = ['zsh']
 let g:_vcr_bash_tags = ['bash']
 let g:_vcr_bat_tags = ['bat', 'cmd']
 let g:_vcr_python_tags = ['python']
-let g:_vcr_javascript_tags = ['javascript', 'node']
-let g:_vcr_typescript_tags = ['typescript', 'ts-node']
+let g:_vcr_javascript_tags = ['javascript', 'node', 'js']
+let g:_vcr_typescript_tags = ['typescript', 'ts-node', 'ts']
 let g:_vcr_php_tags = ['php']
-let g:_vcr_perl_tags = ['perl']
-let g:_vcr_ruby_tags = ['ruby']
+let g:_vcr_perl_tags = ['perl', 'pl']
+let g:_vcr_ruby_tags = ['ruby', 'rb']
 let g:_vcr_powershell_tags = ['ps1', 'powershell', 'pwsh']
+
+let g:vim_code_runner_runner_configs = [
+  \ {
+  \ "run_types": g:_vcr_sh_tags,
+  \ "file_types": [],
+  \ "file_extensions": g:_vcr_sh_tags,
+  \ "markdown_tags": g:_vcr_sh_tags,
+  \ "command_builder_fn_name": '_VCR_RunSh',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_psql_tags,
+  \ "file_types": [],
+  \ "file_extensions": g:_vcr_psql_tags,
+  \ "markdown_tags": g:_vcr_psql_tags,
+  \ "command_builder_fn_name": '_VCR_RunPsql',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_redis_tags,
+  \ "file_types": [],
+  \ "file_extensions": g:_vcr_redis_tags,
+  \ "markdown_tags": g:_vcr_redis_tags,
+  \ "command_builder_fn_name": '_VCR_RunRedis',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_sqlite_tags,
+  \ "file_types": [],
+  \ "file_extensions": g:_vcr_sqlite_tags,
+  \ "markdown_tags": g:_vcr_sqlite_tags,
+  \ "command_builder_fn_name": '_VCR_RunSqlite',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_mongodb_tags,
+  \ "file_types": [],
+  \ "file_extensions": g:_vcr_mongodb_tags,
+  \ "markdown_tags": g:_vcr_mongodb_tags,
+  \ "command_builder_fn_name": '_VCR_RunMongoDb',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_mssql_tags,
+  \ "file_types": [],
+  \ "file_extensions": g:_vcr_mssql_tags,
+  \ "markdown_tags": g:_vcr_mssql_tags,
+  \ "command_builder_fn_name": '_VCR_RunMssql',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_mysql_tags,
+  \ "file_types": [],
+  \ "file_extensions": g:_vcr_mysql_tags,
+  \ "markdown_tags": g:_vcr_mysql_tags,
+  \ "command_builder_fn_name": '_VCR_RunMysql',
+  \ "post_execute_result_cleaning_fn_name": '_VCR_RunMysqlPostProcessor'
+  \ },
+  \ {
+  \ "run_types": g:_vcr_zsh_tags,
+  \ "file_types": [],
+  \ "file_extensions": g:_vcr_zsh_tags,
+  \ "markdown_tags": g:_vcr_zsh_tags,
+  \ "command_builder_fn_name": '_VCR_RunZsh',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_bash_tags,
+  \ "file_types": [],
+  \ "file_extensions": g:_vcr_bash_tags,
+  \ "markdown_tags": g:_vcr_bash_tags,
+  \ "command_builder_fn_name": '_VCR_RunBash',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_bat_tags,
+  \ "file_types": [],
+  \ "file_extensions": g:_vcr_bat_tags,
+  \ "markdown_tags": g:_vcr_bat_tags,
+  \ "command_builder_fn_name": '_VCR_RunBat',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_python_tags,
+  \ "file_types": g:_vcr_python_tags,
+  \ "file_extensions": g:_vcr_python_tags,
+  \ "markdown_tags": g:_vcr_python_tags,
+  \ "command_builder_fn_name": '_VCR_RunPython',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_javascript_tags,
+  \ "file_types": g:_vcr_javascript_tags,
+  \ "file_extensions": g:_vcr_javascript_tags,
+  \ "markdown_tags": g:_vcr_javascript_tags,
+  \ "command_builder_fn_name": '_VCR_RunJavascript',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_typescript_tags,
+  \ "file_types": g:_vcr_typescript_tags,
+  \ "file_extensions": g:_vcr_typescript_tags,
+  \ "markdown_tags": g:_vcr_typescript_tags,
+  \ "command_builder_fn_name": '_VCR_RunTypescript',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_php_tags,
+  \ "file_types": g:_vcr_php_tags,
+  \ "file_extensions": g:_vcr_php_tags,
+  \ "markdown_tags": g:_vcr_php_tags,
+  \ "command_builder_fn_name": '_VCR_RunPhp',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_ruby_tags,
+  \ "file_types": g:_vcr_ruby_tags,
+  \ "file_extensions": g:_vcr_ruby_tags,
+  \ "markdown_tags": g:_vcr_ruby_tags,
+  \ "command_builder_fn_name": '_VCR_RunRuby',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_perl_tags,
+  \ "file_types": g:_vcr_perl_tags,
+  \ "file_extensions": g:_vcr_perl_tags,
+  \ "markdown_tags": g:_vcr_perl_tags,
+  \ "command_builder_fn_name": '_VCR_RunPerl',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_powershell_tags,
+  \ "file_types": g:_vcr_powershell_tags,
+  \ "file_extensions": g:_vcr_powershell_tags,
+  \ "markdown_tags": g:_vcr_powershell_tags,
+  \ "command_builder_fn_name": '_VCR_RunPowershell',
+  \ "post_execute_result_cleaning_fn_name": ''
+  \ },
+\ ]
+
+let g:_vcr_split_styles_bottom = "bottom"
 
 let g:_vcr_no_selected_text_warning = 'No selected_text stored in the t register!'
 
 command! VimCodeRunnerScratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
 
-function _VCR_RunBasic(selected_text, root_command, run_path)
-  let run_path = a:run_path
-  let raw_text = a:selected_text
+function _VCR_RunBasic(args)
+  let selected_text = a:args['selected_text']
+  let root_command = a:args['root_command']
+  let run_path = a:args['runner_config']['run_types'][0]
+  let raw_text = selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo g:_vcr_no_selected_text_warning
     echohl None
-    return ['', '', '', '', l:run_path]
+    return {'run_path': l:run_path}
   endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _command = a:root_command . " '" . _preped_text . "'"
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+  let _command = root_command . " '" . _preped_text . "'"
+  let split_style = g:_vcr_split_styles_bottom
+  return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunPsql(selected_text, is_in_container)
-  let run_path = g:_vcr_psql_tags[0]
-  let raw_text = a:selected_text
+function _VCR_RunPsql(args)
+  let selected_text = a:args['selected_text']
+  let is_in_container = a:args['is_in_container']
+  let run_path = a:args['runner_config']['run_types'][0]
+  let raw_text = selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo g:_vcr_no_selected_text_warning
     echohl None
-    return ['', '', '', '', l:run_path]
+    return {'run_path': l:run_path}
   endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
@@ -58,7 +203,7 @@ function _VCR_RunPsql(selected_text, is_in_container)
     let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   endif
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  if (a:is_in_container)
+  if (is_in_container)
     if ($PGDATABASE != '')
       let _command_prepend = _command_prepend . 'export PGDATABASE=' . $PGDATABASE . '; '
     endif
@@ -80,18 +225,20 @@ function _VCR_RunPsql(selected_text, is_in_container)
     endif
     let _command = _command . "-c '" . _preped_text . "'"
   endif
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+  let split_style = g:_vcr_split_styles_bottom
+  return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunSqlite(selected_text, is_in_container)
-  let run_path = g:_vcr_sqlite_tags[0]
-  let raw_text = a:selected_text
+function _VCR_RunSqlite(args)
+  let selected_text = a:args['selected_text']
+  let is_in_container = a:args['is_in_container']
+  let run_path = a:args['runner_config']['run_types'][0]
+  let raw_text = selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo g:_vcr_no_selected_text_warning
     echohl None
-    return ['', '', '', '', l:run_path]
+    return {'run_path': l:run_path}
   endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
@@ -104,38 +251,42 @@ function _VCR_RunSqlite(selected_text, is_in_container)
     let _command = _command . ' -column'
   endif
   let _command = _command . ' -header ' . "-cmd '" . _preped_text . "' .quit"
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+  let split_style = g:_vcr_split_styles_bottom
+  return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunMssql(selected_text, is_in_container)
-  let run_path = g:_vcr_mssql_tags[0]
-  let raw_text = a:selected_text
+function _VCR_RunMssql(args)
+  let selected_text = a:args['selected_text']
+  let is_in_container = a:args['is_in_container']
+  let run_path = a:args['runner_config']['run_types'][0]
+  let raw_text = selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo g:_vcr_no_selected_text_warning
     echohl None
-    return ['', '', '', '', l:run_path]
+    return {'run_path': l:run_path}
   endif
   let _command_prepend = ''
   let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _command = 'sqlcmd -s"," ' . " -d '" . $SQLCMDDBNAME . "'" . " -U '" . $SQLCMDUSER . "'" . " -P '" . $SQLCMDPASSWORD . "'" . " -Q '" . _preped_text . "'"
-  if (!a:is_in_container)
+  if (!is_in_container)
     let _command = _command . " -S '" . $SQLCMDSERVER . "," . $SQLCMDPORT . "'"
   endif
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+  let split_style = g:_vcr_split_styles_bottom
+  return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunMysql(selected_text, is_in_container)
-  let run_path = g:_vcr_mysql_tags[0]
-  let raw_text = a:selected_text
+function _VCR_RunMysql(args)
+  let selected_text = a:args['selected_text']
+  let is_in_container = a:args['is_in_container']
+  let run_path = a:args['runner_config']['run_types'][0]
+  let raw_text = selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo g:_vcr_no_selected_text_warning
     echohl None
-    return ['', '', '', '', l:run_path]
+    return {'run_path': l:run_path}
   endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
@@ -156,21 +307,32 @@ function _VCR_RunMysql(selected_text, is_in_container)
     let _command = _command . " --password='" . $MYSQLPASSWORD . "'"
   endif
   let _command = _command . " --execute='" . _preped_text . "'"
-  if (!a:is_in_container)
+  if (!is_in_container)
     let _command = _command . " --host='" . $MYSQLHOST . "'" . " --port='" . $MYSQLPORT . "'"
   endif
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+  let split_style = g:_vcr_split_styles_bottom
+  return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunMongoDb(selected_text, is_in_container)
-  let run_path = g:_vcr_mongodb_tags[0]
-  let raw_text = a:selected_text
+function! _VCR_RunMysqlPostProcessor(query_results)
+  let query_results = a:query_results
+  if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
+    " HACK: if there is a builtin way in mysql cli to create comma delimited instead of tab delimited, then that would be the ideal solution
+    let query_results = system("echo '" . a:query_results . "' | tr '\t' ','")
+  endif
+  return query_results
+endfunction
+
+function _VCR_RunMongoDb(args)
+  let selected_text = a:args['selected_text']
+  let is_in_container = a:args['is_in_container']
+  let run_path = a:args['runner_config']['run_types'][0]
+  let raw_text = selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo g:_vcr_no_selected_text_warning
     echohl None
-    return ['', '', '', '', l:run_path]
+    return {'run_path': l:run_path}
   endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
@@ -183,42 +345,45 @@ function _VCR_RunMongoDb(selected_text, is_in_container)
     let _command = _command . " -p '" . $MONGODBPASSWORD . "'"
   endif
   let _command = _command . " --eval '" . _preped_text . "'"
-  if (!a:is_in_container)
+  if (!is_in_container)
     let _command = _command . " --host '" . $MONGODBHOST . "'" . " --port '" . $MONGODBPORT . "'"
   endif
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+  let split_style = g:_vcr_split_styles_bottom
+  return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunRedis(selected_text, is_in_container)
-  let run_path = g:_vcr_redis_tags[0]
-  let raw_text = a:selected_text
+function _VCR_RunRedis(args)
+  let selected_text = a:args['selected_text']
+  let is_in_container = a:args['is_in_container']
+  let run_path = a:args['runner_config']['run_types'][0]
+  let raw_text = selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo g:_vcr_no_selected_text_warning
     echohl None
-    return ['', '', '', '', l:run_path]
+    return {'run_path': l:run_path}
   endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = raw_text
   let _command = 'redis-cli '
-  if (!a:is_in_container)
+  if (!is_in_container)
     let _command = _command . "-h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "' "
   endif
   let _command = _command . _preped_text
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+  let split_style = g:_vcr_split_styles_bottom
+  return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunPhp(selected_text)
-  let run_path = g:_vcr_php_tags[0]
-  let raw_text = a:selected_text
+function _VCR_RunPhp(args)
+  let selected_text = a:args['selected_text']
+  let run_path = a:args['runner_config']['run_types'][0]
+  let raw_text = selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo g:_vcr_no_selected_text_warning
     echohl None
-    return ['', '', '', '', l:run_path]
+    return {'run_path': l:run_path}
   endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
@@ -230,14 +395,15 @@ function _VCR_RunPhp(selected_text)
     let _preped_text = substitute(_preped_text, _php_close_tag_pattern, "", "")
   endif
   let _command = "php -r '" . _preped_text . "'"
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+  let split_style = g:_vcr_split_styles_bottom
+  return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunSh(selected_text, is_in_container)
-  let run_path = g:_vcr_sh_tags[0]
-  let raw_text = a:selected_text
-  let is_in_container = get(a:, 'is_in_container', 'false')
+function _VCR_RunSh(args)
+  let selected_text = a:args['selected_text']
+  let is_in_container = a:args['is_in_container']
+  let run_path = a:args['runner_config']['run_types'][0]
+  let raw_text = selected_text
   let does_begin_with_shebang = match(raw_text, '^#!')
   if (does_begin_with_shebang >= 0)
     let shebang_lang_pattern = '^#![^\n]*[/ ]\v(\w+)(.*)'
@@ -260,74 +426,75 @@ function _VCR_RunSh(selected_text, is_in_container)
     let _file_type = g:vim_default_file_type
     let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
     let _command = "sh -c '" . _preped_text . "'"
-    let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+    let split_style = g:_vcr_split_styles_bottom
+    return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
   endif
 endfunction
 
-function _VCR_RunBat(selected_text)
-  let run_path = g:_vcr_bat_tags[0]
-  let raw_text = a:selected_text
+function _VCR_RunBat(args)
+  let selected_text = a:args['selected_text']
+  let run_path = a:args['runner_config']['run_types'][0]
+  let raw_text = selected_text
   if (trim(raw_text) == '')
     echohl WarningMsg
     echo g:_vcr_no_selected_text_warning
     echohl None
-    return ['', '', '', '', l:run_path]
+    return {'run_path': l:run_path}
   endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = raw_text
   let _command = 'cmd /C "' . _preped_text . '"'
-  let _should_bottom_split = 1
-  return [l:_command, l:_should_bottom_split, l:_command_prepend, l:_file_type, l:run_path]
+  let split_style = g:_vcr_split_styles_bottom
+  return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunZsh(selected_text)
-  let run_path = g:_vcr_zsh_tags[0]
+function _VCR_RunZsh(args)
   let root_command = "zsh -c"
-  return _VCR_RunBasic(a:selected_text, root_command, run_path)
+  let a:args['root_command'] = root_command
+  return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunBash(selected_text)
-  let run_path = g:_vcr_bash_tags[0]
+function _VCR_RunBash(args)
   let root_command = "bash -c"
-  return _VCR_RunBasic(a:selected_text, root_command, run_path)
+  let a:args['root_command'] = root_command
+  return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunPython(selected_text)
-  let run_path = g:_vcr_python_tags[0]
+function _VCR_RunPython(args)
   let root_command = "python -c"
-  return _VCR_RunBasic(a:selected_text, root_command, run_path)
+  let a:args['root_command'] = root_command
+  return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunJavascript(selected_text)
-  let run_path = g:_vcr_javascript_tags[0]
+function _VCR_RunJavascript(args)
   let root_command = "node -e"
-  return _VCR_RunBasic(a:selected_text, root_command, run_path)
+  let a:args['root_command'] = root_command
+  return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunTypescript(selected_text)
-  let run_path = g:_vcr_typescript_tags[0]
+function _VCR_RunTypescript(args)
   let root_command = "ts-node -e"
-  return _VCR_RunBasic(a:selected_text, root_command, run_path)
+  let a:args['root_command'] = root_command
+  return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunRuby(selected_text)
-  let run_path = g:_vcr_ruby_tags[0]
+function _VCR_RunRuby(args)
   let root_command = "ruby -e"
-  return _VCR_RunBasic(a:selected_text, root_command, run_path)
+  let a:args['root_command'] = root_command
+  return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunPerl(selected_text)
-  let run_path = g:_vcr_perl_tags[0]
+function _VCR_RunPerl(args)
   let root_command = "perl -e"
-  return _VCR_RunBasic(a:selected_text, root_command, run_path)
+  let a:args['root_command'] = root_command
+  return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunPwsh(selected_text)
-  let run_path = g:_vcr_powershell_tags[0]
+function _VCR_RunPowershell(args)
   let root_command = "pwsh -command"
-  return _VCR_RunBasic(a:selected_text, root_command, run_path)
+  let a:args['root_command'] = root_command
+  return _VCR_RunBasic(a:args)
 endfunction
 
 function! _VCR_IsLabelMemOf(actual_label, expected_labels)
@@ -339,52 +506,25 @@ function! _VCR_IsLabelMemOf(actual_label, expected_labels)
   return 0
 endfunction
 
-function! _VCR_IsRunner(tags, run_type, file_ext, markdown_tag, filetype)
-  if (get(a:, 'filetype', '') != '')
-    return _VCR_IsLabelMemOf(a:run_type, a:tags) || (a:run_type == '' && (_VCR_IsLabelMemOf(a:file_ext, a:tags) || _VCR_IsLabelMemOf(a:markdown_tag, a:tags) || &filetype == a:filetype))
-  else
-    return _VCR_IsLabelMemOf(a:run_type, a:tags) || (a:run_type == '' && (_VCR_IsLabelMemOf(a:file_ext, a:tags) || _VCR_IsLabelMemOf(a:markdown_tag, a:tags)))
-  endif
+function! _VCR_IsRunner(runner_config, run_type, file_ext, markdown_tag, filetype)
+  return _VCR_IsLabelMemOf(a:run_type, a:runner_config['run_types']) || (a:run_type == '' && (_VCR_IsLabelMemOf(a:file_ext, a:runner_config['file_extensions']) || _VCR_IsLabelMemOf(a:markdown_tag, a:runner_config['markdown_tags']) || _VCR_IsLabelMemOf(&filetype, a:runner_config['file_types'])))
 endfunction
 
 function! _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container)
-  if (_VCR_IsRunner(g:_vcr_sh_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
-    let case_values = _VCR_RunSh(a:selected_text, a:is_in_container)
-  elseif (_VCR_IsRunner(g:_vcr_psql_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
-    let case_values = _VCR_RunPsql(a:selected_text, a:is_in_container)
-  elseif (_VCR_IsRunner(g:_vcr_redis_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
-    let case_values = _VCR_RunRedis(a:selected_text, a:is_in_container)
-  elseif (_VCR_IsRunner(g:_vcr_sqlite_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
-    let case_values = _VCR_RunSqlite(a:selected_text, a:is_in_container)
-  elseif (_VCR_IsRunner(g:_vcr_mongodb_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
-    let case_values = _VCR_RunMongoDb(a:selected_text, a:is_in_container)
-  elseif (_VCR_IsRunner(g:_vcr_mssql_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
-    let case_values = _VCR_RunMssql(a:selected_text, a:is_in_container)
-  elseif (_VCR_IsRunner(g:_vcr_mysql_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
-    let case_values = _VCR_RunMysql(a:selected_text, a:is_in_container)
-  elseif (_VCR_IsRunner(g:_vcr_zsh_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
-    let case_values = _VCR_RunZsh(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_bash_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
-    let case_values = _VCR_RunBash(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_bat_tags, a:run_type, a:file_ext, a:markdown_tag, ''))
-    let case_values = _VCR_RunBat(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_python_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_python_tags[0]))
-    let case_values = _VCR_RunPython(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_javascript_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_javascript_tags[0]))
-    let case_values = _VCR_RunJavascript(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_typescript_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_typescript_tags[0]))
-    let case_values = _VCR_RunTypescript(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_php_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_php_tags[0]))
-    let case_values = _VCR_RunPhp(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_ruby_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_ruby_tags[0]))
-    let case_values = _VCR_RunRuby(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_perl_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_perl_tags[0]))
-    let case_values = _VCR_RunPerl(a:selected_text)
-  elseif (_VCR_IsRunner(g:_vcr_powershell_tags, a:run_type, a:file_ext, a:markdown_tag, g:_vcr_powershell_tags[0]))
-    let case_values = _VCR_RunPwsh(a:selected_text)
-  else
-    let case_values = []
-  endif
+  let case_values = {}
+  for runner_config in g:vim_code_runner_runner_configs
+    if (_VCR_IsRunner(runner_config, a:run_type, a:file_ext, a:markdown_tag, ''))
+      let FuncRef = function(runner_config['command_builder_fn_name'])
+      let func_input = {
+        \'selected_text': a:selected_text,
+        \'is_in_container': a:is_in_container,
+        \'runner_config': runner_config
+      \}
+      let case_values = FuncRef(func_input)
+      break
+    endif
+  endfor
+  let case_values['runner_config'] = runner_config
   return case_values
 endfunction
 
@@ -409,7 +549,6 @@ function! VimCodeRunnerRun(...)
     echo g:vim_code_runner_debug_label "selected_text: " selected_text
   endif
   let is_in_container = !empty(get(g:, 'container_name', "")) && trim(g:container_name) != ''
-  let _should_bottom_split = 0
   let markdown_tag = ''
   if (&filetype == 'markdown')
     let _markdown_pattern = '^\n*\s*```\v(\w+)(.*)'
@@ -421,11 +560,12 @@ function! VimCodeRunnerRun(...)
   endif
   let file_ext = expand('%:e')
   let case_values = _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container)
-  let _command = get(case_values, 0, '')
-  let _should_bottom_split = get(case_values, 1, 0)
-  let _command_prepend = get(case_values, 2, '')
-  let _file_type = get(case_values, 3, _default_file_type)
-  let run_path = get(case_values, 4, '')
+  let _command = get(case_values, 'command', '')
+  let split_style = get(case_values, 'split_style', '')
+  let _command_prepend = get(case_values, 'command_prepend', '')
+  let _file_type = get(case_values, 'file_type', _default_file_type)
+  let run_path = get(case_values, 'run_path', '')
+  let runner_config = get(case_values, 'runner_config', '')
   if (run_path == '')
     echohl WarningMsg
     echo "No matching run_path!"
@@ -463,9 +603,9 @@ function! VimCodeRunnerRun(...)
   endif
   if (g:vim_code_runner_debug != 'true')
     let query_results = system(_command)
-    if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true' && _VCR_IsLabelMemOf(run_path, g:_vcr_mysql_tags))
-      " HACK: to support mysql csv format
-      let query_results = system("echo '" . query_results . "' | tr '\t' ','")
+    if (get(l:runner_config, 'post_execute_result_cleaning_fn_name', '') != '')
+      let PostExecuteResultCleaningFnRef = function(runner_config['post_execute_result_cleaning_fn_name'])
+      let query_results = PostExecuteResultCleaningFnRef(query_results)
     endif
     let g:vim_code_runner_last_query_result = {
       \ 'result' : query_results,
@@ -478,7 +618,7 @@ function! VimCodeRunnerRun(...)
       let _runner_history_size = _runner_history_size_default
     endif
     let g:vim_code_runner_last_n_query_results = _VCR_ResizeList(g:vim_code_runner_last_n_query_results, _runner_history_size)
-    if (_should_bottom_split)
+    if (split_style == g:_vcr_split_styles_bottom)
       set splitbelow
       horizontal belowright VimCodeRunnerScratch
       put =query_results
@@ -494,6 +634,7 @@ function! VimCodeRunnerRun(...)
     echo g:vim_code_runner_debug_label "container_name: " get(g:, 'container_name', '')
     echo g:vim_code_runner_debug_label "_command: " _command
     echo g:vim_code_runner_debug_label "_command_prepend: " _command_prepend
-    echo g:vim_code_runner_debug_label "_should_bottom_split: " _should_bottom_split
+    echo g:vim_code_runner_debug_label "split_style: " split_style
+    echo g:vim_code_runner_debug_label "selected runners runner_config: " runner_config
   endif
 endfunction
