@@ -211,7 +211,7 @@ let $MYSQLUSER="mysql" |
 let $MYSQLPASSWORD="password" |
 ```
 
-NOTE: `let vim_code_runner_sql_as_csv='true' |` is supported through a hack. Use `let vim_code_runner_sql_as_csv='false' |` if your query would have hard tab characters in the results
+NOTE: `let vim_code_runner_sql_as_csv='true' |` is supported through a hack. Use `let vim_code_runner_sql_as_csv='false' |` if your query would have hard tab characters in the results. Commas from the values will be represented by ';' instead
 
 #### mongodb:
 
