@@ -274,3 +274,7 @@ if they have specific runner env vars, then also update VimCodeRunnerRunConfigs 
 - some other sql???
 - some other nosql???
 - mysql improve csv format by removing the HACK
+
+## Keywords
+
+sql_client, execute_code, execute_file, sql, redis, mongo, nosql, execute_code_block key_value_store_client
