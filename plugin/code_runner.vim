@@ -318,7 +318,7 @@ function! _VCR_RunMysqlPostProcessor(query_results)
   let query_results = a:query_results
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
     " HACK: if there is a builtin way in mysql cli to create comma delimited instead of tab delimited, then that would be the ideal solution
-    let query_results = system("echo '" . a:query_results . "' | tr '\t' ','")
+    let query_results = system("echo '" . a:query_results . "' | tr ',' ';' | tr '\t' ','")
   endif
   return query_results
 endfunction
