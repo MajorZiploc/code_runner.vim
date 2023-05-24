@@ -573,25 +573,25 @@ function! VimCodeRunnerRun(...)
     return
   endif
   let _base_command = _command
+  if (!empty(get(l:, '_command_prepend', '')))
+    let _base_command = "sh -c '"
+          \ . _command_prepend
+          \ . _base_command
+          \ . "'"
+  endif
   if (is_in_container)
     let container_type = get(g:, 'container_type', 'docker')
     let container_cli = "docker"
     if (container_type == "k8s")
       let container_cli = "kubectl"
     endif
-    let _command = container_cli . " exec \"" . g:container_name . '" '
+    let _container_command = container_cli . " exec \"" . g:container_name . '" '
     if (container_type == "k8s")
-      let _command = _command . "-- "
+      let _container_command = _container_command . "-- "
     endif
-    if (!empty(get(l:, '_command_prepend', '')))
-      let _shell_command = "sh -c '"
-            \ . _command_prepend
-            \ . _base_command
-            \ . "'"
-      let _command = _command . _shell_command
-    else
-      let _command = _command . _base_command
-    endif
+    let _command = _container_command . _base_command
+  else
+    let _command = _base_command
   endif
   if (trim(_base_command) == '')
     echohl WarningMsg
