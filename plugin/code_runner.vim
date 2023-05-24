@@ -27,7 +27,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_sh_tags,
   \ "markdown_tags": g:_vcr_sh_tags,
   \ "command_builder_fn_name": '_VCR_RunSh',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_psql_tags,
@@ -35,7 +35,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_psql_tags,
   \ "markdown_tags": g:_vcr_psql_tags,
   \ "command_builder_fn_name": '_VCR_RunPsql',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_redis_tags,
@@ -43,7 +43,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_redis_tags,
   \ "markdown_tags": g:_vcr_redis_tags,
   \ "command_builder_fn_name": '_VCR_RunRedis',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_sqlite_tags,
@@ -51,7 +51,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_sqlite_tags,
   \ "markdown_tags": g:_vcr_sqlite_tags,
   \ "command_builder_fn_name": '_VCR_RunSqlite',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_mongodb_tags,
@@ -59,7 +59,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_mongodb_tags,
   \ "markdown_tags": g:_vcr_mongodb_tags,
   \ "command_builder_fn_name": '_VCR_RunMongoDb',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_mssql_tags,
@@ -67,7 +67,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_mssql_tags,
   \ "markdown_tags": g:_vcr_mssql_tags,
   \ "command_builder_fn_name": '_VCR_RunMssql',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_mysql_tags,
@@ -75,7 +75,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_mysql_tags,
   \ "markdown_tags": g:_vcr_mysql_tags,
   \ "command_builder_fn_name": '_VCR_RunMysql',
-  \ "post_execute_result_cleaning_fn_name": '_VCR_RunMysqlPostProcessor'
+  \ "post_processor_fn_name": '_VCR_RunMysqlPostProcessor'
   \ },
   \ {
   \ "run_types": g:_vcr_zsh_tags,
@@ -83,7 +83,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_zsh_tags,
   \ "markdown_tags": g:_vcr_zsh_tags,
   \ "command_builder_fn_name": '_VCR_RunZsh',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_bash_tags,
@@ -91,7 +91,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_bash_tags,
   \ "markdown_tags": g:_vcr_bash_tags,
   \ "command_builder_fn_name": '_VCR_RunBash',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_bat_tags,
@@ -99,7 +99,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_bat_tags,
   \ "markdown_tags": g:_vcr_bat_tags,
   \ "command_builder_fn_name": '_VCR_RunBat',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_python_tags,
@@ -107,7 +107,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_python_tags,
   \ "markdown_tags": g:_vcr_python_tags,
   \ "command_builder_fn_name": '_VCR_RunPython',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_javascript_tags,
@@ -115,7 +115,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_javascript_tags,
   \ "markdown_tags": g:_vcr_javascript_tags,
   \ "command_builder_fn_name": '_VCR_RunJavascript',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_typescript_tags,
@@ -123,7 +123,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_typescript_tags,
   \ "markdown_tags": g:_vcr_typescript_tags,
   \ "command_builder_fn_name": '_VCR_RunTypescript',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_php_tags,
@@ -131,7 +131,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_php_tags,
   \ "markdown_tags": g:_vcr_php_tags,
   \ "command_builder_fn_name": '_VCR_RunPhp',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_ruby_tags,
@@ -139,7 +139,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_ruby_tags,
   \ "markdown_tags": g:_vcr_ruby_tags,
   \ "command_builder_fn_name": '_VCR_RunRuby',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_perl_tags,
@@ -147,7 +147,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_perl_tags,
   \ "markdown_tags": g:_vcr_perl_tags,
   \ "command_builder_fn_name": '_VCR_RunPerl',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
   \ {
   \ "run_types": g:_vcr_powershell_tags,
@@ -155,7 +155,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_powershell_tags,
   \ "markdown_tags": g:_vcr_powershell_tags,
   \ "command_builder_fn_name": '_VCR_RunPowershell',
-  \ "post_execute_result_cleaning_fn_name": ''
+  \ "post_processor_fn_name": ''
   \ },
 \ ]
 
@@ -603,8 +603,8 @@ function! VimCodeRunnerRun(...)
   endif
   if (g:vim_code_runner_debug != 'true')
     let query_results = system(_command)
-    if (get(l:runner_config, 'post_execute_result_cleaning_fn_name', '') != '')
-      let PostExecuteResultCleaningFnRef = function(runner_config['post_execute_result_cleaning_fn_name'])
+    if (get(l:runner_config, 'post_processor_fn_name', '') != '')
+      let PostExecuteResultCleaningFnRef = function(runner_config['post_processor_fn_name'])
       let query_results = PostExecuteResultCleaningFnRef(query_results)
     endif
     let g:vim_code_runner_last_query_result = {
