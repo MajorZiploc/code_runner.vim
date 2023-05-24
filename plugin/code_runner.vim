@@ -314,11 +314,11 @@ function _VCR_RunMysql(args)
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function! _VCR_RunMysqlPostProcessor(query_results)
-  let query_results = a:query_results
+function! _VCR_RunMysqlPostProcessor(args)
+  let query_results = a:args['query_results']
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
     " HACK: if there is a builtin way in mysql cli to create comma delimited instead of tab delimited, then that would be the ideal solution
-    let query_results = system("echo '" . a:query_results . "' | tr ',' ';' | tr '\t' ','")
+    let query_results = system("echo '" . query_results . "' | tr ',' ';' | tr '\t' ','")
   endif
   return query_results
 endfunction
@@ -605,7 +605,8 @@ function! VimCodeRunnerRun(...)
     let query_results = system(_command)
     if (get(l:runner_config, 'post_processor_fn_name', '') != '')
       let PostExecuteResultCleaningFnRef = function(runner_config['post_processor_fn_name'])
-      let query_results = PostExecuteResultCleaningFnRef(query_results)
+      let post_processor_input = {'query_results': query_results}
+      let query_results = PostExecuteResultCleaningFnRef(post_processor_input)
     endif
     let g:vim_code_runner_last_query_result = {
       \ 'result' : query_results,
