@@ -165,7 +165,7 @@ let g:_vcr_no_selected_text_warning = 'No selected_text stored in the t register
 
 command! VimCodeRunnerScratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
 
-function _VCR_RunBasic(args)
+function! _VCR_RunBasic(args)
   let selected_text = a:args['selected_text']
   let root_command = a:args['root_command']
   let run_path = a:args['runner_config']['run_types'][0]
@@ -184,7 +184,7 @@ function _VCR_RunBasic(args)
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunPsql(args)
+function! _VCR_RunPsql(args)
   let selected_text = a:args['selected_text']
   let is_in_container = a:args['is_in_container']
   let run_path = a:args['runner_config']['run_types'][0]
@@ -229,7 +229,7 @@ function _VCR_RunPsql(args)
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunSqlite(args)
+function! _VCR_RunSqlite(args)
   let selected_text = a:args['selected_text']
   let is_in_container = a:args['is_in_container']
   let run_path = a:args['runner_config']['run_types'][0]
@@ -255,7 +255,7 @@ function _VCR_RunSqlite(args)
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunMssql(args)
+function! _VCR_RunMssql(args)
   let selected_text = a:args['selected_text']
   let is_in_container = a:args['is_in_container']
   let run_path = a:args['runner_config']['run_types'][0]
@@ -277,7 +277,7 @@ function _VCR_RunMssql(args)
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunMysql(args)
+function! _VCR_RunMysql(args)
   let selected_text = a:args['selected_text']
   let is_in_container = a:args['is_in_container']
   let run_path = a:args['runner_config']['run_types'][0]
@@ -323,7 +323,7 @@ function! _VCR_RunMysqlPostProcessor(args)
   return query_results
 endfunction
 
-function _VCR_RunMongoDb(args)
+function! _VCR_RunMongoDb(args)
   let selected_text = a:args['selected_text']
   let is_in_container = a:args['is_in_container']
   let run_path = a:args['runner_config']['run_types'][0]
@@ -352,7 +352,7 @@ function _VCR_RunMongoDb(args)
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunRedis(args)
+function! _VCR_RunRedis(args)
   let selected_text = a:args['selected_text']
   let is_in_container = a:args['is_in_container']
   let run_path = a:args['runner_config']['run_types'][0]
@@ -375,7 +375,7 @@ function _VCR_RunRedis(args)
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunPhp(args)
+function! _VCR_RunPhp(args)
   let selected_text = a:args['selected_text']
   let run_path = a:args['runner_config']['run_types'][0]
   let raw_text = selected_text
@@ -399,7 +399,7 @@ function _VCR_RunPhp(args)
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunSh(args)
+function! _VCR_RunSh(args)
   let selected_text = a:args['selected_text']
   let is_in_container = a:args['is_in_container']
   let run_path = a:args['runner_config']['run_types'][0]
@@ -431,7 +431,7 @@ function _VCR_RunSh(args)
   endif
 endfunction
 
-function _VCR_RunBat(args)
+function! _VCR_RunBat(args)
   let selected_text = a:args['selected_text']
   let run_path = a:args['runner_config']['run_types'][0]
   let raw_text = selected_text
@@ -449,55 +449,55 @@ function _VCR_RunBat(args)
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
-function _VCR_RunZsh(args)
+function! _VCR_RunZsh(args)
   let root_command = "zsh -c"
   let a:args['root_command'] = root_command
   return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunBash(args)
+function! _VCR_RunBash(args)
   let root_command = "bash -c"
   let a:args['root_command'] = root_command
   return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunPython(args)
+function! _VCR_RunPython(args)
   let root_command = "python -c"
   let a:args['root_command'] = root_command
   return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunJavascript(args)
+function! _VCR_RunJavascript(args)
   let root_command = "node -e"
   let a:args['root_command'] = root_command
   return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunTypescript(args)
+function! _VCR_RunTypescript(args)
   let root_command = "ts-node -e"
   let a:args['root_command'] = root_command
   return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunRuby(args)
+function! _VCR_RunRuby(args)
   let root_command = "ruby -e"
   let a:args['root_command'] = root_command
   return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunPerl(args)
+function! _VCR_RunPerl(args)
   let root_command = "perl -e"
   let a:args['root_command'] = root_command
   return _VCR_RunBasic(a:args)
 endfunction
 
-function _VCR_RunPowershell(args)
+function! _VCR_RunPowershell(args)
   let root_command = "pwsh -command"
   let a:args['root_command'] = root_command
   return _VCR_RunBasic(a:args)
 endfunction
 
-function! _VCR_IsLabelMemOf(actual_label, expected_labels)
+function _VCR_IsLabelMemOf(actual_label, expected_labels)
   for expected_label in a:expected_labels
     if (a:actual_label == expected_label)
       return 1
@@ -506,11 +506,11 @@ function! _VCR_IsLabelMemOf(actual_label, expected_labels)
   return 0
 endfunction
 
-function! _VCR_IsRunner(runner_config, run_type, file_ext, markdown_tag, filetype)
+function _VCR_IsRunner(runner_config, run_type, file_ext, markdown_tag, filetype)
   return _VCR_IsLabelMemOf(a:run_type, a:runner_config['run_types']) || (a:run_type == '' && (_VCR_IsLabelMemOf(a:file_ext, a:runner_config['file_extensions']) || _VCR_IsLabelMemOf(a:markdown_tag, a:runner_config['markdown_tags']) || _VCR_IsLabelMemOf(&filetype, a:runner_config['file_types'])))
 endfunction
 
-function! _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container)
+function _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container)
   let case_values = {}
   for runner_config in g:vim_code_runner_runner_configs
     if (_VCR_IsRunner(runner_config, a:run_type, a:file_ext, a:markdown_tag, ''))
@@ -528,7 +528,7 @@ function! _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_c
   return case_values
 endfunction
 
-function! _VCR_ResizeList(list, new_size)
+function _VCR_ResizeList(list, new_size)
   let new_list = a:list
   let size_diff = len(a:list) - a:new_size
   if (size_diff > 0)
@@ -538,7 +538,7 @@ function! _VCR_ResizeList(list, new_size)
   return new_list
 endfunction
 
-function! VimCodeRunnerRun(...)
+function VimCodeRunnerRun(...)
   let run_type = get(a:, 1, '')
   let debug = get(a:, 2, 'false')
   let g:vim_code_runner_debug = debug
