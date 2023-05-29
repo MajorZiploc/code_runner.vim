@@ -620,12 +620,13 @@ function VimCodeRunnerRun(...)
     endif
     let g:vim_code_runner_last_n_query_results = _VCR_ResizeList(g:vim_code_runner_last_n_query_results, _runner_history_size)
     if (split_style == g:_vcr_split_styles_bottom)
+      let og_split_below = &splitbelow
       set splitbelow
       horizontal belowright VimCodeRunnerScratch
       put =query_results
       let &filetype = _file_type
       execute "normal! ggdd"
-      set splitbelow!
+      let &splitbelow = og_split_below
     else
       put =query_results
     endif
