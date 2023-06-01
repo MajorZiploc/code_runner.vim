@@ -268,6 +268,7 @@ if they have specific runner env vars, then also update VimCodeRunnerRunConfigs 
 - some other sql???
 - some other nosql???
 - mysql improve csv format by removing the HACK
+- consider using shellescape instead of substitute(raw_text, "'", "'\"'\"'", "g")
 
 ## Install: <a id="install"></a>
 
