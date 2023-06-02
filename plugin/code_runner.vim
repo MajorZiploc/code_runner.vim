@@ -170,12 +170,6 @@ function! _VCR_RunBasic(args)
   let root_command = a:args['root_command']
   let run_path = a:args['runner_config']['run_types'][0]
   let raw_text = selected_text
-  if (trim(raw_text) == '')
-    echohl WarningMsg
-    echo g:_vcr_no_selected_text_warning
-    echohl None
-    return {'run_path': l:run_path}
-  endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
@@ -189,12 +183,6 @@ function! _VCR_RunPsql(args)
   let is_in_container = a:args['is_in_container']
   let run_path = a:args['runner_config']['run_types'][0]
   let raw_text = selected_text
-  if (trim(raw_text) == '')
-    echohl WarningMsg
-    echo g:_vcr_no_selected_text_warning
-    echohl None
-    return {'run_path': l:run_path}
-  endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _command = 'psql '
@@ -234,12 +222,6 @@ function! _VCR_RunSqlite(args)
   let is_in_container = a:args['is_in_container']
   let run_path = a:args['runner_config']['run_types'][0]
   let raw_text = selected_text
-  if (trim(raw_text) == '')
-    echohl WarningMsg
-    echo g:_vcr_no_selected_text_warning
-    echohl None
-    return {'run_path': l:run_path}
-  endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
@@ -260,12 +242,6 @@ function! _VCR_RunMssql(args)
   let is_in_container = a:args['is_in_container']
   let run_path = a:args['runner_config']['run_types'][0]
   let raw_text = selected_text
-  if (trim(raw_text) == '')
-    echohl WarningMsg
-    echo g:_vcr_no_selected_text_warning
-    echohl None
-    return {'run_path': l:run_path}
-  endif
   let _command_prepend = ''
   let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
@@ -282,12 +258,6 @@ function! _VCR_RunMysql(args)
   let is_in_container = a:args['is_in_container']
   let run_path = a:args['runner_config']['run_types'][0]
   let raw_text = selected_text
-  if (trim(raw_text) == '')
-    echohl WarningMsg
-    echo g:_vcr_no_selected_text_warning
-    echohl None
-    return {'run_path': l:run_path}
-  endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
@@ -328,12 +298,6 @@ function! _VCR_RunMongoDb(args)
   let is_in_container = a:args['is_in_container']
   let run_path = a:args['runner_config']['run_types'][0]
   let raw_text = selected_text
-  if (trim(raw_text) == '')
-    echohl WarningMsg
-    echo g:_vcr_no_selected_text_warning
-    echohl None
-    return {'run_path': l:run_path}
-  endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
@@ -357,12 +321,6 @@ function! _VCR_RunRedis(args)
   let is_in_container = a:args['is_in_container']
   let run_path = a:args['runner_config']['run_types'][0]
   let raw_text = selected_text
-  if (trim(raw_text) == '')
-    echohl WarningMsg
-    echo g:_vcr_no_selected_text_warning
-    echohl None
-    return {'run_path': l:run_path}
-  endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = raw_text
@@ -379,12 +337,6 @@ function! _VCR_RunPhp(args)
   let selected_text = a:args['selected_text']
   let run_path = a:args['runner_config']['run_types'][0]
   let raw_text = selected_text
-  if (trim(raw_text) == '')
-    echohl WarningMsg
-    echo g:_vcr_no_selected_text_warning
-    echohl None
-    return {'run_path': l:run_path}
-  endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
@@ -435,12 +387,6 @@ function! _VCR_RunBat(args)
   let selected_text = a:args['selected_text']
   let run_path = a:args['runner_config']['run_types'][0]
   let raw_text = selected_text
-  if (trim(raw_text) == '')
-    echohl WarningMsg
-    echo g:_vcr_no_selected_text_warning
-    echohl None
-    return {'run_path': l:run_path}
-  endif
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = raw_text
@@ -546,6 +492,12 @@ function VimCodeRunnerRun(...)
   let _default_file_type = "text"
   if (g:vim_code_runner_debug == 'true')
     echo g:vim_code_runner_debug_label "selected_text: " selected_text
+  endif
+  if (trim(selected_text) == '')
+    echohl WarningMsg
+    echo g:_vcr_no_selected_text_warning
+    echohl None
+    return
   endif
   let is_in_container = !empty(get(g:, 'container_name', "")) && trim(g:container_name) != ''
   let markdown_tag = ''
