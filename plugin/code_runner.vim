@@ -161,7 +161,7 @@ let g:vim_code_runner_runner_configs = [
 
 let g:_vcr_split_styles_bottom = "bottom"
 
-let g:_vcr_no_selected_text_warning = 'No selected_text stored in the t register!'
+let g:_vcr_no_selected_text_warning = 'No selected_text given!'
 
 command! VimCodeRunnerScratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
 
@@ -539,12 +539,11 @@ function _VCR_ResizeList(list, new_size)
 endfunction
 
 function VimCodeRunnerRun(...)
-  let run_type = get(a:, 1, '')
-  let debug = get(a:, 2, 'false')
+  let selected_text = get(a:, 1, '')
+  let run_type = get(a:, 2, '')
+  let debug = get(a:, 3, 'false')
   let g:vim_code_runner_debug = debug
   let _default_file_type = "text"
-  " assumes the selected text will be yanked into the t register prior to VimCodeRunnerRun
-  let selected_text = @t
   if (g:vim_code_runner_debug == 'true')
     echo g:vim_code_runner_debug_label "selected_text: " selected_text
   endif
