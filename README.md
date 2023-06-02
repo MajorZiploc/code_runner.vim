@@ -231,19 +231,15 @@ let $REDISPORT="6379" |
 
 ## Recommended Keybindings: <a id="recommended_keybindings"></a>
 
-The t register is used to get the selected_text and use in the Run command
-
-NOTE: the clearing of the t register at the beginning of the whole file commands is important to clean up state for running whole files
-
 ```vim
 " runs the selected_text with the determined run_type
-vmap <leader>5 "ty:call VimCodeRunnerRun()<CR>
+vmap <leader>5 "ty:call VimCodeRunnerRun(@t)<CR>
 " dry run / debug what VimCodeRunnerRun() will do in a real run
-vmap <leader>4 "ty:call VimCodeRunnerRun('', 'true')<CR>
+vmap <leader>4 "ty:call VimCodeRunnerRun(@t, '', 'true')<CR>
 " run whole file
-nmap <leader>5 ggVG"ty:call VimCodeRunnerRun()<CR>
+nmap <leader>5 ggVG"ty:call VimCodeRunnerRun(@t)<CR>
 " dry run / debug whole file if run_type supports it
-nmap <leader>4 ggVG"ty:call VimCodeRunnerRun('', 'true')<CR>
+nmap <leader>4 ggVG"ty:call VimCodeRunnerRun(@t, '', 'true')<CR>
 ```
 
 ## Tips: <a id="tips"></a>
@@ -268,6 +264,7 @@ if they have specific runner env vars, then also update VimCodeRunnerRunConfigs 
 - some other sql???
 - some other nosql???
 - mysql improve csv format by removing the HACK
+- consider using shellescape instead of substitute(raw_text, "'", "'\"'\"'", "g")
 
 ## Install: <a id="install"></a>
 
