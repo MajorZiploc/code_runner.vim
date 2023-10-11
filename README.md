@@ -149,9 +149,9 @@ NOTE: you can also reorder `g:vim_code_runner_runner_configs` all together
 
 ```vim
 " will run in the container if this is set to non empty string (Default: unset)
-let container_name="container_name" |
+let vim_code_runner_container_name="container_name" |
 " specify what kind of container you want to run in. Valid choices: ["docker", "k8s"] (Default: docker)
-let container_type="docker"
+let vim_code_runner_container_type="docker" |
 " Recommend using 'mechatroner/rainbow_csv' for the 'rfc_csv' filetype  (Default: csv)
 let vim_code_runner_csv_type="rfc_csv" |
 " will decide if sql output will be in csv format or the default for the sql cli tool being used (Default: true)
@@ -171,7 +171,7 @@ NOTE: changing values of any of the `_vcr*` variables may lead to problems!
 #### psql:
 
 ```vim
-" the following are used only when container_name is not set
+" the following are used only when vim_code_runner_container_name is not set
 let $PGHOST="127.0.0.1" |
 let $PGPORT="5432" |
 " the following are used regardless
@@ -183,7 +183,7 @@ let $PGPASSWORD="password" |
 #### sqlite:
 
 ```vim
-" the following are used only when container_name is not set
+" the following are used only when vim_code_runner_container_name is not set
 let $SQLITEDBFILE="./main.sqlite" |
 ```
 
@@ -192,7 +192,7 @@ let $SQLITEDBFILE="./main.sqlite" |
 `let vim_code_runner_sql_as_csv='false' |` is not supported
 
 ```vim
-" the following are used only when container_name is not set
+" the following are used only when vim_code_runner_container_name is not set
 let $SQLCMDSERVER="127.0.0.1" |
 let $SQLCMDPORT="5432" |
 " the following are used regardless
