@@ -499,7 +499,7 @@ function VimCodeRunnerRun(...)
     echohl None
     return
   endif
-  let is_in_container = !empty(get(g:, 'container_name', "")) && trim(g:container_name) != ''
+  let is_in_container = !empty(get(g:, 'vim_code_runner_container_name', "")) && trim(g:vim_code_runner_container_name) != ''
   let markdown_tag = ''
   if (&filetype == 'markdown')
     let _markdown_pattern = '^\n*\s*```\v(\w+)(.*)'
@@ -531,13 +531,13 @@ function VimCodeRunnerRun(...)
           \ . "'"
   endif
   if (is_in_container)
-    let container_type = get(g:, 'container_type', 'docker')
+    let vim_code_runner_container_type = get(g:, 'vim_code_runner_container_type', 'docker')
     let container_cli = "docker"
-    if (container_type == "k8s")
+    if (vim_code_runner_container_type == "k8s")
       let container_cli = "kubectl"
     endif
-    let _container_command = container_cli . " exec \"" . g:container_name . '" '
-    if (container_type == "k8s")
+    let _container_command = container_cli . " exec \"" . g:vim_code_runner_container_name . '" '
+    if (vim_code_runner_container_type == "k8s")
       let _container_command = _container_command . "-- "
     endif
     let _command = _container_command . _base_command
@@ -583,8 +583,8 @@ function VimCodeRunnerRun(...)
     endif
   else
     echo g:vim_code_runner_debug_label "run_path: " run_path
-    echo g:vim_code_runner_debug_label "container_type: " get(g:, 'container_type', '')
-    echo g:vim_code_runner_debug_label "container_name: " get(g:, 'container_name', '')
+    echo g:vim_code_runner_debug_label "vim_code_runner_container_type: " get(g:, 'vim_code_runner_container_type', '')
+    echo g:vim_code_runner_debug_label "vim_code_runner_container_name: " get(g:, 'vim_code_runner_container_name', '')
     echo g:vim_code_runner_debug_label "_command: " _command
     echo g:vim_code_runner_debug_label "_command_prepend: " _command_prepend
     echo g:vim_code_runner_debug_label "split_style: " split_style
