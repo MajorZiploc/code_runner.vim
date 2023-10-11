@@ -237,9 +237,9 @@ vmap <leader>5 "ty:call VimCodeRunnerRun(@t)<CR>
 " dry run / debug what VimCodeRunnerRun() will do in a real run
 vmap <leader>4 "ty:call VimCodeRunnerRun(@t, '', 'true')<CR>
 " run whole file
-nmap <leader>5 ggVG"ty:call VimCodeRunnerRun(@t)<CR>
+nmap <leader>5 ggVG"ty<c-o>:call VimCodeRunnerRun(@t)<CR>
 " dry run / debug whole file if run_type supports it
-nmap <leader>4 ggVG"ty:call VimCodeRunnerRun(@t, '', 'true')<CR>
+nmap <leader>4 ggVG"ty<c-o>:call VimCodeRunnerRun(@t, '', 'true')<CR>
 ```
 
 ## Tips: <a id="tips"></a>
