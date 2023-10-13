@@ -4,6 +4,7 @@ A vim/neovim plugin to run selected chunks of code or whole files. Can run local
 
 Use cases:
 - light weight database client by executing chunks of code and respecting db env vars
+- light weight redis client by executing chunks of commands and respecting redis env vars
 - execute tagged code blocks in markdown files
 - execute chunks of code or whole files for script langages
 
