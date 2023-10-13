@@ -14,7 +14,7 @@ Use cases:
 3. [Supported Runners](#supported_runners)
 4. [Runner Options](#runner_options)
 5. [Recommended Keybindings](#recommended_keybindings)
-6. [Tips](#tips)
+6. [Pointers](#pointers)
 7. [Contribution Requests](#contribution_requests)
 8. [Install](#install)
 
@@ -243,7 +243,7 @@ nmap <leader>5 ggVG"ty<c-o>:call VimCodeRunnerRun(@t)<CR>
 nmap <leader>4 ggVG"ty<c-o>:call VimCodeRunnerRun(@t, '', 'true')<CR>
 ```
 
-## Tips: <a id="tips"></a>
+## Pointers: <a id="pointers"></a>
 
 ### I closed the results of my last query and the query takes a large amount of time to run.
 
