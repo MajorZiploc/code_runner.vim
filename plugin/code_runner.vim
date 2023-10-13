@@ -323,12 +323,16 @@ function! _VCR_RunRedis(args)
   let raw_text = selected_text
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
-  let _preped_text = raw_text
-  let _command = 'redis-cli '
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let tmp_storage = "/tmp/vim_code_runner_redis_query"
+  let tmp_reply = "/tmp/vim_code_runner_redis_reply"
+  let _store_query = 'echo "' . _preped_text . '" > ' . tmp_storage . '; '
+  let _command_prepend = _store_query
+  let _command = 'cat ' . tmp_storage . ' | ' . 'redis-cli '
   if (!is_in_container)
     let _command = _command . "-h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "' "
   endif
-  let _command = _command . _preped_text
+  let _command = _command
   let split_style = g:_vcr_split_styles_bottom
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
