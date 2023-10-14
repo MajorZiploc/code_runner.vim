@@ -301,7 +301,7 @@ function! _VCR_RunMongoDb(args)
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _command = 'mongo --quiet'
+  let _command = 'mongosh --quiet'
   if ($MONGODBUSER != '')
     let _command = _command . " -u '" . $MONGODBUSER . "'"
   endif
