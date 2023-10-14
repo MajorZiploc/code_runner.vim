@@ -81,6 +81,11 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   </tr>
 
   <tr>
+    <td>mariadb</td>
+    <td>mariadb</td>
+  </tr>
+
+  <tr>
     <td>zsh</td>
     <td>zsh</td>
   </tr>
@@ -202,7 +207,7 @@ let $SQLCMDUSER="mssql" |
 let $SQLCMDPASSWORD="password" |
 ```
 
-#### mysql:
+#### mysql/mariadb:
 
 ```vim
 let $MYSQLHOST="127.0.0.1" |
