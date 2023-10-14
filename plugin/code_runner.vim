@@ -9,6 +9,7 @@ let g:_vcr_sqlite_tags = ['sqlite', 'sqlite3']
 let g:_vcr_mongodb_tags = ['mongodb', 'mongo']
 let g:_vcr_mssql_tags = ['mssql', 'sqlcmd']
 let g:_vcr_mysql_tags = ['mysql']
+let g:_vcr_mariadb_tags = ['mariadb']
 let g:_vcr_zsh_tags = ['zsh']
 let g:_vcr_bash_tags = ['bash']
 let g:_vcr_bat_tags = ['bat', 'cmd']
@@ -68,6 +69,14 @@ let g:vim_code_runner_runner_configs = [
   \ "markdown_tags": g:_vcr_mssql_tags,
   \ "command_builder_fn_name": '_VCR_RunMssql',
   \ "post_processor_fn_name": ''
+  \ },
+  \ {
+  \ "run_types": g:_vcr_mariadb_tags,
+  \ "file_types": [],
+  \ "file_extensions": g:_vcr_mariadb_tags,
+  \ "markdown_tags": g:_vcr_mariadb_tags,
+  \ "command_builder_fn_name": '_VCR_RunMariaDb',
+  \ "post_processor_fn_name": '_VCR_RunMysqlPostProcessor'
   \ },
   \ {
   \ "run_types": g:_vcr_mysql_tags,
@@ -253,6 +262,39 @@ function! _VCR_RunMssql(args)
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction
 
+function! _VCR_RunMariaDb(args)
+  let selected_text = a:args['selected_text']
+  let is_in_container = a:args['is_in_container']
+  let run_path = a:args['runner_config']['run_types'][0]
+  let raw_text = selected_text
+  let _command_prepend = ''
+  let _file_type = g:vim_default_file_type
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let tmp_storage = '/tmp/mariadb.cnf'
+  " NOTE: echo might vary based on container being run in, it may need echo -e
+  let _store_config = "echo '"
+    \ . '[client]'
+    \ . '\nuser = ' . '"' . $MYSQLUSER . '"'
+    \ . '\npassword = ' . '"' . $MYSQLPASSWORD . '"'
+    \ . "' > " . tmp_storage . '; '
+  let _command_prepend = substitute(_store_config, "'", "'\"'\"'", "g")
+  let _command = 'mariadb --defaults-extra-file=' . tmp_storage
+  if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
+    let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
+  else
+    let _command = _command . ' --table'
+  endif
+  if ($MYSQLDATABASE != '')
+    let _command = _command . ' --database="' . $MYSQLDATABASE . '"'
+  endif
+  let _command = _command . ' --execute="' . _preped_text . '"'
+  if (!is_in_container)
+    let _command = _command . ' --host="' . $MYSQLHOST . '"' . ' --port="' . $MYSQLPORT . '"'
+  endif
+  let split_style = g:_vcr_split_styles_bottom
+  return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
+endfunction
+
 function! _VCR_RunMysql(args)
   let selected_text = a:args['selected_text']
   let is_in_container = a:args['is_in_container']
@@ -261,7 +303,8 @@ function! _VCR_RunMysql(args)
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let tmp_storage = '/tmp/pgconfig.cnf'
+  let tmp_storage = '/tmp/mysql.cnf'
+  " NOTE: echo -e might vary based on container being run in, it may just need echo
   let _store_config = "echo -e '"
     \ . '[client]'
     \ . '\nuser = ' . '"' . $MYSQLUSER . '"'
