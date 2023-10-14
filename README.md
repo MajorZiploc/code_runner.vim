@@ -67,7 +67,7 @@ If your `.sh` file starts with a shebang to use a different command and you sele
 
   <tr>
     <td>mongodb</td>
-    <td>mongo</td>
+    <td>mongosh</td>
   </tr>
 
   <tr>
