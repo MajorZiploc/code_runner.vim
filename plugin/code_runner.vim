@@ -261,7 +261,7 @@ function! _VCR_RunMysql(args)
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let tmp_storage = '/tmp/pgconfig.cnf'
+  let tmp_storage = '/tmp/mysql.cnf'
   let _store_config = "echo -e '"
     \ . '[client]'
     \ . '\nuser = ' . '"' . $MYSQLUSER . '"'
