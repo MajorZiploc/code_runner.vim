@@ -261,24 +261,25 @@ function! _VCR_RunMysql(args)
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _command = 'mysql'
+  let tmp_storage = '/tmp/pgconfig.cnf'
+  let _store_config = "echo -e '"
+    \ . '[client]'
+    \ . '\nuser = ' . '"' . $MYSQLUSER . '"'
+    \ . '\npassword = ' . '"' . $MYSQLPASSWORD . '"'
+    \ . "' > " . tmp_storage . '; '
+  let _command_prepend = substitute(_store_config, "'", "'\"'\"'", "g")
+  let _command = 'mysql --defaults-extra-file=' . tmp_storage
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
     let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   else
     let _command = _command . ' --table'
   endif
   if ($MYSQLDATABASE != '')
-    let _command = _command . " --database='" . $MYSQLDATABASE . "'"
+    let _command = _command . ' --database="' . $MYSQLDATABASE . '"'
   endif
-  if ($MYSQLUSER != '')
-    let _command = _command . " --user='" . $MYSQLUSER . "'"
-  endif
-  if ($MYSQLPASSWORD != '')
-    let _command = _command . " --password='" . $MYSQLPASSWORD . "'"
-  endif
-  let _command = _command . " --execute='" . _preped_text . "'"
+  let _command = _command . ' --execute="' . _preped_text . '"'
   if (!is_in_container)
-    let _command = _command . " --host='" . $MYSQLHOST . "'" . " --port='" . $MYSQLPORT . "'"
+    let _command = _command . ' --host="' . $MYSQLHOST . '"' . ' --port="' . $MYSQLPORT . '"'
   endif
   let split_style = g:_vcr_split_styles_bottom
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
