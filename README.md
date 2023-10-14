@@ -169,7 +169,7 @@ let vim_code_runner_debug_label="DEBUG-> " |
 " fallback file_type used in all runners (Default: "log")
 let vim_default_file_type="log" |
 " override for the command used to write configs for some sql runners (Default: "echo" for mariadb, "echo -e" for mysql)
-let vim_code_runner_sql_config_writer="echo"
+let vim_code_runner_config_writer="echo"
 ```
 
 NOTE: changing values of any of the `_vcr*` variables may lead to problems!
