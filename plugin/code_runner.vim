@@ -272,7 +272,7 @@ function! _VCR_RunMariaDb(args)
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let tmp_storage = '/tmp/mariadb.cnf'
   " NOTE: echo might vary based on container being run in, it may need echo -e
-  let config_writer = get(g:, 'vim_code_runner_sql_config_writer', 'echo')
+  let config_writer = get(g:, 'vim_code_runner_config_writer', 'echo')
   let _store_config = config_writer . " '"
     \ . '[client]'
     \ . '\nuser = ' . '"' . $MYSQLUSER . '"'
@@ -306,7 +306,7 @@ function! _VCR_RunMysql(args)
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let tmp_storage = '/tmp/mysql.cnf'
   " NOTE: echo -e might vary based on container being run in, it may just need echo
-  let config_writer = get(g:, 'vim_code_runner_sql_config_writer', 'echo -e')
+  let config_writer = get(g:, 'vim_code_runner_config_writer', 'echo -e')
   let _store_config = config_writer . " '"
     \ . '[client]'
     \ . '\nuser = ' . '"' . $MYSQLUSER . '"'
