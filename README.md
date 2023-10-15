@@ -86,6 +86,11 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   </tr>
 
   <tr>
+    <td>cassandra</td>
+    <td>cqlsh</td>
+  </tr>
+
+  <tr>
     <td>zsh</td>
     <td>zsh</td>
   </tr>
@@ -221,6 +226,21 @@ let $MYSQLPASSWORD="password" |
 
 NOTE: `let vim_code_runner_sql_as_csv='true' |` is supported through a hack. Use `let vim_code_runner_sql_as_csv='false' |` if your query would have hard tab characters in the results. Commas from the values will be represented by ';' instead
 
+### cassandra:
+
+```vim
+let $CASSANDRA_HOST="127.0.0.1" |
+let $CASSANDRA_PORT=3306 |
+let $CASSANDRA_DATABASE="cassandra" |
+let $CASSANDRA_USER="cassandra" |
+let $CASSANDRA_PASSWORD="password" |
+```
+
+NOTE: very basic runner
+TODOS:
+  improve creds process to get rid of warning
+  add csv toggle
+
 #### mongodb:
 
 ```vim
@@ -270,7 +290,7 @@ requesting MRs for other code runners
 if they have specific runner env vars, then also update VimCodeRunnerRunConfigs to include a case for it
 
 - google firebase
-- apache cassandra
+- apache cassandra improvements
 - elasticsearch
 - neo4j
 - scylladb
