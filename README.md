@@ -86,12 +86,12 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   </tr>
 
   <tr>
-    <td>cassandra</td>
+    <td>cassandra**(BASIC)**</td>
     <td>cqlsh</td>
   </tr>
 
   <tr>
-    <td>neo4j</td>
+    <td>neo4j**(BASIC)**</td>
     <td>neo4j</td>
   </tr>
 
