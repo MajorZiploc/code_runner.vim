@@ -11,6 +11,7 @@ let g:_vcr_mssql_tags = ['mssql', 'sqlcmd']
 let g:_vcr_mysql_tags = ['mysql']
 let g:_vcr_mariadb_tags = ['mariadb']
 let g:_vcr_cassandra_tags = ['cassandra']
+let g:_vcr_neo4j_tags = ['neo4j']
 let g:_vcr_zsh_tags = ['zsh']
 let g:_vcr_bash_tags = ['bash']
 let g:_vcr_bat_tags = ['bat', 'cmd']
@@ -85,6 +86,13 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_cassandra_tags,
   \ "markdown_tags": g:_vcr_cassandra_tags,
   \ "command_builder_fn_name": '_VCR_RunCassandra',
+  \ },
+  \ {
+  \ "run_types": g:_vcr_neo4j_tags,
+  \ "file_types": [],
+  \ "file_extensions": g:_vcr_neo4j_tags,
+  \ "markdown_tags": g:_vcr_neo4j_tags,
+  \ "command_builder_fn_name": '_VCR_RunNeo4j',
   \ },
   \ {
   \ "run_types": g:_vcr_mysql_tags,
@@ -389,6 +397,29 @@ function! _VCR_RunCassandra(args)
   if (!is_in_container)
     let _command = _command . " '" . $CASSANDRA_HOST . "'" . " '" . $CASSANDRA_PORT . "'"
   endif
+  let split_style = g:_vcr_split_styles_bottom
+  return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
+endfunction
+
+function! _VCR_RunNeo4j(args)
+  let selected_text = a:args['selected_text']
+  let is_in_container = a:args['is_in_container']
+  let run_path = a:args['runner_config']['run_types'][0]
+  let raw_text = selected_text
+  let _command_prepend = ''
+  let _file_type = g:vim_default_file_type
+  let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
+  let _command = 'cypher-shell'
+  if ($NEO4J_USER != '')
+    let _command = _command . " -u '" . $NEO4J_USER . "'"
+  endif
+  if ($NEO4J_PASSWORD != '')
+    let _command = _command . " -p '" . $NEO4J_PASSWORD . "'"
+  endif
+  if (!is_in_container)
+    let _command = _command . " -h '" . $NEO4J_HOST . "'"
+  endif
+  let _command = _command . " '" . _preped_text . "'"
   let split_style = g:_vcr_split_styles_bottom
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
 endfunction

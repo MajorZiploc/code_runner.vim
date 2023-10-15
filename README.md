@@ -91,6 +91,11 @@ If your `.sh` file starts with a shebang to use a different command and you sele
   </tr>
 
   <tr>
+    <td>neo4j</td>
+    <td>neo4j</td>
+  </tr>
+
+  <tr>
     <td>zsh</td>
     <td>zsh</td>
   </tr>
@@ -240,6 +245,18 @@ NOTE: very basic runner
 TODOS:
   improve creds process to get rid of warning
   add csv toggle
+
+### neo4j:
+
+```vim
+let $NEO4J_HOST="127.0.0.1" |
+let $NEO4J_PORT=7474 |
+let $NEO4J_DATABASE="neo4j" |
+let $NEO4J_USER="neo4j" |
+let $NEO4J_PASSWORD="password" |
+```
+
+NOTE: Only used in basic query situations. Needs more testing in complex situations
 
 #### mongodb:
 
