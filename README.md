@@ -273,6 +273,7 @@ if they have specific runner env vars, then also update VimCodeRunnerRunConfigs 
 - apache cassandra
 - elasticsearch
 - neo4j
+- scylladb
 - some other sql???
 - some other nosql???
 - mysql improve csv format by removing the HACK
