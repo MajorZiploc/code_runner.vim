@@ -269,6 +269,10 @@ you can view even further back depending on your vim_code_runner_history_size se
 requesting MRs for other code runners
 if they have specific runner env vars, then also update VimCodeRunnerRunConfigs to include a case for it
 
+- google firebase
+- apache cassandra
+- elasticsearch
+- neo4j
 - some other sql???
 - some other nosql???
 - mysql improve csv format by removing the HACK
