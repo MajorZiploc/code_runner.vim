@@ -231,7 +231,7 @@ let $MYSQLPASSWORD="password" |
 
 NOTE: `let vim_code_runner_sql_as_csv='true' |` is supported through a hack. Use `let vim_code_runner_sql_as_csv='false' |` if your query would have hard tab characters in the results. Commas from the values will be represented by ';' instead
 
-### cassandra:
+#### cassandra:
 
 ```vim
 let $CASSANDRA_HOST="127.0.0.1" |
@@ -246,7 +246,7 @@ TODOS:
   improve creds process to get rid of warning
   add csv toggle
 
-### neo4j:
+#### neo4j:
 
 ```vim
 let $NEO4J_HOST="127.0.0.1" |
