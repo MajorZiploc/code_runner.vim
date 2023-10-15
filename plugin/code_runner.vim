@@ -565,7 +565,14 @@ function _VCR_IsLabelMemOf(actual_label, expected_labels)
 endfunction
 
 function _VCR_IsRunner(runner_config, run_type, file_ext, markdown_tag, filetype)
-  return _VCR_IsLabelMemOf(a:run_type, a:runner_config['run_types']) || (a:run_type == '' && (_VCR_IsLabelMemOf(a:file_ext, a:runner_config['file_extensions']) || _VCR_IsLabelMemOf(a:markdown_tag, a:runner_config['markdown_tags']) || _VCR_IsLabelMemOf(&filetype, a:runner_config['file_types'])))
+  return _VCR_IsLabelMemOf(a:run_type, a:runner_config['run_types'])
+    \ || (
+    \  a:run_type == ''
+    \  && (
+    \    _VCR_IsLabelMemOf(a:file_ext, a:runner_config['file_extensions'])
+    \    || _VCR_IsLabelMemOf(a:markdown_tag, a:runner_config['markdown_tags'])
+    \    || _VCR_IsLabelMemOf(&filetype, a:runner_config['file_types']))
+    \ )
 endfunction
 
 function _VCR_RunCases(file_ext, run_type, markdown_tag, selected_text, is_in_container)
