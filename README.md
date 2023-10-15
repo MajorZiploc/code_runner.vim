@@ -309,7 +309,7 @@ if they have specific runner env vars, then also update VimCodeRunnerRunConfigs 
 - google firebase
 - apache cassandra improvements
 - elasticsearch
-- neo4j
+- neo4j improvements
 - scylladb
 - some other sql???
 - some other nosql???
