@@ -216,7 +216,7 @@ function! _VCR_RunPsql(args)
     let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   endif
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _preped_text = substitute(_preped_text, '\$\$', "\\\\$\\\\$", "g")
+  let _preped_text = substitute(_preped_text, '\$', "\\\\$", "g")
   if (is_in_container)
     if ($PGDATABASE != '')
       let _command_prepend = _command_prepend . 'export PGDATABASE=' . $PGDATABASE . '; '
@@ -251,7 +251,7 @@ function! _VCR_RunSqlite(args)
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _preped_text = substitute(_preped_text, '\$\$', "\\\\$\\\\$", "g")
+  let _preped_text = substitute(_preped_text, '\$', "\\\\$", "g")
   let _command = 'sqlite3 ' . $SQLITEDBFILE
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
     let _command = _command . ' -separator ","'
@@ -272,7 +272,7 @@ function! _VCR_RunMssql(args)
   let _command_prepend = ''
   let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _preped_text = substitute(_preped_text, '\$\$', "\\\\$\\\\$", "g")
+  let _preped_text = substitute(_preped_text, '\$', "\\\\$", "g")
   let _command = 'sqlcmd -s"," ' . " -d '" . $SQLCMDDBNAME . "'" . " -U '" . $SQLCMDUSER . "'" . " -P '" . $SQLCMDPASSWORD . "'" . " -Q '" . _preped_text . "'"
   if (!is_in_container)
     let _command = _command . " -S '" . $SQLCMDSERVER . "," . $SQLCMDPORT . "'"
@@ -289,7 +289,7 @@ function! _VCR_RunMariaDb(args)
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _preped_text = substitute(_preped_text, '\$\$', "\\\\$\\\\$", "g")
+  let _preped_text = substitute(_preped_text, '\$', "\\\\$", "g")
   let tmp_storage = '/tmp/mariadb.cnf'
   " NOTE: echo might vary based on container being run in, it may need echo -e
   let config_writer = get(g:, 'vim_code_runner_config_writer', 'echo')
@@ -324,7 +324,7 @@ function! _VCR_RunMysql(args)
   let _command_prepend = ''
   let _file_type = g:vim_default_file_type
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _preped_text = substitute(_preped_text, '\$\$', "\\\\$\\\\$", "g")
+  let _preped_text = substitute(_preped_text, '\$', "\\\\$", "g")
   let tmp_storage = '/tmp/mysql.cnf'
   " NOTE: echo -e might vary based on container being run in, it may just need echo
   let config_writer = get(g:, 'vim_code_runner_config_writer', 'echo -e')
