@@ -311,6 +311,7 @@ you can view even further back depending on your vim_code_runner_history_size se
 requesting MRs for other code runners
 if they have specific runner env vars, then also update VimCodeRunnerRunConfigs to include a case for it
 
+- consider moving config file or query file writing out of _command_prepend and just execute in place. would remove some string issues
 - switch to temp file based running instead of command string runs for runners that its possible for. will reduce number of issues overall
 - google firebase
 - apache cassandra improvements
