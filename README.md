@@ -6,17 +6,28 @@ Use cases:
 - light weight database client by executing chunks of code and respecting db env vars
 - light weight redis client by executing chunks of commands and respecting redis env vars
 - execute tagged code blocks in markdown files
-- execute chunks of code or whole files for script langages
+- execute chunks of code or whole files for script languages
 
 # Table of contents
-1. [Examples](#examples)
-2. [Supported editors](#supported_editors)
-3. [Supported Runners](#supported_runners)
-4. [Runner Options](#runner_options)
-5. [Recommended Keybindings](#recommended_keybindings)
-6. [Pointers](#pointers)
-7. [Contribution Requests](#contribution_requests)
-8. [Install](#install)
+1. [Motivation](#motivation)
+2. [Examples](#examples)
+3. [Supported editors](#supported_editors)
+4. [Supported Runners](#supported_runners)
+5. [Runner Options](#runner_options)
+6. [Recommended Keybindings](#recommended_keybindings)
+7. [Pointers](#pointers)
+8. [Contribution Requests](#contribution_requests)
+9. [Install](#install)
+
+## Motivation: <a id="motivation"></a>
+
+Are you tired of having to switch sql/nosql clients and relearning how the tool works?
+
+Would you rather just have a basic interface for running whatever code you need; in or out of a container?
+
+Well this plugin has your covered.
+
+This plugin believes in ui compatibility. Need to see what tables you have access to? You can create a bash script to cache db information. Then you fzf or telescope and rbql to find the db information you need in the db cache. This way, you are using tools that can be used for other purposes aswell and you are building your skill set to solve real problems that you have. Not to mention this way of finding information is stronger than the tools that clients give you.
 
 ## Examples: <a id="examples"></a>
 
@@ -347,4 +358,4 @@ lvim.plugins = {
 
 ## Keywords:
 
-sql_client, execute_code, execute_file, sql, redis, mongo, nosql, execute_code_block key_value_store_client
+sql_client, nosql_client, execute_code, execute_file, sql, redis, mongo, sql, nosql, execute_code_block key_value_store_client
