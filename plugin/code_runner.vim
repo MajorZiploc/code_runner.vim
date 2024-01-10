@@ -218,6 +218,12 @@ function! _VCR_RunPsql(args)
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _preped_text = substitute(_preped_text, '\$', "\\\\$", "g")
   if (is_in_container)
+    if ($PGHOST != '')
+      let _command_prepend = _command_prepend . 'export PGHOST=' . $PGHOST . '; '
+    endif
+    if ($PGPORT != '')
+      let _command_prepend = _command_prepend . 'export PGPORT=' . $PGPORT . '; '
+    endif
     if ($PGDATABASE != '')
       let _command_prepend = _command_prepend . 'export PGDATABASE=' . $PGDATABASE . '; '
     endif
@@ -274,7 +280,7 @@ function! _VCR_RunMssql(args)
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _preped_text = substitute(_preped_text, '\$', "\\\\$", "g")
   let _command = 'sqlcmd -s"," ' . " -d '" . $SQLCMDDBNAME . "'" . " -U '" . $SQLCMDUSER . "'" . " -P '" . $SQLCMDPASSWORD . "'" . " -Q '" . _preped_text . "'"
-  if (!is_in_container)
+  if ($SQLCMDSERVER != '' && $SQLCMDPORT != '')
     let _command = _command . " -S '" . $SQLCMDSERVER . "," . $SQLCMDPORT . "'"
   endif
   let split_style = g:_vcr_split_styles_bottom
@@ -309,7 +315,7 @@ function! _VCR_RunMariaDb(args)
     let _command = _command . ' --database="' . $MYSQLDATABASE . '"'
   endif
   let _command = _command . ' --execute="' . _preped_text . '"'
-  if (!is_in_container)
+  if ($MYSQLHOST != '' && $MYSQLPORT != '')
     let _command = _command . ' --host="' . $MYSQLHOST . '"' . ' --port="' . $MYSQLPORT . '"'
   endif
   let split_style = g:_vcr_split_styles_bottom
@@ -344,7 +350,7 @@ function! _VCR_RunMysql(args)
     let _command = _command . ' --database="' . $MYSQLDATABASE . '"'
   endif
   let _command = _command . ' --execute="' . _preped_text . '"'
-  if (!is_in_container)
+  if ($MYSQLHOST != '' && $MYSQLPORT != '')
     let _command = _command . ' --host="' . $MYSQLHOST . '"' . ' --port="' . $MYSQLPORT . '"'
   endif
   let split_style = g:_vcr_split_styles_bottom
@@ -376,7 +382,7 @@ function! _VCR_RunMongoDb(args)
     let _command = _command . " -p '" . $MONGODBPASSWORD . "'"
   endif
   let _command = _command . " --eval '" . _preped_text . "'"
-  if (!is_in_container)
+  if ($MONGODBHOST != '' && $MONGODBPORT != '')
     let _command = _command . " --host '" . $MONGODBHOST . "'" . " --port '" . $MONGODBPORT . "'"
   endif
   let split_style = g:_vcr_split_styles_bottom
@@ -399,7 +405,7 @@ function! _VCR_RunCassandra(args)
     let _command = _command . " -p '" . $CASSANDRA_PASSWORD . "'"
   endif
   let _command = _command . " --execute '" . _preped_text . "'"
-  if (!is_in_container)
+  if ($CASSANDRA_HOST != '' && $CASSANDRA_PORT != '')
     let _command = _command . " '" . $CASSANDRA_HOST . "'" . " '" . $CASSANDRA_PORT . "'"
   endif
   let split_style = g:_vcr_split_styles_bottom
@@ -421,7 +427,7 @@ function! _VCR_RunNeo4j(args)
   if ($NEO4J_PASSWORD != '')
     let _command = _command . " -p '" . $NEO4J_PASSWORD . "'"
   endif
-  if (!is_in_container)
+  if ($NEO4J_HOST != '')
     let _command = _command . " -h '" . $NEO4J_HOST . "'"
   endif
   let _command = _command . " '" . _preped_text . "'"
@@ -442,7 +448,7 @@ function! _VCR_RunRedis(args)
   let _store_query = 'echo "' . _preped_text . '" > ' . tmp_storage . '; '
   let _command_prepend = _store_query
   let _command = 'cat ' . tmp_storage . ' | ' . 'redis-cli '
-  if (!is_in_container)
+  if ($REDISHOST != '' && $REDISPORT != '')
     let _command = _command . "-h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "' "
   endif
   let _command = _command
