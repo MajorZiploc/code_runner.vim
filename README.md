@@ -200,10 +200,8 @@ NOTE: changing values of any of the `_vcr*` variables may lead to problems!
 #### psql:
 
 ```vim
-" the following are used only when vim_code_runner_container_name is not set
 let $PGHOST="127.0.0.1" |
 let $PGPORT="5432" |
-" the following are used regardless
 let $PGDATABASE="postgres" |
 let $PGUSER="postgres" |
 let $PGPASSWORD="password" |
@@ -221,10 +219,8 @@ let $SQLITEDBFILE="./main.sqlite" |
 `let vim_code_runner_sql_as_csv='false' |` is not supported
 
 ```vim
-" the following are used only when vim_code_runner_container_name is not set
 let $SQLCMDSERVER="127.0.0.1" |
 let $SQLCMDPORT="5432" |
-" the following are used regardless
 let $SQLCMDDBNAME="mssql" |
 let $SQLCMDUSER="mssql" |
 let $SQLCMDPASSWORD="password" |
