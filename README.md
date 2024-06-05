@@ -224,6 +224,7 @@ let $SQLCMDPORT="5432" |
 let $SQLCMDDBNAME="mssql" |
 let $SQLCMDUSER="mssql" |
 let $SQLCMDPASSWORD="password" |
+let $SQLCMDINTSEC="false" |
 ```
 
 #### mysql/mariadb:

@@ -279,9 +279,27 @@ function! _VCR_RunMssql(args)
   let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _preped_text = substitute(_preped_text, '\$', "\\\\$", "g")
-  let _command = 'sqlcmd -s"," ' . " -d '" . $SQLCMDDBNAME . "'" . " -U '" . $SQLCMDUSER . "'" . " -P '" . $SQLCMDPASSWORD . "'" . " -Q '" . _preped_text . "'"
-  if ($SQLCMDSERVER != '' && $SQLCMDPORT != '')
-    let _command = _command . " -S '" . $SQLCMDSERVER . "," . $SQLCMDPORT . "'"
+  let _command = 'sqlcmd -s"," ' . " -Q '" . _preped_text . "'"
+  if ($SQLCMDDBNAME != '')
+    let _command = _command . " -d '" . $SQLCMDDBNAME . "'"
+  endif
+  if ($SQLCMDUSER != '')
+    let _command = _command . " -U '" . $SQLCMDUSER . "'"
+  endif
+  if ($SQLCMDPASSWORD != '')
+    let _command = _command . " -P '" . $SQLCMDPASSWORD . "'"
+  endif
+  if ($SQLCMDDBNAME != '')
+    let _command = _command . " -d '" . $SQLCMDDBNAME . "'"
+  endif
+  if ($SQLCMDSERVER != '')
+    let _command = _command . " -S '" . $SQLCMDSERVER
+    if ($SQLCMDPORT != '')
+      let _command = "," . $SQLCMDPORT . "'"
+    endif
+  endif
+  if ($SQLCMDINTSEC == 'true')
+    let _command = _command . " -E"
   endif
   let split_style = g:_vcr_split_styles_bottom
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
