@@ -465,11 +465,11 @@ function! _VCR_RunRedis(args)
   let tmp_reply = "/tmp/vim_code_runner_redis_reply"
   let _store_query = 'echo "' . _preped_text . '" > ' . tmp_storage . '; '
   let _command_prepend = _store_query
-  let _command = 'cat ' . tmp_storage . ' | '
+  let _command = 'cat ' . tmp_storage . ' |'
   if ($REDISCLI_AUTH != '')
-    let _command = _command . "REDISCLI_AUTH='" . $REDISCLI_AUTH . "'"
+    let _command = _command . " REDISCLI_AUTH='" . $REDISCLI_AUTH . "'"
   endif
-  let _command = _command . 'redis-cli'
+  let _command = _command . ' redis-cli'
   if ($REDISHOST != '' && $REDISPORT != '')
     let _command = _command . " -h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "'"
   endif
