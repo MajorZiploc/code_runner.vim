@@ -467,7 +467,13 @@ function! _VCR_RunRedis(args)
   let _command_prepend = _store_query
   let _command = 'cat ' . tmp_storage . ' | ' . 'redis-cli '
   if ($REDISHOST != '' && $REDISPORT != '')
-    let _command = _command . "-h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "' "
+    let _command = _command . "-h '" . $REDISHOST . "'" . " -p '" . $REDISPORT . "'"
+  endif
+  if ($REDISUSER != '')
+    let _command = _command . " --user '" . $REDISUSER . "'"
+  endif
+  if ($REDISPASSWORD != '')
+    let _command = _command . " --pass '" . $REDISPASSWORD . "'"
   endif
   let _command = _command
   let split_style = g:_vcr_split_styles_bottom

@@ -285,6 +285,8 @@ let $MONGODBPASSWORD="password" |
 ```vim
 let $REDISHOST="127.0.0.1" |
 let $REDISPORT="6379" |
+let $REDISUSER="username" |
+let $REDISPASSWORD="password" |
 ```
 
 ## Recommended Keybindings: <a id="recommended_keybindings"></a>
