@@ -287,6 +287,8 @@ let $REDISHOST="127.0.0.1" |
 let $REDISPORT="6379" |
 let $REDISUSER="username" |
 let $REDISPASSWORD="password" |
+let $REDISTLS="false" |
+let $REDISCLI_AUTH="asdf1234" |
 ```
 
 ## Recommended Keybindings: <a id="recommended_keybindings"></a>
