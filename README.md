@@ -224,6 +224,7 @@ let $SQLCMDPORT="5432" |
 let $SQLCMDDBNAME="mssql" |
 let $SQLCMDUSER="mssql" |
 let $SQLCMDPASSWORD="password" |
+let $SQLCMDINTSEC="false" |
 ```
 
 #### mysql/mariadb:
@@ -284,6 +285,8 @@ let $MONGODBPASSWORD="password" |
 ```vim
 let $REDISHOST="127.0.0.1" |
 let $REDISPORT="6379" |
+let $REDISUSER="username" |
+let $REDISPASSWORD="password" |
 ```
 
 ## Recommended Keybindings: <a id="recommended_keybindings"></a>
