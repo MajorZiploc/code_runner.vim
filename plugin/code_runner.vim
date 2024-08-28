@@ -279,10 +279,7 @@ function! _VCR_RunMssql(args)
   let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _preped_text = substitute(_preped_text, '\$', "\\\\$", "g")
-  let _command = 'sqlcmd -s"," ' . " -Q '" . _preped_text . "'"
-  if ($SQLCMDDBNAME != '')
-    let _command = _command . " -d '" . $SQLCMDDBNAME . "'"
-  endif
+  let _command = 'sqlcmd.exe -s"," -W ' . " -Q '" . _preped_text . "'"
   if ($SQLCMDUSER != '')
     let _command = _command . " -U '" . $SQLCMDUSER . "'"
   endif
@@ -295,7 +292,9 @@ function! _VCR_RunMssql(args)
   if ($SQLCMDSERVER != '')
     let _command = _command . " -S '" . $SQLCMDSERVER
     if ($SQLCMDPORT != '')
-      let _command = "," . $SQLCMDPORT . "'"
+      let _command = _command . "," . $SQLCMDPORT . "'"
+    else
+      let _command = _command . "'"
     endif
   endif
   if ($SQLCMDINTSEC == 'true')
