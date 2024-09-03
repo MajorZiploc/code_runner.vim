@@ -70,7 +70,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_mssql_tags,
   \ "markdown_tags": g:_vcr_mssql_tags,
   \ "command_builder_fn_name": '_VCR_RunMssql',
-  \ "post_processor_fn_name": ''
+  \ "post_processor_fn_name": '_VCR_RunMssqlPostProcessor'
   \ },
   \ {
   \ "run_types": g:_vcr_mariadb_tags,
@@ -276,10 +276,14 @@ function! _VCR_RunMssql(args)
   let run_path = a:args['runner_config']['run_types'][0]
   let raw_text = selected_text
   let _command_prepend = ''
-  let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
+  let _file_type = 'log'
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
   let _preped_text = substitute(_preped_text, '\$', "\\\\$", "g")
-  let _command = 'sqlcmd.exe -s"," -W ' . " -Q '" . _preped_text . "'"
+  let _command = "sqlcmd.exe" . " -Q '" . _preped_text . "'"
+  if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
+    let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
+    let _command = _command . ' -s"," -W'
+  endif
   if ($SQLCMDUSER != '')
     let _command = _command . " -U '" . $SQLCMDUSER . "'"
   endif
@@ -372,6 +376,15 @@ function! _VCR_RunMysql(args)
   endif
   let split_style = g:_vcr_split_styles_bottom
   return {'command': l:_command, 'split_style': l:split_style, 'command_prepend': l:_command_prepend, 'file_type': l:_file_type, 'run_path': l:run_path}
+endfunction
+
+function! _VCR_RunMssqlPostProcessor(args)
+  let query_results = a:args['query_results']
+  if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
+    " HACK: if there is a builtin way in sqlcmd cli to trim extra output instead of this, then that would be the ideal solution
+    let query_results = system("echo '" . query_results . "' | grep -Ev '(^\\s+$|^\\s*.[[:digit:]]+ rows affected.\\s*$|^(-{1,},?-*)+)' | dos2unix")
+  endif
+  return query_results
 endfunction
 
 function! _VCR_RunMysqlPostProcessor(args)

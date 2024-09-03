@@ -216,8 +216,6 @@ let $SQLITEDBFILE="./main.sqlite" |
 
 #### mssql:
 
-`let vim_code_runner_sql_as_csv='false' |` is not supported
-
 ```vim
 let $SQLCMDSERVER="127.0.0.1" |
 let $SQLCMDPORT="5432" |
