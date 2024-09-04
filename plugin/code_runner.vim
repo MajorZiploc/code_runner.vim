@@ -70,8 +70,7 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_mssql_tags,
   \ "markdown_tags": g:_vcr_mssql_tags,
   \ "command_builder_fn_name": '_VCR_RunMssql',
-  \ "post_processor_fn_name": '',
-  \ "post_processor_fn_name_comment": 'TODO: add back _VCR_RunMssqlPostProcessor'
+  \ "post_processor_fn_name": '_VCR_RunMssqlPostProcessor',
   \ },
   \ {
   \ "run_types": g:_vcr_mariadb_tags,
@@ -382,8 +381,11 @@ endfunction
 function! _VCR_RunMssqlPostProcessor(args)
   let query_results = a:args['query_results']
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
-    " HACK: if there is a builtin way in sqlcmd cli to trim extra output instead of this, then that would be the ideal solution
-    let query_results = system("echo '" . query_results . "' | grep -Ev '(^\\s+$|^\\s*.[[:digit:]]+ rows affected.\\s*$|^(-{1,},?-*)+)' | dos2unix")
+    " HACK: if there is a builtin way in mysql cli to create comma delimited instead of tab delimited, then that would be the ideal solution
+    let temp_file = tempname()
+    call writefile(split(query_results, "\n"), temp_file)
+    let query_results = system("cat " . temp_file . " | grep -Ev '(^\\s+$|^\\s*.[[:digit:]]+ rows affected.\\s*$|^(-{1,},?-*)+)' | dos2unix")
+    call delete(temp_file)
   endif
   return query_results
 endfunction
@@ -392,7 +394,10 @@ function! _VCR_RunMysqlPostProcessor(args)
   let query_results = a:args['query_results']
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
     " HACK: if there is a builtin way in mysql cli to create comma delimited instead of tab delimited, then that would be the ideal solution
-    let query_results = system("echo '" . query_results . "' | tr ',' ';' | tr '\t' ','")
+    let temp_file = tempname()
+    call writefile(split(query_results, "\n"), temp_file)
+    let query_results = system("cat " . temp_file . "' | tr ',' ';' | tr '\t' ','")
+    call delete(temp_file)
   endif
   return query_results
 endfunction
