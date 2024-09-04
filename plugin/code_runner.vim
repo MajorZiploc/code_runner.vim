@@ -70,7 +70,8 @@ let g:vim_code_runner_runner_configs = [
   \ "file_extensions": g:_vcr_mssql_tags,
   \ "markdown_tags": g:_vcr_mssql_tags,
   \ "command_builder_fn_name": '_VCR_RunMssql',
-  \ "post_processor_fn_name": '_VCR_RunMssqlPostProcessor'
+  \ "post_processor_fn_name": '',
+  \ "post_processor_fn_name_comment": 'TODO: add back _VCR_RunMssqlPostProcessor'
   \ },
   \ {
   \ "run_types": g:_vcr_mariadb_tags,
