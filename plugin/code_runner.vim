@@ -278,7 +278,7 @@ function! _VCR_RunMssql(args)
   let _command_prepend = ''
   let _file_type = 'log'
   let _preped_text = substitute(raw_text, "'", "'\"'\"'", "g")
-  let _preped_text = substitute(_preped_text, '\$', "\\\\$", "g")
+  " let _preped_text = substitute(_preped_text, '\$', "\\\\$", "g")
   let _command = "sqlcmd.exe" . " -Q '" . _preped_text . "'"
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
     let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
