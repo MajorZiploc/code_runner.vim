@@ -384,7 +384,12 @@ function! _VCR_RunMssqlPostProcessor(args)
     " HACK: if there is a builtin way in mysql cli to create comma delimited instead of tab delimited, then that would be the ideal solution
     let temp_file = tempname()
     call writefile(split(query_results, "\n"), temp_file)
-    let query_results = system("cat " . temp_file . " | grep -Ev '(^\\s+$|^\\s*.[[:digit:]]+ rows affected.\\s*$|^(-{1,},?-*)+)' | dos2unix")
+    let line_count = str2nr(system("cat " . temp_file . " | wc -l"))
+    if (line_count > 2)
+      let query_results = system("cat " . temp_file . " | grep -Ev '(^\\s+$|^\\s*.[[:digit:]]+ rows affected.\\s*$|^(-{1,},?-*)+)' | dos2unix")
+    else
+      let query_results = system("cat " . temp_file . " | grep -Ev '(^\\s+$|^(-{1,},?-*)+)' | dos2unix")
+    endif
     call delete(temp_file)
   endif
   return query_results
