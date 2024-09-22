@@ -191,6 +191,8 @@ let vim_code_runner_debug_label="DEBUG-> " |
 let vim_default_file_type="log" |
 " override for the command used to write configs for some sql runners (Default: "echo" for mariadb, "echo -e" for mysql)
 let vim_code_runner_config_writer="echo" |
+" converts " to CHAR(34) -- NOTE: only mssql runner
+let vim_code_runner_should_convert_double_quotes="true" |
 ```
 
 NOTE: changing values of any of the `_vcr*` variables may lead to problems!
