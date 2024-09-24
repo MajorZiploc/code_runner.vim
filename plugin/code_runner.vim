@@ -298,10 +298,10 @@ function! _VCR_RunMssql(args)
     let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
     let _command = _command . ' -s"," -W'
   endif
-  if ($SQLCMDUSER != '')
+  if ($SQLCMDUSER != '' && $SQLCMDINTSEC != 'true')
     let _command = _command . " -U '" . $SQLCMDUSER . "'"
   endif
-  if ($SQLCMDPASSWORD != '')
+  if ($SQLCMDPASSWORD != '' && $SQLCMDINTSEC != 'true')
     let _command = _command . " -P '" . $SQLCMDPASSWORD . "'"
   endif
   if ($SQLCMDDBNAME != '')
