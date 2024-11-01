@@ -296,7 +296,12 @@ function! _VCR_RunMssql(args)
   let _command = "sqlcmd.exe" . " -Q '" . _preped_text . "'"
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
     let _file_type = get(g:, 'vim_code_runner_csv_type', 'csv')
-    let _command = _command . ' -s"," -W'
+    let _command = _command . ' -s","'
+  endif
+  if ($SQLCMDMAXTEXTLENGTH != '')
+    let _command = _command . ' -y' . $SQLCMDMAXTEXTLENGTH
+  else
+    let _command = _command . ' -W'
   endif
   if ($SQLCMDUSER != '' && $SQLCMDINTSEC != 'true')
     let _command = _command . " -U '" . $SQLCMDUSER . "'"
@@ -394,15 +399,20 @@ endfunction
 
 function! _VCR_RunMssqlPostProcessor(args)
   let query_results = a:args['query_results']
+  " if ($SQLCMDMAXTEXTLENGTH == '' && get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
     " HACK: if there is a builtin way in mysql cli to create comma delimited instead of tab delimited, then that would be the ideal solution
     let temp_file = tempname()
     call writefile(split(query_results, "\n"), temp_file)
     let line_count = str2nr(system("cat " . temp_file . " | wc -l"))
+    let extra_pipeline = ""
+    if ($SQLCMDMAXTEXTLENGTH != '')
+      let extra_pipeline = " | sed -E 's/\\s*(.*)/\\1/g;s/[ '$'\\t'']+$//'"
+    endif
     if (line_count > 2)
-      let query_results = system("cat " . temp_file . " | grep -Ev '(^\\s+$|^\\s*.[[:digit:]]+ rows affected.\\s*$|^(-{1,},?-*)+)' | dos2unix")
+      let query_results = system("cat " . temp_file . " | grep -Ev '(^\\s+$|^\\s*.[[:digit:]]+ rows affected.\\s*$|^(-{1,},?-*)+)' | dos2unix" . extra_pipeline)
     else
-      let query_results = system("cat " . temp_file . " | grep -Ev '(^\\s+$|^(-{1,},?-*)+)' | dos2unix")
+      let query_results = system("cat " . temp_file . " | grep -Ev '(^\\s+$|^(-{1,},?-*)+)' | dos2unix" . extra_pipeline)
     endif
     call delete(temp_file)
   endif
