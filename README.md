@@ -225,6 +225,9 @@ let $SQLCMDDBNAME="mssql" |
 let $SQLCMDUSER="mssql" |
 let $SQLCMDPASSWORD="password" |
 let $SQLCMDINTSEC="false" |
+" needed for large string/json output
+" will change the -W to a -y "$SQLCMDMAXTEXTLENGTH"
+let $SQLCMDMAXTEXTLENGTH="" |
 ```
 
 #### mysql/mariadb:
