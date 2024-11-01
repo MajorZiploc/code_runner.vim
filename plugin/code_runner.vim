@@ -399,7 +399,6 @@ endfunction
 
 function! _VCR_RunMssqlPostProcessor(args)
   let query_results = a:args['query_results']
-  " if ($SQLCMDMAXTEXTLENGTH == '' && get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
   if (get(g:, 'vim_code_runner_sql_as_csv', 'true') == 'true')
     " HACK: if there is a builtin way in mysql cli to create comma delimited instead of tab delimited, then that would be the ideal solution
     let temp_file = tempname()
